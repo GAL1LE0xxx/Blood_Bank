@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 120%;
+    background-color: rgb(183, 183, 183);
+}
+
+.header {
+    width: 30%;
+    margin: 25px auto 0px;
+    padding: 10px;
+    color: aliceblue;
+    background-color: rgb(255, 0, 0);
+    text-align: center;
+    border: 1px solid indigo;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.headerdata {
+    width: 70%;
+    margin: 25px auto 0px;
+    padding: 10px;
+    color: aliceblue;
+    background-color: rgb(255, 0, 0);
+    text-align: center;
+    border: 1px solid indigo;
+    border-radius: 10px 10px 0px 0px;
+}
+
+form, .content {
+    width: 30%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid indigo;
+    background-color: whitesmoke;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.contentdata {
+    
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid indigo;
+    background-color: whitesmoke;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.notification {
+    width: 30%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid indigo;
+    background-color: brown;
+    text-align: center;
+    color: aliceblue;
+}
+
+.input-group {
+    margin: 10px 0px 10px 0px;
+}
+
+.input-group label {
+    text-align: left;
+    margin: 3px;
+    font-size: 16px;
+}
+
+.btn {
+    padding: 10px;
+    font-size: 15px;
+    color: aliceblue;
+    background-color: cadetblue;
+    border-radius: 5px;
+}
+
+header {
+    background-color: #ff0000;
+    padding: 20px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+}
+
+section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+    float: left;
+    width: 10%;
+    height: 350px;
+    /* only for demonstration, should be removed */
+    background: #ccc;
+    padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+table th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+footer {
+    background-color: rgb(255, 0, 0);
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
