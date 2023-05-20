@@ -1,0 +1,19 @@
+#scrollToTopButton {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 9999;
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    line-height: 1.5;
+    transition: opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#scrollToTopButton.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+

@@ -172,7 +172,7 @@ if (isset($_GET['logout'])) {
                         </a>
                     </div>
                 </div>
-                
+
             </main>
 
             <footer class="footer">

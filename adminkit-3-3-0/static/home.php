@@ -34,8 +34,9 @@ if (isset($_GET['logout'])) {
 </head>
 
 <body>
+    <!-- nav ล่าง -->
     <div class="wrapper">
-        <nav id="sidebar" class="sidebar js-sidebar">
+        <!-- <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="index.html">
                     <span class="align-middle">ธนาคารเลือด<br>โรงพยาบาลตรัง</span>
@@ -111,13 +112,15 @@ if (isset($_GET['logout'])) {
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav> -->
+        <!--จบ nav ล่าง -->
 
+        <!-- nav บน -->
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
-                <a class="sidebar-toggle js-sidebar-toggle">
+                <!-- <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
-                </a>
+                </a> -->
 
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
@@ -142,26 +145,33 @@ if (isset($_GET['logout'])) {
                     </ul>
                 </div>
             </nav>
+            <!-- จบ nav บน -->
 
             <main class="content">
                 <!-- slide รูป -->
-                <div class="container-sm">
+                <div class="container-md">
                     <div id="carouselSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                         <ol class="carousel-indicators">
                             <li data-target="#carouselSlider" data-bs-slide-to="0" class="active"></li>
                             <li data-target="#carouselSlider" data-bs-slide-to="1"></li>
                             <li data-target="#carouselSlider" data-bs-slide-to="2"></li>
+                            <li data-target="#carouselSlider" data-bs-slide-to="3"></li>
+                          
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="img/photos/img1.jpg" class="d-block w-100" style="width: 828px; height: 435px;" alt="Slide 1">
+                                <img src="img/photos/1.png" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 1">
                             </div>
                             <div class="carousel-item">
-                                <img src="img/photos/img2.jpg" class="d-block w-100" style="width: 828px; height: 435px;" alt="Slide 2">
+                                <img src="img/photos/2.png" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 2">
                             </div>
                             <div class="carousel-item">
-                                <img src="img/photos/img3.jpg" class="d-block w-100" style="width: 828px; height: 435px;" alt="Slide 3">
+                                <img src="img/photos/3.png" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 3">
                             </div>
+                            <div class="carousel-item">
+                                <img src="img/photos/4.png" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 4">
+                            </div>
+                           
                         </div>
                         <a class="carousel-control-prev" href="#carouselSlider" role="button" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon"></span>
@@ -173,46 +183,132 @@ if (isset($_GET['logout'])) {
                         </a>
                     </div>
                 </div>
-
                 <!-- จบ slide รูป -->
 
-            </main>
-
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
-                                &copy;
-                            </p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-                                </li>
-                            </ul>
+                <!-- ข่าว -->
+                <div class="mt-4 d-flex justify-content-center align-items-center">
+                    <div class="container-sm">
+                        <div class="row row-cols-1 row-cols-md-4 g-4">
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="img\news\news1.jpg" class="card-img-top" alt="news1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="img\news\news2.jpg" class="card-img-top" alt="news2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="img\news\news3.jpg" class="card-img-top" alt="news3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="img\news\news4.png" class="card-img-top" alt="news4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </footer>
+                <!-- จบข่าว -->
+
+                <!-- Scroll to Top button -->
+                <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-primary">
+                    <i class="bi bi-arrow-up-circle"></i>
+                </button>
+
         </div>
+
     </div>
+
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row text-muted">
+                <div class="col-sm-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <p class="mb-0">
+                        <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
+                        &copy;
+                    </p>
+                </div>
+                <div class="col-sm-12 col-md-6 text-center text-md-end">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 
     <script src="js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js " integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj " crossorigin="anonymous "></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js " integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx " crossorigin="anonymous "></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ปุ่มกลับด้านบน -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            var scrollToTopButton = document.getElementById('scrollToTopButton');
+            if (window.scrollY > (document.documentElement.scrollHeight - window.innerHeight) * 0.75) {
+                scrollToTopButton.classList.add('show');
+            } else {
+                scrollToTopButton.classList.remove('show');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    <!-- จบปุ่มกลับด้านบน -->
 </body>
 
 </html>
