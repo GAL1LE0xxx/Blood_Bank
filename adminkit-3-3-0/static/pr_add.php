@@ -303,12 +303,9 @@
             <main class="content">
                 <!--เพิ่มข้อมูลผู้ใช้-->
                 <div class="container-fluid p-0">
-
                     <div class="row justify-content-md-center">
                         <div class="col-12 col-lg-8 col-xxl- d-flex">
-
                             <div class="card flex-fill ">
-
                                 <div class="table-responsive">
                                     <tbody>
                                         <div class="contentdata">
@@ -325,22 +322,19 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="formFile" class="card-title mb-3">แนบไฟล์ภาพ</label>
-                                                        <input class="form-control" type="file" id="formFile" name="picture">
+                                                        <input class="form-control" type="file" id="formFile" name="picture" onchange="previewImage(this)">
+                                                        <div id="imagePreview" class="mt-4 d-flex justify-content-center"></div>
                                                     </div>
                                                     <button type="submit" class="btn btn-success" name="add_news">ยืนยัน</button>
                                                     <a class="btn btn-danger" href="officer.php">ย้อนกลับ</a>
                                                 </div>
                                             </form>
                                         </div>
-
+                                    </tbody>
                                 </div>
-                                </tbody>
-
-                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!--จบเพิ่มข้อมูลผู้ใช้-->
             </main>
@@ -602,6 +596,25 @@
                 defaultDate: defaultDate
             });
         });
+    </script>
+    <script>
+        function previewImage(input) {
+            var imagePreview = document.getElementById('imagePreview');
+            imagePreview.innerHTML = '';
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var image = document.createElement('img');
+                    image.setAttribute('src', e.target.result);
+                    image.setAttribute('style', 'max-width: 50%;');
+                    imagePreview.appendChild(image);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 </body>
 
