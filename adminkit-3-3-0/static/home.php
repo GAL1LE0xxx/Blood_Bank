@@ -29,7 +29,7 @@
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg ">
                 <a href="home.php">
-                    <img width="60" height="60" src="img\photos\logo1.png" alt="logo">
+                    <img width="60" height="60" src="img\photos\logo.png" alt="logo">
                 </a>
                 <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
                 <div class="navbar-collapse collapse">
