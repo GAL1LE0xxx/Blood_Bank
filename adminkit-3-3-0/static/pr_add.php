@@ -301,9 +301,9 @@
             </nav>
 
             <main class="content">
-
+                <!--เพิ่มข้อมูลผู้ใช้-->
                 <div class="container-fluid p-0">
-                    
+
                     <div class="row justify-content-md-center">
                         <div class="col-12 col-lg-8 col-xxl- d-flex">
 
@@ -311,24 +311,27 @@
 
                                 <div class="table-responsive">
                                     <tbody>
-                                        <div class="contentdata ">
-                                        <h1 class="h3 mb-3 text"><strong>เพิ่มข้อมูลโลหิตรวม</strong> </h1>
-                                            <form action="bloodtype_add_db.php" method="post">
-                                                <div class="card-body ">
+                                        <div class="contentdata">
+                                            <h1 class="h3 mb-1 text mt-3"><strong>เพิ่มข้อมูลประชาสัมพันธ์</strong></h1>
+                                            <form action="pr_add_db.php" method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
                                                     <div class="mb-3">
-                                                        <h5 class="card-title mb-3">ชื่อผู้ใช้</h5>
-                                                        <input type="text" class="form-control " name="wb_bloodtype" required>
+                                                        <h5 class="card-title mb-3">หัวข้อ</h5>
+                                                        <input type="text" class="form-control" name="topic" required>
                                                     </div>
-
-                                
-                                                    <button type="submit" class='btn btn-success' name="add_bloodtype">ยืนยัน</button>
-                                                    <td><a class='btn btn-danger' href='bloodtype.php'>ย้อนกลับ</a></td>
-                                                    
+                                                    <div class="mb-3">
+                                                        <label for="exampleFormControlTextarea1" class="card-title mb-3">รายละเอียด</label>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="details" rows="5"></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="card-title mb-3">แนบไฟล์ภาพ</label>
+                                                        <input class="form-control" type="file" id="formFile" name="picture">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success" name="add_news">ยืนยัน</button>
+                                                    <a class="btn btn-danger" href="officer.php">ย้อนกลับ</a>
+                                                </div>
                                             </form>
-                                            
-                                            
                                         </div>
-
 
                                 </div>
                                 </tbody>
@@ -339,6 +342,7 @@
                     </div>
 
                 </div>
+                <!--จบเพิ่มข้อมูลผู้ใช้-->
             </main>
 
             <footer class="footer">
@@ -346,7 +350,8 @@
                     <div class="row text-muted">
                         <div class="col-6 text-start">
                             <p class="mb-0">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>โรงพยาบาลตรัง</strong></a> &copy;
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
+                                &copy;
                             </p>
                         </div>
                         <div class="col-6 text-end">
@@ -383,7 +388,9 @@
             new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                        "Dec"
+                    ],
                     datasets: [{
                         label: "Sales ($)",
                         fill: true,
@@ -477,7 +484,9 @@
             new Chart(document.getElementById("chartjs-dashboard-bar"), {
                 type: "bar",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                        "Dec"
+                    ],
                     datasets: [{
                         label: "This year",
                         backgroundColor: window.theme.primary,

@@ -63,7 +63,7 @@ if (isset($_GET['logout'])) {
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="pr_manage.php">
+                        <a class="sidebar-link" href="pr.php">
                             <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">จัดการข้อมูลประชาสัมพันธ์</span>
                         </a>
                     </li>
@@ -142,29 +142,29 @@ if (isset($_GET['logout'])) {
                 </div>
             </nav>
             <main class="content">
-                <!-- จัดการข้อมูลเจ้าหน้าที่ -->
+                <!-- จัดการข้อมูลประชาสัมพันธ์ -->
                 <div class="container-fluid p-0">
 
-                    <h1 class="h3 mb-3"><strong>จัดการข้อมูลเจ้าหน้าที่</strong> </h1>
+                    <h1 class="h3 mb-3"><strong>จัดการข้อมูลประชาสัมพันธ์</strong> </h1>
 
                     <div class="row">
                         <div class="col-12 col-lg-15 col-xxl- d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header">
-                                    <a href="officer_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i>
-                                        เพิ่มผู้ใช้</a>
+                                    <a href="pr_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i>
+                                        เพิ่มข่าว</a>
                                 </div>
+                                
                                 <div class="table-responsive">
                                     <table class="table table-hover my-0 ">
                                         <thead>
                                             <tr>
                                                 <th>ลำดับที่</th>
-                                                <th>ชื่อผู้ใช้</th>
-                                                <th>ชื่อ</th>
-                                                <th>สกุล</th>
-                                                <th>เบอร์โทรศัพท์</th>
-                                                <th>ตำแหน่ง</th>
-                                                <th>แก้ไช</th>
+                                                <th>หัวข้อ</th>
+                                                <th>รายละเอียด</th>
+                                                <th>วันที่เพิ่ม</th>
+                                                <th>ผู้เพิ่ม</th>
+                                                <th>รายละเอียด</th>
                                                 <th>ลบ</th>
                                             </tr>
                                         </thead>
@@ -175,7 +175,7 @@ if (isset($_GET['logout'])) {
                                             include('connect.php');
 
                                             // ดึงข้อมูลจาก database
-                                            $sql = "SELECT * FROM officer";
+                                            $sql = "SELECT * FROM publicrelations ";
                                             $result = mysqli_query($conn, $sql);
 
                                             if (mysqli_num_rows($result) > 0) {
@@ -184,22 +184,13 @@ if (isset($_GET['logout'])) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
-                                                    echo "<td>" . $row["oc_username"] . "</td>";
-                                                    echo "<td>" . $row["oc_firstname"] . "</td>";
-                                                    echo "<td>" . $row["oc_lastname"] . "</td>";
-                                                    echo "<td>" . $row["oc_phonenumber"] . "</td>";
+                                                    echo '<td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">' . $row["pr_topic"] . "</td>";
+                                                    echo '<td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">' . $row["pr_details"] . '</td>';
+                                                    echo "<td>" . $row["pr_date"] . "</td>";
+                                                    echo "<td></td>";
+                                                    echo "<td><a class='btn btn-primary ' href='pr_edit.php?id=" . $row["pr_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
 
-                                                    if ($row["oc_position"] == "0") {
-                                                        echo "<td>แอดมิน</td>";
-                                                    } elseif ($row["oc_position"] == "1") {
-                                                        echo "<td>นักเทคนิคการแพทย์</td>";
-                                                    } else {
-                                                        echo "<td>Unknown</td>";
-                                                    }
-
-                                                    echo "<td><a class='btn btn-primary ' href='officer_edit.php?id=" . $row["oc_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
-
-                                                    echo "<td><a class='btn btn-danger' href='officer_delete_db.php?did=" . $row["oc_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
+                                                    echo "<td><a class='btn btn-danger' href='pr_delete_db.php?did=" . $row["pr_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
                                                     echo "</tr>";
                                                     $tid++;
                                                 }
@@ -218,7 +209,7 @@ if (isset($_GET['logout'])) {
                     </div>
 
                 </div>
-                <!-- จบจัดการข้อมูลเจ้าหน้าที่ -->
+                <!-- จัดการข้อมูลประชาสัมพันธ์ -->
             </main>
 
             <footer class="footer">

@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
@@ -12,8 +13,10 @@
     <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
     <title>ข่าวสาร</title>
+
     <link href="css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -21,55 +24,70 @@
 
 <body>
     <div class="main">
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
+        <nav class="navbar navbar-expand navbar-light navbar-bg ">
             <a href="home.php">
                 <img width="60" height="60" src="img\photos\logo.png" alt="logo">
             </a>
-            <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital</span>
+            <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
+
+
+
         </nav>
 
         <main class="content">
-            <div class="mt-3 text-center">
-                <h1>ข่าวสารประชาสัมพันธ์</h1>
-            </div>
-
             <?php
-            include("connect.php");
+            include "connect.php";
 
-            // ดึงข้อมูลจากฐานข้อมูล
-            $sql = "SELECT * FROM publicrelations ORDER BY pr_id DESC;";
-            $result = mysqli_query($conn, $sql);
-
-            echo '<div class="container mt-5">';
-            echo '<div class="row">';
-
-            // ตรวจสอบว่ามีข้อมูลหรือไม่
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<div class="col-md-4 col-sm-6 mb-4">';
-                    echo '<div class="card">';
-                    echo '<a href="pr_topic.php?id=' . $row['pr_id'] . '">';
-                    echo '<img src="' . $row['pr_image'] . '" class="card-img-top" alt="..." style="width: 100%; height: 250px; object-fit: cover;">';
-                    echo '<div class="card-body">';
-                    echo '<h5 class="text-center">' . $row['pr_topic'] . '</h5>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-                echo '</div>';
-            } else {
-                // ไม่พบข้อมูล
-                echo 'ไม่มีข้อมูล';
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $sql = "SELECT * FROM publicrelations WHERE pr_id = '$id'";
+                $result = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($result);
+                $topic = $row['pr_topic'];
+                $details = $row['pr_details'];
+                $image = $row['pr_image'];
+                $date = $row['pr_date'];
             }
 
-            echo '</div>';
-            echo '</div>';
+            // Function to translate English month names to Thai
+            function translateMonthToThai($date)
+            {
+                $englishMonths = array(
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                );
 
-            mysqli_close($conn);
+                $thaiMonths = array(
+                    'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                    'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+                );
+
+                $date = str_replace($englishMonths, $thaiMonths, $date);
+                return $date;
+            }
+
             ?>
 
-            
-        </main>
+            <div class="container">
+                <?php
+                echo '<p class="fs-1">' . $row['pr_topic'] . '</p>';
+                // Convert date to Thai format
+                $thaiYear = intval(date("Y", strtotime($row['pr_date']))) + 543;
+                $thaiMonth = translateMonthToThai(date("F", strtotime($row['pr_date'])));
+                $thaiDate = date("d", strtotime($row['pr_date'])) . ' ' . $thaiMonth . ' ' . $thaiYear;
+                echo '<h5>อัพโหลดเมื่อ: ' . $thaiDate . '</h5>';
+                echo '<img src="' . $row['pr_image'] . '" class="img-fluid mt-4" alt="..." style="width: 100%; height: 550px; object-fit: cover;">';
+                echo '<h3 class=" text-center mt-4">' . $row['pr_details'] . '</h3>';
+                ?>
+            </div>
+
+
+
+
+
+            <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-danger">
+                <i class="bi bi-arrow-up-circle"></i>
+            </button>
 
     </div>
 
@@ -101,11 +119,10 @@
             </div>
         </div>
     </footer>
-
     <!-- ปุ่มกลับด้านบน -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        window.addEventListener('scroll', function () {
+        window.addEventListener('scroll', function() {
             var scrollToTopButton = document.getElementById('scrollToTopButton');
             if (window.scrollY > (document.documentElement.scrollHeight - window.innerHeight) * 0.75) {
                 scrollToTopButton.classList.add('show');

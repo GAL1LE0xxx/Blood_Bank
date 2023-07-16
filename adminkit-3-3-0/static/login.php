@@ -46,7 +46,7 @@ session_start();
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
                             <div class="mb-4 text-center">
-                                <p>ยังไม่ได้ลงทะเบียน ? <a href="register.php"> สมัครสมาชิก</a></p>
+                                <p>ยังไม่ได้ลงทะเบียน ? <a href="sign-up.php"> สมัครสมาชิก</a></p>
                             </div>
 
                             <div class="form-group">
