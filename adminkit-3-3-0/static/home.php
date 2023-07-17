@@ -50,7 +50,7 @@
                         <a class="btn btn-outline-light" href="pr.php">ข่าวสาร</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="btn btn-outline-light" href="oalogin.php">หน่วยงานภายนอก</a>
+                        <a class="btn btn-outline-light" href="oasign-in.php">หน่วยงานภายนอก</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-outline-light" href="#">สำหรับผู้บริจาค</a>

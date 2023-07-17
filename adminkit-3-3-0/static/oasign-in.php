@@ -52,7 +52,7 @@ session_start();
                 <div class="row justify-content-center">
                     <div class="col-md-6">
 
-                        <form class="form-floating" action="oalogin_db.php" method="post">
+                        <form class="form-floating" action="oasignin_db.php" method="post">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้">
                                 <label for="floatingInput">ชื่อผู้ใช้</label>
@@ -61,16 +61,17 @@ session_start();
                                 <input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน">
                                 <label for="floatingPassword">รหัสผ่าน</label>
                             </div>
+                           
                             <div class="mb-4 text-center mt-3">
                                 <p>ยังไม่ได้ลงทะเบียน ? <a href="register.php">สมัครสมาชิก</a></p>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" name="login_oa" class="form-control btn btn-danger btn-lg submit px-3">เข้าสู่ระบบ</button>
+                                <button type="submit" name="outsidesignin" class="form-control btn btn-danger btn-lg submit px-3">เข้าสู่ระบบ</button>
                             </div>
+                        </form>
                     </div>
                 </div>
-                </form>
 
 
 
