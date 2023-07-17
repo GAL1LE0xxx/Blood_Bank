@@ -25,8 +25,8 @@ session_start();
 </head>
 
 <body>
-    <section class="ftco-section d-flex align-items-center mt-5">
-        <div class="container mt-5">
+    <section class="ftco-section d-flex align-items-center mt-1">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mt-5">
                     <h2 class="heading-section"></h2>
@@ -50,7 +50,7 @@ session_start();
                     </div>
                 <?php endif ?>
                 <div class="row justify-content-center">
-                    <div class="col-md-6  ">
+                    <div class="col-md-6">
 
                         <form class="form-floating" action="oalogin_db.php" method="post">
                             <div class="form-floating mb-3">
@@ -61,13 +61,6 @@ session_start();
                                 <input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน">
                                 <label for="floatingPassword">รหัสผ่าน</label>
                             </div>
-                            <!-- <div class="form-group mb-1">
-                                        <input type="text" class="form-control form-control-lg" name="username" placeholder="ชื่อผู้ใช้" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input id="password-field" type="password" class="form-control form-control-lg mt-1" name="password" placeholder="รหัสผ่าน" required>
-                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                    </div> -->
                             <div class="mb-4 text-center mt-3">
                                 <p>ยังไม่ได้ลงทะเบียน ? <a href="register.php">สมัครสมาชิก</a></p>
                             </div>
