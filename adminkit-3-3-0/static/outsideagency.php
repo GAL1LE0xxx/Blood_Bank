@@ -39,7 +39,41 @@
             <div class="container overflow-hidden mt-5 ">
                 <div class="row gx-5">
                     <div class="col">
-                        <h3>กรอกข้อมูลการจองคิว</h3>
+                        <form class="form-control" action="oabooking_db.php" method="post">
+                            <div class="mt-2">
+                                <h3>กรอกข้อมูลการจองคิว</h3>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label class="form-label">สถานที่ :</label>
+                                <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="สถานที่ที่ต้องการให้ตั้งหน่วยบริจาค">
+                            </div>
+
+                            <div class="mb-3 ">
+                                <label class="form-label">จำนวนผู้บริจาค :</label>
+                                <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="จำนวนผู้บริจาค">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">วันที่ต้องการจอง :</label>
+                                <input class="form-control form-control-lg" type="date" name="birthdate" placeholder="" />
+                            </div>
+
+                            <div class="row mb-3">
+                                
+                                <div class="col">
+                                    <label class="form-label">ตั้งแต่ :</label>
+                                    <input type="time" class="form-control" placeholder="First name" aria-label="First name">
+                                </div>
+                                <div class="col">
+                                <label class="form-label">ถึง :</label>
+                                    <input type="time" class="form-control" placeholder="Last name" aria-label="Last name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" name="oaboooking" class="form-control btn btn-danger btn-lg submit px-3 mb-3">ยืนยันการจอง</button>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="col">
