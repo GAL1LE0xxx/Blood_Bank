@@ -63,7 +63,7 @@ if (isset($_GET['logout'])) {
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="pr.php">
+                        <a class="sidebar-link" href="pr_manage.php">
                             <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">จัดการข้อมูลประชาสัมพันธ์</span>
                         </a>
                     </li>

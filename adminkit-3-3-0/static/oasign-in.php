@@ -33,7 +33,7 @@ session_start();
                     <div class="login-wrap p-0">
                         <img src="uploads/logo1.png" alt="" width="200" height="200">
 
-                        <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือดโรงพยาบาลตรัง</h2>
+                        <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือด   โรงพยาบาลตรัง</h2>
                         <h2 class="mb-4 text-center">สำหรับหน่วยงานภายนอก</h2>
 
                     </div>
