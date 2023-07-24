@@ -326,7 +326,7 @@
                                 <div class="table-responsive">
                                     <tbody>
                                         <div class="contentdata">
-                                            <h1 class="h3 mb-1 text mt-3"><strong>เพิ่มข้อมูลประชาสัมพันธ์</strong></h1>
+                                            <h1 class="h3 mb-1 text mt-3"><strong>แก้ไขข้อมูลประชาสัมพันธ์</strong></h1>
                                             <form action="pr_edit_db.php" method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                 <div class="mb-3">

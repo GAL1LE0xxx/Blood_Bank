@@ -74,9 +74,24 @@
                 $total_records = $pagination_row['total'];
                 $total_pages = ceil($total_records / $limit);
 
+
                 echo '<ul class="pagination justify-content-center">';
+                if ($current_page > 1) {
+                    echo '<li class="page-item">';
+                    echo '<a class="page-link" href="?page=' . ($current_page - 1) . '" aria-label="Previous">';
+                    echo '<span aria-hidden="true">ก่อนหน้า</span>';
+                    echo '</a>';
+                    echo '</li>';
+                }
                 for ($i = 1; $i <= $total_pages; $i++) {
                     echo '<li class="page-item ' . ($i === $current_page ? 'active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                }
+                if ($current_page < $total_pages) {
+                    echo '<li class="page-item">';
+                    echo '<a class="page-link" href="?page=' . ($current_page + 1) . '" aria-label="Next">';
+                    echo '<span aria-hidden="true">ต่อไป</span>';
+                    echo '</a>';
+                    echo '</li>';
                 }
                 echo '</ul>';
             } else {

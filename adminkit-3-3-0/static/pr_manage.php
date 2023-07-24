@@ -26,7 +26,8 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <title>จัดการข้อมูลเจ้าหน้าที่</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -142,21 +143,17 @@ if (isset($_GET['logout'])) {
                 </div>
             </nav>
             <main class="content">
-                <!-- จัดการข้อมูลประชาสัมพันธ์ -->
                 <div class="container-fluid p-0">
-
-                    <h1 class="h3 mb-3"><strong>จัดการข้อมูลประชาสัมพันธ์</strong> </h1>
-
+                    <h1 class="h3 mb-3"><strong>จัดการข้อมูลประชาสัมพันธ์</strong></h1>
                     <div class="row">
                         <div class="col-12 col-lg-15 col-xxl- d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header">
-                                    <a href="pr_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i>
-                                        เพิ่มข่าว</a>
+                                    <a href="pr_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข่าว</a>
                                 </div>
-                                
+
                                 <div class="table-responsive">
-                                    <table class="table table-hover my-0 ">
+                                    <table class="table table-hover my-0">
                                         <thead>
                                             <tr>
                                                 <th>ลำดับที่</th>
@@ -174,13 +171,18 @@ if (isset($_GET['logout'])) {
                                             // เชื่อมต่อ database
                                             include('connect.php');
 
-                                            // ดึงข้อมูลจาก database
-                                            $sql = "SELECT * FROM publicrelations ";
+                                            // Pagination settings
+                                            $records_per_page = 10; // Number of records to display per page
+                                            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                                            $start_from = ($current_page - 1) * $records_per_page;
+
+                                            // ดึงข้อมูลจาก database โดยใช้ LIMIT เพื่อแบ่งหน้า
+                                            $sql = "SELECT * FROM publicrelations ORDER BY pr_date DESC LIMIT $start_from, $records_per_page";
                                             $result = mysqli_query($conn, $sql);
+                                            
 
                                             if (mysqli_num_rows($result) > 0) {
-
-                                                $tid = '1';
+                                                $tid = ($current_page - 1) * $records_per_page + 1;
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
@@ -188,28 +190,64 @@ if (isset($_GET['logout'])) {
                                                     echo '<td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">' . $row["pr_details"] . '</td>';
                                                     echo "<td>" . $row["pr_date"] . "</td>";
                                                     echo "<td></td>";
-                                                    echo "<td><a class='btn btn-primary ' href='pr_edit.php?id=" . $row["pr_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
-
+                                                    echo "<td><a class='btn btn-primary' href='pr_edit.php?id=" . $row["pr_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
                                                     echo "<td><a class='btn btn-danger' href='pr_delete_db.php?did=" . $row["pr_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
                                                     echo "</tr>";
                                                     $tid++;
                                                 }
                                             } else {
-                                                echo "0 results";
+                                                echo "<tr><td colspan='7'>0 results</td></tr>";
                                             }
+
+                                            // หาจำนวนหน้าทั้งหมดเพื่อสร้าง navigation links
+                                            $sql_total = "SELECT COUNT(*) AS total_records FROM publicrelations";
+                                            $result_total = mysqli_query($conn, $sql_total);
+                                            $row_total = mysqli_fetch_assoc($result_total);
+                                            $total_records = $row_total['total_records'];
+                                            $total_pages = ceil($total_records / $records_per_page);
 
                                             // ปิด database
                                             mysqli_close($conn);
                                             ?>
+
                                         </tbody>
+                                    </table>
+
+                                    <!-- Add the pagination links below the table using Bootstrap -->
+                                    <div class="mt-3">
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination justify-content-center">
+                                                <?php if ($current_page > 1) : ?>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page=<?php echo $current_page - 1; ?>" aria-label="ก่อนหน้า">
+                                                            <span aria-hidden="true">ก่อนหน้า</span>
+                                                        </a>
+                                                    </li>
+                                                <?php endif; ?>
+
+                                                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                                                    <li class="page-item <?php echo $i == $current_page ? 'active' : ''; ?>">
+                                                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                                    </li>
+                                                <?php endfor; ?>
+
+                                                <?php if ($current_page < $total_pages) : ?>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page=<?php echo $current_page + 1; ?>" aria-label="ต่อไป">
+                                                            <span aria-hidden="true">ต่อไป</span>
+                                                        </a>
+                                                    </li>
+                                                <?php endif; ?>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
-                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- จัดการข้อมูลประชาสัมพันธ์ -->
+
+
             </main>
 
             <footer class="footer">

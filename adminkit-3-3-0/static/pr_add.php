@@ -326,7 +326,7 @@
                                                         <div id="imagePreview" class="mt-4 d-flex justify-content-center"></div>
                                                     </div>
                                                     <button type="submit" class="btn btn-success" name="add_news">ยืนยัน</button>
-                                                    <a class="btn btn-danger" href="officer.php">ย้อนกลับ</a>
+                                                    <a class="btn btn-danger" href="pr_manage.php">ย้อนกลับ</a>
                                                 </div>
                                             </form>
                                         </div>
