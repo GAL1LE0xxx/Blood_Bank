@@ -15,6 +15,14 @@
     <link href="css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <style>
+        #calendar {
+            background-color: red;
+        }
+    </style>
 </head>
 
 
@@ -58,33 +66,61 @@
                                 <input class="form-control form-control-lg" type="date" name="birthdate" placeholder="" />
                             </div>
 
-                            <div class="row mb-3">
-                                
+                            <div class="row mb-5">
+
                                 <div class="col">
                                     <label class="form-label">ตั้งแต่ :</label>
                                     <input type="time" class="form-control" placeholder="First name" aria-label="First name">
                                 </div>
                                 <div class="col">
-                                <label class="form-label">ถึง :</label>
+                                    <label class="form-label">ถึง :</label>
                                     <input type="time" class="form-control" placeholder="Last name" aria-label="Last name">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" name="oaboooking" class="form-control btn btn-danger btn-lg submit px-3 mb-3">ยืนยันการจอง</button>
+                                <button type="submit" name="oaboooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
                             </div>
                         </form>
                     </div>
 
                     <div class="col">
-                        <div class="p-3 border bg-light">Custom column padding</div>
+                        <div id='calendar' class="p-3 border bg-light"></div>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'th', // ระบุให้ใช้ภาษาไทย
+                // ปรับแต่งสไตล์ของปฏิทิน
+                viewDidMount: function() {
+                    calendarEl.style.backgroundColor = '#FF0000'; // เปลี่ยนสีพื้นหลังเป็นสีแดง
+                }
+            });
+            calendar.render();
+        });
+    </script>
+
+
+    <style>
+        #calendar {
+            background-color: white !important;
+            /* เปลี่ยนสีพื้นหลังเป็นสีแดง */
+        }
+    </style>
+
+
+
+
+
+
+
 </body>
 
 </html>

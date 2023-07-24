@@ -154,7 +154,7 @@ if (isset($_GET['logout'])) {
                                     <a href="pr_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i>
                                         เพิ่มข่าว</a>
                                 </div>
-                                
+
                                 <div class="table-responsive">
                                     <table class="table table-hover my-0 ">
                                         <thead>
@@ -244,6 +244,9 @@ if (isset($_GET['logout'])) {
     </div>
 
     <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
 
 </body>
