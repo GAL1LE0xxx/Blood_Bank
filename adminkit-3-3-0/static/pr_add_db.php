@@ -21,16 +21,39 @@
                 // การอัปโหลดไฟล์ภาพสำเร็จ แทรกที่อยู่ของรูปภาพลงในฐานข้อมูล
                 $sql = "INSERT INTO publicrelations (pr_topic, pr_details, pr_image, pr_date) VALUES ('$topic', '$details', '$targetPath', current_timestamp())";
                 if (mysqli_query($conn, $sql)) {
-                    $_SESSION['success'] = "เพิ่มสำเร็จ";
+                    $response = array(
+                        "status" => "success",
+                        "msg" => "อัพโหลดข้อมูลสำเร็จ"
+                    );
+                    $successMessage = "อัพโหลดข้อมูลสำเร็จ";
+                        header("Location: pr_add.php?status=success&msg=" . urlencode($successMessage));
+                        exit();
                 } else {
-                    $_SESSION['errors'] = "เพิ่มไม่สำเร็จ";
+                    // Return a response indicating an error if there's an issue with moving the uploaded file
+                    $response = array(
+                        "status" => "error",
+                        "msg" => "ไฟล์อัปโหลดไม่ถูกต้อง"
+                    );
+                      // Display error message and redirect to order.php
+                      $errorMessage = "ไฟล์อัปโหลดไม่ถูกต้อง";
+                      header("Location: pr_add.php?status=error&msg=" . urlencode($errorMessage));
+                      exit();
                 }
-            } else {
-                $_SESSION['errors'] = "ไม่สามารถอัปโหลดไฟล์ภาพได้";
+            }else {
+               
+                $response = array(
+                    "status" => "error",
+                    "msg" => "เกิดข้อผิดพลาดกรุณาอัพโหลดใหม่อีกครั้ง"
+                );
+                  // Display error message and redirect to order.php
+                  $errorMessage = "เกิดข้อผิดพลาดกรุณาอัพโหลดใหม่อีกครั้ง";
+                  header("Location: pr_add.php?status=error&msg=" . urlencode($errorMessage));
+                  exit();
             }
+            echo json_encode($response);
         }
     }
+        
+?>
 
-    mysqli_close($conn);
-    header('location: pr_manage.php');
-    ?>
+
