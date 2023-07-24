@@ -345,7 +345,7 @@
                                                         <label for="formFile" class="card-title mb-3">แนบไฟล์ภาพ</label>
                                                         <input class="form-control" type="file" id="formFile" name="picture" >
                                                     </div>
-                                                    <button type="submit" class="btn btn-success" name="add_news">ยืนยัน</button>
+                                                    <button type="submit" class="btn btn-success" name="edit_news">ยืนยัน</button>
                                                     <a class="btn btn-danger" href="pr_manage.php">ย้อนกลับ</a>
                                                 </div>
                                             </form>

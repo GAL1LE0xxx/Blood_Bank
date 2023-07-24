@@ -31,7 +31,7 @@
         </nav>
 
         <main class="content">
-            
+
             <div class="mt-3 text-center">
                 <h1>ข่าวสารประชาสัมพันธ์</h1>
             </div>
@@ -39,8 +39,13 @@
             <?php
             include("connect.php");
 
-            // ดึงข้อมูลจากฐานข้อมูล
-            $sql = "SELECT * FROM publicrelations ORDER BY pr_id DESC;";
+            // คำนวณหน้าที่กำลังแสดงอยู่
+            $limit = 6; // จำนวนรายการต่อหน้า
+            $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+            $start_from = ($current_page - 1) * $limit;
+
+            // ดึงข้อมูลจากฐานข้อมูลโดยใช้ LIMIT และ OFFSET
+            $sql = "SELECT * FROM publicrelations ORDER BY pr_id DESC LIMIT $start_from, $limit";
             $result = mysqli_query($conn, $sql);
 
             echo '<div class="container mt-5">';
@@ -59,10 +64,24 @@
                     echo '</div>';
                     echo '</div>';
                 }
+
                 echo '</div>';
+
+                // สร้างลิงก์ Pagination
+                $pagination_sql = "SELECT COUNT(*) AS total FROM publicrelations";
+                $pagination_result = mysqli_query($conn, $pagination_sql);
+                $pagination_row = mysqli_fetch_assoc($pagination_result);
+                $total_records = $pagination_row['total'];
+                $total_pages = ceil($total_records / $limit);
+
+                echo '<ul class="pagination justify-content-center">';
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    echo '<li class="page-item ' . ($i === $current_page ? 'active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                }
+                echo '</ul>';
             } else {
                 // ไม่พบข้อมูล
-                echo 'ไม่มีข้อมูล';
+                echo '<div class="col-12 text-center">ไม่มีข้อมูล</div>';
             }
 
             echo '</div>';
@@ -70,7 +89,8 @@
 
             mysqli_close($conn);
             ?>
-            
+
+
 
         </main>
 
