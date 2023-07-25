@@ -309,7 +309,7 @@
                                 <div class="table-responsive">
                                     <tbody>
                                         <div class="contentdata">
-                                            <h1 class="h3 mb-1 text mt-3"><strong>เพิ่มข้อมูลประชาสัมพันธ์</strong></h1>
+                                            <h1 class="h3 mb-1 text mt-3 "><strong>เพิ่มข้อมูลประชาสัมพันธ์</strong></h1>
                                             <form action="pr_add_db.php" method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                     <div class="mb-3">
@@ -321,9 +321,15 @@
                                                         <textarea class="form-control" id="exampleFormControlTextarea1" name="details" rows="5"></textarea>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="formFile" class="card-title mb-3">แนบไฟล์ภาพ</label>
-                                                        <input class="form-control" type="file" id="formFile" name="picture" onchange="previewImage(this)">
-                                                        <div id="imagePreview" class="mt-4 d-flex justify-content-center"></div>
+                                                        <label>
+                                                            <input type="radio" name="upload_option" value="yes" /> ต้องการอัพโหลดไฟล์
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="upload_option" value="no" checked /> ไม่ต้องการอัพโหลดไฟล์
+                                                        </label>
+                                                        <br>
+                                                        <input class="form-control mt-3" type="file" id="formFile" name="picture" onchange="previewImage(this)">
+                                                        
                                                     </div>
                                                     <button type="submit" class="btn btn-success" name="add_news">ยืนยัน</button>
                                                     <a class="btn btn-danger" href="pr_manage.php">ย้อนกลับ</a>
@@ -372,41 +378,41 @@
 
     <script src="js/app.js"></script>
     <script>
-    // Get the URL query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get('status');
-    const msg = urlParams.get('msg');
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
 
-    // Check the status and display the SweetAlert message
-    if (status === 'success') {
-        Swal.fire({
-            title: 'Success',
-            text: msg,
-            icon: 'success',
-            confirmButtonClass: 'btn btn-primary'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Redirect to order.php with success status and message
-                const redirectURL = 'pr_add.php';
-                window.location.href = redirectURL;
-            }
-        });
-    } else if (status === 'error') {
-        Swal.fire({
-            title: 'Error',
-            text: msg,
-            icon: 'error',
-            confirmButtonClass: 'btn btn-primary'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Redirect to order.php with success status and message
-                const redirectURL = 'pr_add.php';
-                window.location.href = redirectURL;
-            }
-        });
-    }
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'pr_add.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'pr_add.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
     </script>
-   
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
@@ -632,22 +638,31 @@
             });
         });
     </script>
-    <script>
-        function previewImage(input) {
-            var imagePreview = document.getElementById('imagePreview');
-            imagePreview.innerHTML = '';
+     <script>
+        function selectFile() {
+            const uploadOption = document.querySelector('input[name="upload_option"]:checked').value;
+            const fileInput = document.getElementById("uploadedFile");
+            const imagePreviewDiv = document.getElementById("imagePreview");
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+            if (uploadOption === "yes") {
+                fileInput.click();
+                fileInput.addEventListener("change", function () {
+                    const file = this.files[0];
+                    const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    var image = document.createElement('img');
-                    image.setAttribute('src', e.target.result);
-                    image.setAttribute('style', 'max-width: 50%;');
-                    imagePreview.appendChild(image);
-                };
+                    reader.onload = function (e) {
+                        const img = document.createElement("img");
+                        img.setAttribute("src", e.target.result);
+                        img.setAttribute("alt", "Preview Image");
+                        img.setAttribute("class", "img-thumbnail");
+                        imagePreviewDiv.innerHTML = "";
+                        imagePreviewDiv.appendChild(img);
+                    };
 
-                reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                imagePreviewDiv.innerHTML = ""; // Clear the preview if the user chooses not to upload
             }
         }
     </script>
