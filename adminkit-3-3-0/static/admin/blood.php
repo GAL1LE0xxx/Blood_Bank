@@ -23,7 +23,7 @@ if (isset($_GET['logout'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
-
+    
     <title>จัดการข้อมูลโลหิต</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
@@ -66,69 +66,69 @@ if (isset($_GET['logout'])) {
 
             <main class="content">
                 <!-- จัดการข้อมูลโลหิตรวม -->
-                <div class="container-fluid p-0">
+                <div class="container-fluid p-0">   
 
                     <h1 class="h3 mb-3 "><strong>จัดการข้อมูลโลหิตรวม</strong> </h1>
                     <div class="container-fluid p-0">
-                        <div class="row">
+                    <div class="row">
 
-                            <div class="col-12 col-lg-100 col-xxl- d-flex">
-                                <div class="card flex-fill">
-                                    <div class="card-header">
-                                        <a href="wbblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-hover my-0 ">
-                                            <thead>
-                                                <tr>
-                                                    <th>ลำดับ</th>
-                                                    <th>หมู่เลือด</th>
-                                                    <th>แก้ไข </th>
-                                                    <th>ลบ</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <?php
-                                                // Include the database connection file
-                                                include('../connect.php');
-
-                                                // Fetch data from the database
-                                                $sql = "SELECT * FROM wholeblood";
-                                                $result = mysqli_query($conn, $sql);
-
-                                                if (mysqli_num_rows($result) > 0) {
-                                                    // Output data of each row
-                                                    $tid = '1';
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $tid . "</td>";
-                                                        echo "<td>" . $row["wb_bloodtype"] . "</td>";
-
-                                                        echo "<td><a class='btn btn-primary' href='wbblood_edit.php?id=" . $row["wb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
-
-                                                        echo "<td><a class='btn btn-danger' href='wbblood_delete_db.php?did=" . $row["wb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
-                                                        echo "</tr>";
-                                                        $tid++;
-                                                    }
-                                                } else {
-                                                    echo "0 results";
-                                                }
-
-                                                // Close the database connection
-                                                mysqli_close($conn);
-                                                ?>
-
-
-
-
-                                            </tbody>
-                                    </div>
-                                    </table>
+                        <div class="col-12 col-lg-100 col-xxl- d-flex">
+                            <div class="card flex-fill">
+                                <div class="card-header">
+                                    <a href="wbblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
                                 </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover my-0 ">
+                                        <thead>
+                                            <tr>
+                                                <th>ลำดับ</th>
+                                                <th>หมู่เลือด</th>
+                                                <th>แก้ไข </th>
+                                                <th>ลบ</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <?php
+                                            // Include the database connection file
+                                            include('../connect.php');
+
+                                            // Fetch data from the database
+                                            $sql = "SELECT * FROM wholeblood";
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if (mysqli_num_rows($result) > 0) {
+                                                // Output data of each row
+                                                $tid = '1';
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $tid . "</td>";
+                                                    echo "<td>" . $row["wb_bloodtype"] . "</td>";
+
+                                                    echo "<td><a class='btn btn-primary' href='wbblood_edit.php?id=" . $row["wb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
+
+                                                    echo "<td><a class='btn btn-danger' href='wbblood_delete_db.php?did=" . $row["wb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
+                                                    echo "</tr>";
+                                                    $tid++;
+                                                }
+                                            } else {
+                                                echo "0 results";
+                                            }
+
+                                            // Close the database connection
+                                            mysqli_close($conn);
+                                            ?>
+
+
+
+
+                                        </tbody>
+                                </div>
+                                </table>
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
         </div>
         <!-- จบจัดการข้อมูลโลหิตรวม -->

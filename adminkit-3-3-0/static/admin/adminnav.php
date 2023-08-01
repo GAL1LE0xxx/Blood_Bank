@@ -17,7 +17,7 @@
 <body>
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center flex-column" href="../home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center flex-column" href="../home.php">
             <img width="60" height="60" src="..\img\photos\logo.png" alt="logo">
                 <span class="align-middle">ธนาคารเลือด</span>
                 <span class="align-middle">โรงพยาบาลตรัง</span>
