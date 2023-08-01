@@ -39,7 +39,7 @@
             <nav class="navbar justify-content-center navbar-bg bg-danger ">
                 <ul class="nav justify-content-center gap-2 ">
                     <li class="nav-item">
-                        <a class="btn btn-outline-light" href="pr.php">ข่าวสาร</a>
+                        <a class="btn btn-outline-light" href="admin/pr.php">ข่าวสาร</a>
                     </li>
                     <li class="nav-item ">
                         <a class="btn btn-outline-light" href="oasign-in.php">หน่วยงานภายนอก</a>
@@ -157,7 +157,7 @@
                 <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-danger">
                     <i class="bi bi-arrow-up-circle"></i>
                 </button>
-
+            </main>
         </div>
 
     </div>

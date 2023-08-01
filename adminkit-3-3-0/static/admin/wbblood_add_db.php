@@ -1,9 +1,9 @@
 <?php
-include("connect.php");
+include("../connect.php");
 session_start();
 
 if (isset($_POST['add_bloodtype'])) {
-    $wbblood = $_POST['wb_bloodtype'];
+    $wbblood = $_POST['wbblood'];
    
     $sql = "SELECT * FROM wholeblood WHERE wb_bloodtype = '$wbblood'";
     $result = mysqli_query($conn, $sql);

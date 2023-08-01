@@ -20,7 +20,7 @@ if (isset($_POST['login_user'])) {
         // Check oc_position and redirect accordingly
         if ($oc_position == 0) {
             // Redirect to admin page
-            header('location: officer.php');
+            header('location: admin/officer.php');
         } elseif ($oc_position == 1) {
             // Redirect to technicalmed page
             header('location: member.php');

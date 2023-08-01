@@ -1,5 +1,5 @@
 <?php
-include("connect.php");
+include("../connect.php");
 session_start();
 
 if (isset($_POST['add_news'])) {
@@ -12,7 +12,7 @@ if (isset($_POST['add_news'])) {
     if ($upload_option === "yes") {
         // ผู้ใช้เลือกอัปโหลดไฟล์
         // จัดการการอัปโหลดไฟล์ภาพ
-        $targetDir = "uploads/"; // ไดเรกทอรี่ที่คุณต้องการเก็บรูปภาพที่อัปโหลด
+        $targetDir = "../uploads/"; // ไดเรกทอรี่ที่คุณต้องการเก็บรูปภาพที่อัปโหลด
         $fileName = $_FILES['picture']['name'];
         $targetPath = $targetDir . $fileName;
 
@@ -36,7 +36,7 @@ if (isset($_POST['add_news'])) {
     } else {
         // ผู้ใช้ไม่ต้องการอัปโหลดไฟล์
         // ให้ใช้ภาพเริ่มต้น
-        $targetPath = "uploads/default_image.jpg";
+        $targetPath = "../uploads/default_image.jpg";
 
         // แทรกที่อยู่ของรูปภาพเริ่มต้นลงในฐานข้อมูล
         $sql = "INSERT INTO publicrelations (pr_topic, pr_details, pr_image, pr_date) VALUES ('$topic', '$details', '$targetPath', current_timestamp())";

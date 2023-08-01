@@ -18,11 +18,7 @@
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-    <style>
-        #calendar {
-            background-color: red;
-        }
-    </style>
+
 </head>
 
 
@@ -79,7 +75,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" name="oaboooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
+                                <button type="submit" name="oabooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
                             </div>
                         </form>
                     </div>

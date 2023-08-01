@@ -1,14 +1,3 @@
-<?php
-include "connect.php";
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM specificblood WHERE sb_id = '$id'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $sbblood = $row['sb_information'];
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,121 +15,16 @@ if (isset($_GET['id'])) {
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>Dashboard</title>
+    <title>เพิ่มโลหิตเฉพาะส่วน</title>
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <link href="css/app.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="wrapper">
-        <nav id="sidebar" class="sidebar js-sidebar">
-            <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
-                    <span class="align-middle">ธนาคารเลือด<br>โรงพยาบาลตรัง</span>
-                </a>
-
-                <ul class="sidebar-nav">
-                    <li class="sidebar-item active">
-                        <a class="sidebar-link" href="home.php">
-                            <i class="align-middle" data-feather="home"></i> <span class="align-middle">หน้าหลัก</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        จัดการข้อมูล
-                    </li>
-
-                    <li class="sidebar-item active">
-                        <a class="sidebar-link" href="index.php">
-                            <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">จัดการข้อมูลเจ้าหน้าที่</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-profile.html">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">จัดการข้อมูลโลหิต</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-profile.html">
-                            <i class="align-middle" data-feather="compass"></i> <span class="align-middle">จัดการข้อมูลประชาสัมพันธ์</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-sign-in.html">
-                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-sign-up.html">
-                            <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign
-                                Up</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-blank.html">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        Tools & Components
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-buttons.html">
-                            <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-forms.html">
-                            <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-cards.html">
-                            <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-typography.html">
-                            <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="icons-feather.html">
-                            <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        Plugins & Addons
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="charts-chartjs.html">
-                            <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="maps-google.html">
-                            <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <?php include "adminnav.php";?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -322,15 +206,12 @@ if (isset($_GET['id'])) {
 
                                 <div class="table-responsive">
                                     <tbody>
-                                        <div class="contentdata ">
-                                            <form action="specificblood_edit_db.php" method="post">
-                                                <div class="card-body ">
-                                                    <div class="mb-3">
-                                                        <h5 class="card-title mb-3">ลำดับ</h5>
-                                                        <input type="text" class="form-control " name="sb_id" value="<?php echo $id ?>" readonly>
-                                                    </div>
+                                        <div class="contentdata">
+                                            <h1 class="h3 mb-3 mt-3 text"><strong>เพิ่มข้อมูลโลหิตเฉพาะส่วน</strong> </h1>
+                                            <form action="specificblood_add_db.php" method="post">
+                                                <div class="card-body">
                                                     <div class="form-floating">
-                                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="sinformation">
+                                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="sbblood">
                                                             <option selected>กรุณาเลือก</option>
                                                             <option value="เกล็ดเลือด">เกล็ดเลือด</option>
                                                             <option value="เม็ดเลือดแดง">เม็ดเลือดแดง</option>
@@ -338,16 +219,18 @@ if (isset($_GET['id'])) {
                                                         </select>
                                                         <label for="floatingSelect">หมู่เลือด</label>
                                                     </div>
-
-                                                    <button type="submit" name="edit_specificblood" class="btn btn-success mt-3">แก้ไข</button>
-                                                    <button type="cancel" name="cancel" class="btn btn-danger mt-3">ยกเลิก</button>
+                                                    <button type="submit" class='btn btn-success mt-3' name="add_sbloodtype">ยืนยัน</button>
+                                                    <td><a class='btn btn-danger mt-3' href='blood.php'>ย้อนกลับ</a></td>
                                                 </div>
                                             </form>
                                         </div>
 
+
                                     </tbody>
                                 </div>
 
+
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -360,8 +243,7 @@ if (isset($_GET['id'])) {
                     <div class="row text-muted">
                         <div class="col-6 text-start">
                             <p class="mb-0">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
-                                &copy;
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>โรงพยาบาลตรัง</strong></a> &copy;
                             </p>
                         </div>
                         <div class="col-6 text-end">
@@ -398,9 +280,7 @@ if (isset($_GET['id'])) {
             new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                        "Dec"
-                    ],
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                     datasets: [{
                         label: "Sales ($)",
                         fill: true,
@@ -494,9 +374,7 @@ if (isset($_GET['id'])) {
             new Chart(document.getElementById("chartjs-dashboard-bar"), {
                 type: "bar",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                        "Dec"
-                    ],
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                     datasets: [{
                         label: "This year",
                         backgroundColor: window.theme.primary,

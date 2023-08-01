@@ -10,14 +10,14 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <title>ข่าวสาร</title>
 
-    <link href="css/app.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -26,17 +26,15 @@
     <div class="main">
         <nav class="navbar navbar-expand navbar-light navbar-bg ">
             <a href="home.php">
-                <img width="60" height="60" src="img\photos\logo.png" alt="logo">
+                <img width="60" height="60" src="..\img\photos\logo.png" alt="logo">
             </a>
             <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
-
-
 
         </nav>
 
         <main class="content">
             <?php
-            include "connect.php";
+            include "../connect.php";
 
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
@@ -80,15 +78,7 @@
                 echo '<h3 class=" text-center mt-4">' . $row['pr_details'] . '</h3>';
                 ?>
             </div>
-
-
-
-
-
-            <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-danger">
-                <i class="bi bi-arrow-up-circle"></i>
-            </button>
-
+        </main>
     </div>
 
     <footer class="footer bg-danger text-white">
@@ -119,26 +109,6 @@
             </div>
         </div>
     </footer>
-    <!-- ปุ่มกลับด้านบน -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        window.addEventListener('scroll', function() {
-            var scrollToTopButton = document.getElementById('scrollToTopButton');
-            if (window.scrollY > (document.documentElement.scrollHeight - window.innerHeight) * 0.75) {
-                scrollToTopButton.classList.add('show');
-            } else {
-                scrollToTopButton.classList.remove('show');
-            }
-        });
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-    </script>
-    <!-- จบปุ่มกลับด้านบน -->
 </body>
 
 </html>

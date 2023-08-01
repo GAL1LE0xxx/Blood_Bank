@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,124 +15,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>Dashboard</title>
+    <title>แก้ไขข้อมูลประชาสัมพันธ์</title>
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <link href="css/app.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="wrapper">
-        <nav id="sidebar" class="sidebar js-sidebar">
-            <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
-                    <span class="align-middle">ธนาคารเลือด<br>โรงพยาบาลตรัง</span>
-                </a>
-
-                <ul class="sidebar-nav">
-                    <li class="sidebar-item active">
-                        <a class="sidebar-link" href="home.php">
-                            <i class="align-middle" data-feather="home"></i> <span class="align-middle">หน้าหลัก</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        จัดการข้อมูล
-                    </li>
-
-                    <li class="sidebar-item active">
-                        <a class="sidebar-link" href="index.php">
-                            <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">จัดการข้อมูลเจ้าหน้าที่</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-profile.html">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">จัดการข้อมูลโลหิต</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-profile.html">
-                            <i class="align-middle" data-feather="compass"></i> <span class="align-middle">จัดการข้อมูลประชาสัมพันธ์</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-sign-in.html">
-                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-sign-up.html">
-                            <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign
-                                Up</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-blank.html">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        Tools & Components
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-buttons.html">
-                            <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-forms.html">
-                            <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-cards.html">
-                            <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-typography.html">
-                            <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="icons-feather.html">
-                            <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        Plugins & Addons
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="charts-chartjs.html">
-                            <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="maps-google.html">
-                            <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+    <?php include "adminnav.php"; ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -301,37 +199,56 @@
             </nav>
 
             <main class="content">
+                <?php
+                include "../connect.php";
+
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    $sql = "SELECT * FROM publicrelations WHERE pr_id = '$id'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $topic = $row['pr_topic'];
+                    $details = $row['pr_details'];
+                    $image = $row['pr_image'];
+                    $date = $row['pr_date'];
+                }
+                ?>
                 <!--เพิ่มข้อมูลผู้ใช้-->
                 <div class="container-fluid p-0">
+
                     <div class="row justify-content-md-center">
                         <div class="col-12 col-lg-8 col-xxl- d-flex">
+
                             <div class="card flex-fill ">
+
                                 <div class="table-responsive">
                                     <tbody>
                                         <div class="contentdata">
-                                            <h1 class="h3 mb-1 text mt-3 "><strong>เพิ่มข้อมูลประชาสัมพันธ์</strong></h1>
-                                            <form action="pr_add_db.php" method="post" enctype="multipart/form-data">
+                                            <h1 class="h3 mb-1 text mt-3"><strong>แก้ไขข้อมูลประชาสัมพันธ์</strong></h1>
+                                            <form action="pr_edit_db.php" method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                     <div class="mb-3">
+                                                        <h5 class="card-title mb-3">ลำดับ</h5>
+                                                        <input type="text" class="form-control" name="id" value="<?php echo isset($id) ? $id : ''; ?>" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
                                                         <h5 class="card-title mb-3">หัวข้อ</h5>
-                                                        <input type="text" class="form-control" name="topic" required>
+                                                        <input type="text" class="form-control" name="topic" value="<?php echo isset($topic) ? $topic : ''; ?>" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlTextarea1" class="card-title mb-3">รายละเอียด</label>
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="details" rows="5"></textarea>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="details" rows="5" required><?php echo isset($details) ? $details : ''; ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label>
-                                                            <input type="radio" name="upload_option" value="yes" /> ต้องการอัพโหลดไฟล์
-                                                        </label>
-                                                        <label>
-                                                            <input type="radio" name="upload_option" value="no" checked /> ไม่ต้องการอัพโหลดไฟล์
-                                                        </label>
-                                                        <br>
-                                                        <input class="form-control mt-3" type="file" id="formFile" name="picture" onchange="previewImage(this)">
-                                                        
+                                                        <label for="formFile" class="card-title mb-3">แนบไฟล์ภาพ</label>
+                                                        <input class="form-control" type="file" id="formFile" name="picture">
                                                     </div>
-                                                    <button type="submit" class="btn btn-success" name="add_news">ยืนยัน</button>
+                                                    <div class="mb-3">
+                                                        <label for="update_image" class="card-title mb-3">ต้องการอัปเดตรูปภาพหรือไม่:</label>
+                                                        <input type="radio" name="update_image" value="yes" id="yes" required> <label for="yes">ใช่</label>
+                                                        <input type="radio" name="update_image" value="no" id="no" required> <label for="no">ไม่</label>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success" name="edit_news">ยืนยัน</button>
                                                     <a class="btn btn-danger" href="pr_manage.php">ย้อนกลับ</a>
                                                 </div>
                                             </form>
@@ -344,6 +261,7 @@
                 </div>
                 <!--จบเพิ่มข้อมูลผู้ใช้-->
             </main>
+
 
             <footer class="footer">
                 <div class="container-fluid">
@@ -377,41 +295,6 @@
     </div>
 
     <script src="js/app.js"></script>
-    <script>
-        // Get the URL query parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const status = urlParams.get('status');
-        const msg = urlParams.get('msg');
-
-        // Check the status and display the SweetAlert message
-        if (status === 'success') {
-            Swal.fire({
-                title: 'Success',
-                text: msg,
-                icon: 'success',
-                confirmButtonClass: 'btn btn-primary'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirect to order.php with success status and message
-                    const redirectURL = 'pr_add.php';
-                    window.location.href = redirectURL;
-                }
-            });
-        } else if (status === 'error') {
-            Swal.fire({
-                title: 'Error',
-                text: msg,
-                icon: 'error',
-                confirmButtonClass: 'btn btn-primary'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirect to order.php with success status and message
-                    const redirectURL = 'pr_add.php';
-                    window.location.href = redirectURL;
-                }
-            });
-        }
-    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -637,34 +520,6 @@
                 defaultDate: defaultDate
             });
         });
-    </script>
-     <script>
-        function selectFile() {
-            const uploadOption = document.querySelector('input[name="upload_option"]:checked').value;
-            const fileInput = document.getElementById("uploadedFile");
-            const imagePreviewDiv = document.getElementById("imagePreview");
-
-            if (uploadOption === "yes") {
-                fileInput.click();
-                fileInput.addEventListener("change", function () {
-                    const file = this.files[0];
-                    const reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        const img = document.createElement("img");
-                        img.setAttribute("src", e.target.result);
-                        img.setAttribute("alt", "Preview Image");
-                        img.setAttribute("class", "img-thumbnail");
-                        imagePreviewDiv.innerHTML = "";
-                        imagePreviewDiv.appendChild(img);
-                    };
-
-                    reader.readAsDataURL(file);
-                });
-            } else {
-                imagePreviewDiv.innerHTML = ""; // Clear the preview if the user chooses not to upload
-            }
-        }
     </script>
 </body>
 
