@@ -1,4 +1,5 @@
 <?php
+// pr_edit_db.php
 include("../connect.php");
 session_start();
 
@@ -6,22 +7,20 @@ if (isset($_POST['edit_news'])) {
     $id = $_POST['id'];
     $topic = $_POST['topic'];
     $details = $_POST['details'];
-    $currentImage = $_POST['current_image']; // รับชื่อรูปภาพปัจจุบันที่อยู่ในฐานข้อมูล
+    $update_image = $_POST['update_image'];
 
-    // ตรวจสอบว่าผู้ใช้เลือกอัปโหลดไฟล์หรือไม่
-    $upload_option = isset($_POST["upload_option"]) ? $_POST["upload_option"] : "no";
-
-    if ($upload_option === "yes") {
-        // ผู้ใช้เลือกอัปโหลดไฟล์
-        // จัดการการอัปโหลดไฟล์ภาพ
-        $targetDir = "uploads/"; // ไดเรกทอรี่ที่คุณต้องการเก็บรูปภาพที่อัปโหลด
+    // ตรวจสอบว่าผู้ใช้เลือกอัปเดตรูปภาพหรือไม่
+    if ($update_image === "yes") {
+        // ผู้ใช้เลือกอัปโหลดรูปภาพใหม่
+        // ตรวจสอบรูปภาพที่อัปโหลดและอัปเดตในฐานข้อมูล
+        $targetDir = "../uploads/"; // ไดเรกทอรี่ที่คุณต้องการเก็บรูปภาพที่อัปโหลด
         $fileName = $_FILES['picture']['name'];
         $targetPath = $targetDir . $fileName;
 
         if (move_uploaded_file($_FILES['picture']['tmp_name'], $targetPath)) {
-            // การอัปโหลดไฟล์ภาพสำเร็จ
-            // อัปเดตข้อมูลในฐานข้อมูลโดยรวมข้อมูลใหม่และรูปภาพใหม่
-            $sql = "UPDATE publicrelations SET pr_topic='$topic', pr_details='$details', pr_image='$targetPath', pr_date=current_timestamp() WHERE id='$id'";
+            // อัปโหลดไฟล์ภาพสำเร็จ และมีการเปลี่ยนแปลงข้อมูลใหม่ที่อัปโหลด
+            // อัปเดตข้อมูลลงในฐานข้อมูล
+            $sql = "UPDATE publicrelations SET pr_topic = '$topic', pr_details = '$details', pr_image = '$targetPath', pr_date = current_timestamp() WHERE pr_id='$id'";
             if (mysqli_query($conn, $sql)) {
                 $successMessage = "อัปเดตข้อมูลสำเร็จ";
                 header("Location: pr_edit.php?status=success&msg=" . urlencode($successMessage));
@@ -37,9 +36,10 @@ if (isset($_POST['edit_news'])) {
             exit();
         }
     } else {
-        // ผู้ใช้ไม่ต้องการอัปโหลดไฟล์
-        // อัปเดตข้อมูลในฐานข้อมูลเฉพาะข้อมูลใหม่ (ไม่รวมรูปภาพ)
-        $sql = "UPDATE publicrelations SET pr_topic='$topic', pr_details='$details', pr_image='$currentImage', pr_date=current_timestamp() WHERE id='$id'";
+        // ผู้ใช้ไม่ต้องการอัปโหลดรูปภาพใหม่
+        // ให้ใช้ภาพเดิม
+        // แทรกที่อยู่ของรูปภาพเดิมลงในฐานข้อมูล
+        $sql = "UPDATE publicrelations SET pr_topic = '$topic', pr_details = '$details', pr_date = current_timestamp() WHERE pr_id='$id'";
         if (mysqli_query($conn, $sql)) {
             $successMessage = "อัปเดตข้อมูลสำเร็จ";
             header("Location: pr_edit.php?status=success&msg=" . urlencode($successMessage));
@@ -51,4 +51,5 @@ if (isset($_POST['edit_news'])) {
         }
     }
 }
+
 ?>

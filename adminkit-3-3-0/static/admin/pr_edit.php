@@ -15,7 +15,7 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
     <title>แก้ไขข้อมูลประชาสัมพันธ์</title>
@@ -27,7 +27,7 @@ session_start();
 
 <body>
     <div class="wrapper">
-    <?php include "adminnav.php"; ?>
+        <?php include "adminnav.php"; ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -240,13 +240,10 @@ session_start();
                                                         <textarea class="form-control" id="exampleFormControlTextarea1" name="details" rows="5" required><?php echo isset($details) ? $details : ''; ?></textarea>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="formFile" class="card-title mb-3">แนบไฟล์ภาพ</label>
-                                                        <input class="form-control" type="file" id="formFile" name="picture">
-                                                    </div>
-                                                    <div class="mb-3">
                                                         <label for="update_image" class="card-title mb-3">ต้องการอัปเดตรูปภาพหรือไม่:</label>
                                                         <input type="radio" name="update_image" value="yes" id="yes" required> <label for="yes">ใช่</label>
                                                         <input type="radio" name="update_image" value="no" id="no" required> <label for="no">ไม่</label>
+                                                        <input class="form-control mt-3" type="file" id="formFile" name="picture" onchange="previewImage(this)">
                                                     </div>
                                                     <button type="submit" class="btn btn-success" name="edit_news">ยืนยัน</button>
                                                     <a class="btn btn-danger" href="pr_manage.php">ย้อนกลับ</a>
@@ -294,8 +291,42 @@ session_start();
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
 
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'pr_edit.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'pr_edit.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
