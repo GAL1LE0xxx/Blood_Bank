@@ -53,46 +53,46 @@ session_start();
 									<form action="outside_sign-updb.php" method="post">
 										<div class="mb-3">
 											<label class="form-label">ชื่อผู้ใช้</label>
-											<input class="form-control form-control-lg" type="text" name="username" placeholder="Enter your name" />
+											<input class="form-control form-control-lg" type="text" name="username" placeholder="กรุณากรอกชื่อผู้ใช้" />
 										</div>
 
 										<div class="mb-3">
 											<label class="form-label">รหัสผ่าน</label>
-											<input class="form-control form-control-lg" type="text" name="password" placeholder="Enter your name" />
+											<input class="form-control form-control-lg" type="text" name="password" placeholder="กรุณากรอกรหัสผ่าน" />
 										</div>
 
 										<div class="mb-3">
 											<label class="form-label">ยืนยันรหัสผ่าน</label>
-											<input class="form-control form-control-lg" type="text" name="c_password" placeholder="Enter your name" />
+											<input class="form-control form-control-lg" type="text" name="c_password" placeholder="กรุณายืนยันรหัสผ่าน" />
 										</div>
 
 										<div class="mb-3">
 											<label class="form-label">ชื่อหน่วยงาน</label>
-											<input class="form-control form-control-lg" type="text" name="outsidename" placeholder="Enter your name" />
+											<input class="form-control form-control-lg" type="text" name="outsidename" placeholder="กรุณากรอกชื่อหน่วยงาน" />
 										</div>
 
 										<div class="mb-3">
 											<label for="exampleFormControlTextarea1" class="form-label">รายละเอียดหน่วยงาน</label>
-											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" type="text" name="outsidedetails" placeholder="Enter your name"></textarea>
+											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" type="text" name="outsidedetails" placeholder="กรุณากรอกรายละเอียดหน่วยงาน"></textarea>
 										</div>
 
 										<div class="mb-3">
 											<label class="form-label">ที่อยู่หน่วยงาน</label>
-											<input class="form-control form-control-lg" type="text" name="outsideaddress" placeholder="Enter your company name" />
+											<input class="form-control form-control-lg" type="text" name="outsideaddress" placeholder="กรุณากรอกที่อยู่หน่วยงาน" />
 										</div>
 
 										<div class="mb-3">
 											<label class="form-label">ชื่อผู้ติดต่อ</label>
-											<input class="form-control form-control-lg" type="text" name="coname" placeholder="Enter your company name" />
+											<input class="form-control form-control-lg" type="text" name="coname" placeholder="กรุณากรอกชื่อผู้ติดต่อ" />
 										</div>
 
 										<div class="mb-3">
 											<label class="form-label">เบอร์โทรศัพท์ผู้ติดต่อ</label>
-											<input class="form-control form-control-lg" type="text" name="cophone" placeholder="Enter your company name" />
+											<input class="form-control form-control-lg" type="text" name="cophone" placeholder="กรุณากรอกเบอร์โทรศัพท์ผู้ติดต่อ" />
 										</div>
 
 										<div class="text-center mt-3">
-											<button type="submit" name="singupoutside" class="btn btn-lg btn-primary">Sign up</button>
+											<button type="submit" name="singupoutside" class="btn btn-lg btn-primary">สมัครสมาชิก</button>
 										</div>
 									</form>
 								</div>

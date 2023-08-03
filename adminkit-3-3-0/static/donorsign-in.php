@@ -18,7 +18,7 @@ session_start();
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
 
-    <title>หน่วยงานภายนอก</title>
+    <title>ผู้บริจาค</title>
 
     <link href="css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@ session_start();
                         <img src="uploads/logo1.png" alt="" width="200" height="200">
 
                         <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือด   โรงพยาบาลตรัง</h2>
-                        <h2 class="mb-4 text-center">สำหรับเจ้าหน้าที่</h2>
+                        <h2 class="mb-4 text-center">สำหรับผู้บริจาค</h2>
 
                     </div>
 
@@ -52,7 +52,7 @@ session_start();
                 <div class="row justify-content-center">
                     <div class="col-md-6">
 
-                        <form class="form-floating" action="login_db.php" method="post">
+                        <form class="form-floating" action="donorsign-indb.php" method="post">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้">
                                 <label for="floatingInput">ชื่อผู้ใช้</label>
@@ -61,9 +61,13 @@ session_start();
                                 <input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน">
                                 <label for="floatingPassword">รหัสผ่าน</label>
                             </div>
+                           
+                            <div class="mb-4 text-center mt-3">
+                                <p>ยังไม่ได้ลงทะเบียน ? <a href="outside_sign-up.php">สมัครสมาชิก</a></p>
+                            </div>
 
-                            <div class="form-group mt-3">
-                                <button type="submit" name="login_user" class="form-control btn btn-danger btn-lg submit px-3">เข้าสู่ระบบ</button>
+                            <div class="form-group">
+                                <button type="submit" name="donorsignin" class="form-control btn btn-danger btn-lg submit px-3">เข้าสู่ระบบ</button>
                             </div>
                         </form>
                     </div>

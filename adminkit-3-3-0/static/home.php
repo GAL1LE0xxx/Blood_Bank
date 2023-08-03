@@ -45,10 +45,10 @@
                         <a class="btn btn-outline-light" href="oasign-in.php">หน่วยงานภายนอก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light" href="#">สำหรับผู้บริจาค</a>
+                        <a class="btn btn-outline-light" href="donorsign-in.php">ผู้บริจาค</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light" href="login.php">สำหรับเจ้าหน้าที่</a>
+                        <a class="btn btn-outline-light" href="login.php">เจ้าหน้าที่</a>
                     </li>
                 </ul>
             </nav>

@@ -33,7 +33,7 @@
 			}
 		}
 		mysqli_close($conn);
-		header('location: outside_sign-up.php');
+		header('location:outside_sign-up.php');
 		exit();
 	}
 	mysqli_close($conn);
