@@ -1,24 +1,18 @@
 <?php
+include('../connect.php');
+
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("location: ../login.php");
-}
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header("location: login.php");
-}
-include "../connect.php";
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM officer WHERE oc_id = '$id'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $username = $row['oc_username'];
-    $firstname = $row['oc_firstname'];
-    $lastname = $row['oc_lastname'];
-    $phonenumber = $row['oc_phonenumber'];
-    $position = $row['oc_position'];
+$id = $_SESSION['id'];
+$username = $_SESSION['username'];
+$position = $_SESSION['position'];
+
+$sql = "SELECT * FROM `officer` WHERE oc_id = '$id'";
+$result = mysqli_query($conn, $sql);
+
+
+
+if ($position != '0') {
+    header("../loguot.php");
 }
 ?>
 <!DOCTYPE html>
@@ -71,51 +65,54 @@ if (isset($_GET['id'])) {
                 <div class="container-xl mt-3 ">
                     <div class="col-xl-100">
                         <!-- Account details card-->
-                        <div class="mt-3 card-hader"><h2>ตั้งค่าโปรไฟล์</h2></div>
+                        <div class="mt-3 card-hader">
+                            <h2>ตั้งค่าโปรไฟล์</h2>
+                        </div>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <form>
-                                    <!-- Form Group (username)-->
-                                    <div class="mb-3">
-                                        <label class="text mb-1" for="inputUsername">ชื่อผู้ใช้</label>
-                                        <input class="form-control" id="inputUsername" type="text" value="<?php echo $username ?>">
-                                    </div>
-                                    <!-- Form Row-->
-                                    <div class="row gx-3 mb-3">
-                                        <!-- Form Group (first name)-->
-                                        <div class="col-md-6">
-                                            <label class="text mb-1" for="inputFirstName">ชื่อ</label>
-                                            <input class="form-control" id="inputFirstName" type="text" value="<?php echo $firstname ?>">
+                                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                                    <form>
+                                        <div class="mb-3">
+                                            <label class="text mb-1" for="inputUsername">ชื่อผู้ใช้</label>
+                                            <input class="form-control" id="inputUsername" type="text" value="<?php echo $row['oc_username'] ?>">
                                         </div>
-                                        <!-- Form Group (last name)-->
-                                        <div class="col-md-6">
-                                            <label class="text mb-1" for="inputLastName">สกุล</label>
-                                            <input class="form-control" id="inputLastName" type="text" value="<?php echo $lastname ?>">
+                                        <!-- Form Row-->
+                                        <div class="row gx-3 mb-3">
+                                            <!-- Form Group (first name)-->
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="inputFirstName">ชื่อ</label>
+                                                <input class="form-control" id="inputFirstName" type="text" value="<?php echo $row['oc_firstname'] ?>">
+                                            </div>
+                                            <!-- Form Group (last name)-->
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="inputLastName">สกุล</label>
+                                                <input class="form-control" id="inputLastName" type="text" value="<?php echo $row['oc_lastname'] ?>">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- Form Row        -->
-                                    <div class="row gx-3 mb-3">
-                                        <!-- Form Group (organization name)-->
-                                        <div class="col-md-6">
-                                            <label class="text mb-1" for="inputOrgName">เบอร์โทรศัพท์</label>
-                                            <input class="form-control" id="inputOrgName" type="text" value="<?php echo $phonenumber ?>">
+                                        <!-- Form Row        -->
+                                        <div class="row gx-3 mb-3">
+                                            <!-- Form Group (organization name)-->
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="inputOrgName">เบอร์โทรศัพท์</label>
+                                                <input class="form-control" id="inputOrgName" type="text" value="<?php echo $row['oc_phonenumber'] ?>">
+                                            </div>
+                                            <!-- Form Group (location)-->
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="inputLocation">ตำแหน่ง</label>
+                                                <input class="form-control" id="inputLocation" type="text" value="<?php if ($row['oc_position'] == "0") {
+                                                                                                                        echo "แอดมิน";
+                                                                                                                    } elseif ($row['oc_position']== "1") {
+                                                                                                                        echo "นักเทคนิคการแพทย์";
+                                                                                                                    } else {
+                                                                                                                        echo "Unknown";
+                                                                                                                    } ?>">
+                                            </div>
                                         </div>
-                                        <!-- Form Group (location)-->
-                                        <div class="col-md-6">
-                                            <label class="text mb-1" for="inputLocation">ตำแหน่ง</label>
-                                            <input class="form-control" id="inputLocation" type="text" value="<?php if ($position == "0") {
-                                                                                                                    echo "แอดมิน";
-                                                                                                                } elseif ($position == "1") {
-                                                                                                                    echo "นักเทคนิคการแพทย์";
-                                                                                                                } else {
-                                                                                                                    echo "Unknown";
-                                                                                                                } ?>">
-                                        </div>
-                                    </div>
 
-                                    <!-- Save changes button-->
-                                    <button class="mt-3 btn btn-primary" type="button">บันทึก</button>
-                                </form>
+                                        <!-- Save changes button-->
+                                        <button class="mt-3 btn btn-primary" type="button">บันทึก</button>
+                                    </form>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

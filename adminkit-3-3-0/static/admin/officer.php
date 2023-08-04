@@ -1,12 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("location: login.php");
-}
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header("location: login.php");
+$id = $_SESSION['id'];
+$username = $_SESSION['username'];
+$position = $_SESSION['position'];
+if($position != '0'){
+    header("../loguot.php");
 }
 ?>
 <!DOCTYPE html>
@@ -58,7 +56,7 @@ if (isset($_GET['logout'])) {
                                 <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
                                 <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../login.php">Log out</a>
+                                <a class="dropdown-item" href="../logout.php">Log out</a>
                             </div>
                         </li>
                     </ul>
@@ -107,6 +105,7 @@ if (isset($_GET['logout'])) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
+                                                    echo "<td>" . $row["oc_id"] . "</td>";
                                                     echo "<td>" . $row["oc_username"] . "</td>";
                                                     echo "<td>" . $row["oc_firstname"] . "</td>";
                                                     echo "<td>" . $row["oc_lastname"] . "</td>";
