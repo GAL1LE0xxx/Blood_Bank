@@ -1,12 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("location: login.php");
+if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
+    header("location: ../login.php"); // redirect ไปยังหน้า login.php
+    exit;
 }
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header("location: login.php");
+
+$user = $_SESSION['username'];
+$position = $_SESSION['position'];
+if ($position != '1') {
+    echo '<script>alert("สำหรับเจ้าหน้าที่เท่านั้น");window.location="../home.php";</script>';
+    exit;
 }
 ?>
 

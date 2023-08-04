@@ -1,12 +1,18 @@
 <?php
 session_start();
-$id = $_SESSION['id'];
-$username = $_SESSION['username'];
+if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
+    header("location: ../login.php"); // redirect ไปยังหน้า login.php
+    exit;
+}
+
+$user = $_SESSION['username'];
 $position = $_SESSION['position'];
-if($position != '0'){
-    header("../loguot.php");
+if ($position != '0') {
+    echo '<script>alert("สำหรับผู้ดูแลระบบเท่านั้น");window.location="../home.php";</script>';
+    exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en"></html>
 
@@ -19,7 +25,7 @@ if($position != '0'){
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="../img/icons/icon.png" />
+    <link rel="shortcut icon" href="../img/icons/icon.png"/>
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
@@ -105,7 +111,7 @@ if($position != '0'){
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
-                                                    echo "<td>" . $row["oc_id"] . "</td>";
+                                                    echo "<td class = 'd-none'>" . $row["oc_id"] . "</td>";
                                                     echo "<td>" . $row["oc_username"] . "</td>";
                                                     echo "<td>" . $row["oc_firstname"] . "</td>";
                                                     echo "<td>" . $row["oc_lastname"] . "</td>";
