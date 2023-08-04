@@ -105,7 +105,7 @@ if($position != '0'){
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
-                                                    echo "<td>" . $row["oc_id"] . "</td>";
+                                                    echo "<td class = 'd-none'>" . $row["oc_id"] . "</td>";
                                                     echo "<td>" . $row["oc_username"] . "</td>";
                                                     echo "<td>" . $row["oc_firstname"] . "</td>";
                                                     echo "<td>" . $row["oc_lastname"] . "</td>";
