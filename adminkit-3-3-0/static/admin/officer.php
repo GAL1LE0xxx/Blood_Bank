@@ -8,7 +8,7 @@ if($position != '0'){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"></html>
 
 <head>
     <meta charset="utf-8">
