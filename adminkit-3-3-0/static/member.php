@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
-    header("location: ../login.php"); // redirect ไปยังหน้า login.php
+    header("location: login.php"); // redirect ไปยังหน้า login.php
     exit;
 }
 
@@ -36,67 +36,7 @@ if ($position != '1') {
 
 <body>
     <div class="wrapper">
-        <nav id="sidebar" class="sidebar js-sidebar">
-            <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
-                    <span class="align-middle">ธนาคารเลือด<br>โรงพยาบาลตรัง</span>
-                </a>
-
-                <ul class="sidebar-nav">
-                    <li class="sidebar-item ">
-                        <a class="sidebar-link" href="home.php">
-                            <i class="align-middle" data-feather="home"></i> <span class="align-middle">หน้าหลัก</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        จัดการข้อมูล
-                    </li>
-
-                    <li class="sidebar-item ">
-                        <a class="sidebar-link" href="member.php">
-                            <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">จัดการข้อมูลสมาชิก</span>
-                        </a>
-                    </li>
-
-
-
-                    <li class="sidebar-header">
-                        รายงาน
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-buttons.html">
-                            <i class="align-middle" data-feather="square"></i> <span class="align-middle">ข้อมูลผู้บริจาคโลหิต</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-forms.html">
-                            <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">การจองคิว</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-cards.html">
-                            <i class="align-middle" data-feather="grid"></i> <span class="align-middle">ข้อมูลปริมาณโลหิต</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-typography.html">
-                            <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">ข้อมูลสถานะโลหิต</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="icons-feather.html">
-                            <i class="align-middle" data-feather="coffee"></i> <span class="align-middle"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <?php include "tmednav.php"; ?>
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
@@ -114,7 +54,7 @@ if ($position != '1') {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                                <a class="dropdown-item" href="tmedprofile.php"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                                 <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
@@ -200,7 +140,7 @@ if ($position != '1') {
 
                                                     echo "<td><a class='btn btn-danger' href='member_delete_db?did=" . $row["dn_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
                                                     echo "</tr>";
-                                                    
+
                                                     $tid++;
                                                 }
                                             } else {
@@ -228,7 +168,7 @@ if ($position != '1') {
                     <div class="row">
                         <div class="col-12 col-lg-15 col-xxl- d-flex">
                             <div class="card flex-fill">
-                            <div class="card-header">
+                                <div class="card-header">
                                     <a href="oa_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i>
                                         เพิ่มผู้ใช้</a>
                                 </div>

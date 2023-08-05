@@ -1,5 +1,5 @@
 <?php
-include('../connect.php');
+include('connect.php');
 
 session_start();
 $id = $_SESSION['id'];
@@ -10,8 +10,8 @@ $sql = "SELECT * FROM `officer` WHERE oc_id = '$id'";
 $result = mysqli_query($conn, $sql);
 
 // ตรวจสอบตำแหน่งของผู้ใช้ ถ้าไม่ใช่แอดมินให้ redirect ไปที่หน้า logout.php
-if ($position != '0') {
-    header("Location: ../logout.php");
+if ($position != '1') {
+    header("Location: logout.php");
     exit; // จบการทำงานของสคริปต์ทันทีหลังจาก redirect
 }
 ?>
@@ -27,13 +27,11 @@ if ($position != '0') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
-        <?php include "adminnav.php"; ?>
+        <?php include "tmednav.php"; ?>
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
@@ -57,7 +55,7 @@ if ($position != '0') {
                                 <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
                                 <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../login.php">Log out</a>
+                                <a class="dropdown-item" href="logout.php">Log out</a>
                             </div>
                         </li>
                     </ul>
@@ -73,7 +71,7 @@ if ($position != '0') {
                         <div class="card mb-4">
                             <div class="card-body">
                                 <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                                    <form action="adminprofile_db.php" method="post">
+                                    <form action="tmedprofile_db.php" method="post">
                                         <input class="form-control" name="id" type="hidden" value="<?php echo $row['oc_id'] ?>">
                                         <div class="mb-3">
                                             <label class="text mb-1" for="username">ชื่อผู้ใช้</label>
@@ -92,6 +90,7 @@ if ($position != '0') {
 
                                                 <input class="form-control" name="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
 
+                                                <input class="form-control" name ="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
                                             </div>
                                             <!-- Form Group (organization name)-->
                                             <div class="col-md-6">
@@ -112,8 +111,11 @@ if ($position != '0') {
                                         </div>
 
                                         <!-- Save changes button-->
-                                        <button type="submit" name="edit_adminprofile" class="mt-3 btn btn-primary">บันทึก</button>
+
+                                        <button type="submit" name="edit_tmedprofile" class="mt-3 btn btn-primary">บันทึก</button>
                                         <button type="cancel" name="cancel" class="mt-3 btn btn-danger">ยกเลิก</button>
+
+                                       
 
                                     </form>
                                 <?php } ?>
@@ -151,34 +153,6 @@ if ($position != '0') {
                     </div>
                 </div>
             </footer>
-            <?php
-            if (isset($_GET['status']) && isset($_GET['msg'])) {
-                $status = $_GET['status'];
-                $message = $_GET['msg'];
-
-                if ($status === 'success') {
-                    echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'สำเร็จ!',
-                    text: '$message',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-              </script>";
-                } elseif ($status === 'error') {
-                    echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'เกิดข้อผิดพลาด!',
-                    text: '$message',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-              </script>";
-                }
-            }
-            ?>
 </body>
 
 </html>

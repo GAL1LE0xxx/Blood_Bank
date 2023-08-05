@@ -67,10 +67,10 @@
                         </ol>
                         <div class="carousel-inner ">
                             <div class="carousel-item active ">
-                                <img src="img\photos\banner1.jpg" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 1">
+                                <img src="img\photos\banner11.jpg" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 1">
                             </div>
                             <div class="carousel-item">
-                                <img src="img\photos\banner2.jpg" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 2">
+                                <img src="img\photos\banner21.jpg" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 2">
                             </div>
                             <div class="carousel-item">
                                 <img src="img\photos\banner3.jpg" class="d-block w-100" style="max-width: auto; height: auto;" alt="Slide 3">
