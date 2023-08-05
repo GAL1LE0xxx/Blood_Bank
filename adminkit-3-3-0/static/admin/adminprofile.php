@@ -71,23 +71,39 @@ if ($position != '0') {
                         <div class="card mb-4">
                             <div class="card-body">
                                 <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+<<<<<<< HEAD
                                     <form action="adminprofile_db.php" method="post">
                                         <input class="form-control" name="id" type="hidden" value="<?php echo $row['oc_id'] ?>">
                                         <div class="mb-3">
                                             <label class="text mb-1" for="username">ชื่อผู้ใช้</label>
                                             <input class="form-control" name="username" type="text" value="<?php echo $row['oc_username'] ?>">
+=======
+                                    <form action = "adminprofile_db.php" method ="post">
+                                        <input class="form-control" name ="id" type="hidden" value="<?php echo $row['oc_id'] ?>">
+                                        <div class="mb-3">
+                                            <label class="text mb-1" for="username">ชื่อผู้ใช้</label>
+                                            <input class="form-control" name ="username" type="text" value="<?php echo $row['oc_username'] ?>">
+>>>>>>> 8bad482fc4ec16bf904a0ff14b56d29eaaaba30e
                                         </div>
                                         <!-- Form Row-->
                                         <div class="row gx-3 mb-3">
                                             <!-- Form Group (first name)-->
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="firstname">ชื่อ</label>
+<<<<<<< HEAD
                                                 <input class="form-control" name="firstname" type="text" value="<?php echo $row['oc_firstname'] ?>">
+=======
+                                                <input class="form-control" name ="firstname" type="text" value="<?php echo $row['oc_firstname'] ?>">
+>>>>>>> 8bad482fc4ec16bf904a0ff14b56d29eaaaba30e
                                             </div>
                                             <!-- Form Group (last name)-->
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="lastname">สกุล</label>
+<<<<<<< HEAD
                                                 <input class="form-control" name="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
+=======
+                                                <input class="form-control" name ="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
+>>>>>>> 8bad482fc4ec16bf904a0ff14b56d29eaaaba30e
                                             </div>
                                         </div>
                                         <!-- Form Row        -->
@@ -95,11 +111,16 @@ if ($position != '0') {
                                             <!-- Form Group (organization name)-->
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="phonenumber">เบอร์โทรศัพท์</label>
+<<<<<<< HEAD
                                                 <input class="form-control" name="phonenumber" type="text" value="<?php echo $row['oc_phonenumber'] ?>">
+=======
+                                                <input class="form-control" name ="phonenumber" type="text" value="<?php echo $row['oc_phonenumber'] ?>">
+>>>>>>> 8bad482fc4ec16bf904a0ff14b56d29eaaaba30e
                                             </div>
                                             <!-- Form Group (location)-->
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="position">ตำแหน่ง</label>
+<<<<<<< HEAD
                                                 <input class="form-control" name="position" type="text" value="<?php if ($row['oc_position'] == "0") {
                                                                                                                     echo "แอดมิน";
                                                                                                                 } elseif ($row['oc_position'] == "1") {
@@ -107,12 +128,25 @@ if ($position != '0') {
                                                                                                                 } else {
                                                                                                                     echo "Unknown";
                                                                                                                 } ?> " readonly>
+=======
+                                                <input class="form-control" name ="position" type="text" value="<?php if ($row['oc_position'] == "0") {
+                                                                                                                        echo "แอดมิน";
+                                                                                                                    } elseif ($row['oc_position']== "1") {
+                                                                                                                        echo "นักเทคนิคการแพทย์";
+                                                                                                                    } else {
+                                                                                                                        echo "Unknown";
+                                                                                                                    } ?> " readonly>
+>>>>>>> 8bad482fc4ec16bf904a0ff14b56d29eaaaba30e
                                             </div>
                                         </div>
 
                                         <!-- Save changes button-->
+<<<<<<< HEAD
                                         <button type="submit" name="edit_adminprofile" class="mt-3 btn btn-primary">บันทึก</button>
                                         <button type="cancel" name="cancel" class="mt-3 btn btn-danger">ยกเลิก</button>
+=======
+                                        <button type = "submit" name="edit_adminprofile" class="mt-3 btn btn-primary" >บันทึก</button>
+>>>>>>> 8bad482fc4ec16bf904a0ff14b56d29eaaaba30e
                                     </form>
                                 <?php } ?>
                             </div>
