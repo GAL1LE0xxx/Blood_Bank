@@ -25,7 +25,7 @@
 <body>
     <div class="main">
         <nav class="navbar navbar-expand navbar-light navbar-bg ">
-            <a href="home.php">
+            <a href="../home.php">
                 <img width="60" height="60" src="..\img\photos\logo.png" alt="logo">
             </a>
             <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
@@ -66,7 +66,7 @@
 
             ?>
 
-            <div class="container">
+            <div class="container-xl">
                 <?php
                 echo '<p class="fs-1">' . $row['pr_topic'] . '</p>';
                 // Convert date to Thai format
@@ -74,7 +74,7 @@
                 $thaiMonth = translateMonthToThai(date("F", strtotime($row['pr_date'])));
                 $thaiDate = date("d", strtotime($row['pr_date'])) . ' ' . $thaiMonth . ' ' . $thaiYear;
                 echo '<h5>อัพโหลดเมื่อ: ' . $thaiDate . '</h5>';
-                echo '<img src="' . $row['pr_image'] . '" class="img-fluid mt-4" alt="..." style="width: 100%; height: 550px; object-fit: cover;">';
+                echo '<img src="' . $row['pr_image'] . '" class="img-fluid mt-4" alt="..." style="width: 100%; height: 700px; object-fit: cover;">';
                 echo '<h3 class=" text-center mt-4">' . $row['pr_details'] . '</h3>';
                 ?>
             </div>

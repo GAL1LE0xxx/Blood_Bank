@@ -57,7 +57,9 @@
                     echo '<div class="col-md-4 col-sm-6 mb-4">';
                     echo '<div class="card">';
                     echo '<a href="pr_topic.php?id=' . $row['pr_id'] . '">';
-                    echo '<img src="' . $row['pr_image'] . '" class="card-img-top" alt="..." style="width: 100%; height: 250px; object-fit: cover;">';
+                    echo '<div class="image-container">';
+                    echo '<img src="' . $row['pr_image'] . '" class="responsive-image" alt="Responsive Image" style="width: 100%; height: 360px; object-fit: cover;">';
+                    echo '</div>';
                     echo '<div class="card-body">';
                     echo '<h5 class="text-center">' . $row['pr_topic'] . '</h5>';
                     echo '</div>';
