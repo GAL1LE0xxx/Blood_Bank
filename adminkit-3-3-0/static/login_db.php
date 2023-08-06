@@ -3,7 +3,7 @@ session_start();
 include('connect.php');
 
 if (isset($_POST['login_user'])) {
-    
+
     $username = $_POST['username'];
     $password = md5($_POST['password']);
 
@@ -11,10 +11,10 @@ if (isset($_POST['login_user'])) {
     $result = mysqli_query($conn, $sql);
 
     while ($row = mysqli_fetch_assoc($result)) {
-    $id = $row['oc_id'];
-    $_SESSION['id'] = $id;
-    $position = $row['oc_position'];
-    $_SESSION['position'] = $position;
+        $id = $row['oc_id'];
+        $_SESSION['id'] = $id;
+        $position = $row['oc_position'];
+        $_SESSION['position'] = $position;
     }
 
     if (mysqli_num_rows($result) == 1) {
@@ -26,14 +26,18 @@ if (isset($_POST['login_user'])) {
         // Check oc_position and redirect accordingly
         if ($position == 0) {
             // Redirect to admin page
-            header('location: admin/officer.php');
+            $successMessage = "เข้าสู่ระบบสำเร็จยินดีต้อนรับ $username";
+            header("location: admin/officer.php?status=success&msg=" . urlencode($successMessage));
+            exit();
         } elseif ($position == 1) {
             // Redirect to technicalmed page
-            header('location: member.php');
-        } 
+            $successMessage = "เข้าสู่ระบบสำเร็จยินดีต้อนรับ $username";
+            header("location: member.php?status=success&msg=" . urlencode($successMessage));
+        }
     } else {
-        $_SESSION['errors'] = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
-        header('location: login.php');
+        $errorMessage = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+            header("location: login.php?status=error&msg=" . urlencode($errorMessage));
+
     }
 }
 

@@ -113,7 +113,7 @@ if ($position != '0') {
 
                                         <!-- Save changes button-->
                                         <button type="submit" name="edit_adminprofile" class="mt-3 btn btn-primary">บันทึก</button>
-                                        <button type="cancel" name="cancel" class="mt-3 btn btn-danger">ยกเลิก</button>
+                                        <button type="cancel" name="cancel" class="mt-3 btn btn-danger">ย้อนกลับ</button>
 
                                     </form>
                                 <?php } ?>

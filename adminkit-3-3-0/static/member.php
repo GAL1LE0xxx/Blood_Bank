@@ -32,6 +32,8 @@ if ($position != '1') {
 
     <link href="css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -276,6 +278,42 @@ if ($position != '1') {
     </div>
 
     <script src="js/app.js"></script>
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
+
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'member.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'member.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
+    ?>
 
 
 </body>

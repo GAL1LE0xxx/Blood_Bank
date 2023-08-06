@@ -11,7 +11,7 @@ if (isset($_POST['edit_adminprofile'])) {
 
     $sql = "UPDATE officer SET oc_username='$username',oc_firstname='$firstname',oc_lastname='$lastname',oc_phonenumber='$phonenumber' WHERE OC_id = '$id'";
     if (mysqli_query($conn, $sql)) {
-        $successMessage = "อัปโหลดข้อมูลสำเร็จ";
+        $successMessage = "แก้ไขข้อมูลสำเร็จ";
         header("Location: adminprofile.php?status=success&msg=" . urlencode($successMessage));
         exit();
     } else {
