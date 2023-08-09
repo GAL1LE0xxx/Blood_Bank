@@ -42,4 +42,3 @@ if (isset($_POST['login_user'])) {
 }
 
 mysqli_close($conn);
-?>

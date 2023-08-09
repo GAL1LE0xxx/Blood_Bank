@@ -1,3 +1,16 @@
+<?php
+include "connect.php";
+session_start();
+
+if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
+    header("location: oasign-in.php"); // redirect ไปยังหน้า login.php
+    exit;
+}
+
+$user = $_SESSION['username'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +31,8 @@
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -31,14 +46,19 @@
                     <img width="60" height="60" src="img\photos\logo.png" alt="logo">
                 </a>
                 <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
+                <ul class="navbar-nav navbar-align">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                                <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="logout.php">ออกจากระบบ</a>
+                            </div>
+                        </li>
+                    </ul> 
             </nav>
-
-            <nav class="navbar justify-content-center navbar-bg bg-danger ">
-                <ul class="nav justify-content-center gap-2 ">
-
-                </ul>
-            </nav>
-
 
             <div class="container overflow-hidden mt-5 ">
                 <div class="row gx-5">
@@ -87,7 +107,41 @@
             </div>
         </div>
     </div>
-    
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
+
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'outsideagency.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'outsideagency.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');

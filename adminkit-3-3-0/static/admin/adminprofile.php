@@ -13,7 +13,7 @@ $result = mysqli_query($conn, $sql);
 if ($position != '0') {
     header("Location: ../logout.php");
     exit; // จบการทำงานของสคริปต์ทันทีหลังจาก redirect
-}
+}   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@ if ($position != '0') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>บัญชีผู้ใช้</title>
     <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -112,7 +112,7 @@ if ($position != '0') {
                                         </div>
 
                                         <!-- Save changes button-->
-                                        <button type="submit" name="edit_adminprofile" class="mt-3 btn btn-primary">บันทึก</button>
+                                        <button type="submit" name="edit_oaprofile" class="mt-3 btn btn-primary">บันทึก</button>
                                         <button type="cancel" name="cancel" class="mt-3 btn btn-danger">ย้อนกลับ</button>
 
                                     </form>
