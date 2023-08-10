@@ -35,11 +35,11 @@ $user = $_SESSION['username'];
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 
 </head>
-
-
-<body>
-    <div class="wrapper">
-
+    
+    
+<body>  
+    <div class="wrapper">   
+    
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg ">
                 <a href="home.php">

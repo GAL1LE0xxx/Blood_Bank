@@ -79,7 +79,6 @@ $result = mysqli_query($conn, $sql);
                                                 <label class="text mb-1" for="outsidename">ชื่อหน่วยงาน</label>
                                                 <input class="form-control" name="outsidename" type="text" value="<?php echo $row['oa_name'] ?>">
                                             </div>
-
                                         </div>
 
                                         <div class="mb-3">

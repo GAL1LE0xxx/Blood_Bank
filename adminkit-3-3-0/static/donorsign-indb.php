@@ -12,6 +12,8 @@ if(isset($_POST['donorsignin'])){
 
     if(mysqli_num_rows($result) == 1){
         $row = mysqli_fetch_assoc($result);
+        $id = $row['dn_id'];
+        $_SESSION['id'] = $id;
         $_SESSION['username'] = $username;
         $status = $row['dn_status'];
         $_SESSION['status'] = $status;
@@ -21,8 +23,9 @@ if(isset($_POST['donorsignin'])){
             header('location: donorsign-in.php');
             exit;
         }elseif($status == 1){
-            header('Location: donor.php');
-            exit;
+            $successMessage = "เข้าสู่ระบบสำเร็จยินดีต้อนรับ $username";
+            header("location: donor.php?status=success&msg=" . urlencode($successMessage));
+            exit();
         }elseif($status == 2){
             $_SESSION['errors'] = "คุณไม่ได้รับอนุมัติจากเจ้าหน้าที่";
             header('location: donorsign-in.php');

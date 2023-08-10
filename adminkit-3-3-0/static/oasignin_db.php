@@ -20,7 +20,7 @@ if(isset($_POST['outsidesignin'])){
 
         if($status == 0){
             $errorMessage ="คุณยังไม่ได้รับการอนุมัติจากเจ้าหน้าที่";
-            header("location: oasign-in.php?status=error&msg=" . urlencode($errorMessage));
+            header("location: oasign-in.php?status=error&msg=" .     urlencode($errorMessage));
             exit;
         }elseif($status == 1){
             $successMessage = "เข้าสู่ระบบสำเร็จยินดีต้อนรับ $username";
