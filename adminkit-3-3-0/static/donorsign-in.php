@@ -41,16 +41,6 @@ session_start();
                     </div>
 
                 </div>
-                <?php if (isset($_SESSION['errors'])) : ?>
-                    <div class="notification text-center">
-                        <h3>
-                            <?php
-                            echo $_SESSION['errors'];
-                            unset($_SESSION['errors']);
-                            ?>
-                        </h3>
-                    </div>
-                <?php endif ?>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
 

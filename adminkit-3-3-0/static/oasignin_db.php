@@ -19,7 +19,7 @@ if(isset($_POST['outsidesignin'])){
         $_SESSION['status'] = $status;
 
         if($status == 0){
-            $errorMessage ="คุณยังไม่ได้รับการอนุมัติจากเจ้าหน้าที่";
+            $errorMessage ="กรุณารอเจ้าหน้าทำการอนุมัติการสมัครสมาชิก";
             header("location: oasign-in.php?status=error&msg=" .     urlencode($errorMessage));
             exit;
         }elseif($status == 1){
@@ -27,13 +27,14 @@ if(isset($_POST['outsidesignin'])){
             header("location: outsideagency.php?status=success&msg=" . urlencode($successMessage));
             exit;
         }elseif($status == 2){
-            $errorMessage ="คุณไม่ได้รับอนุมัติจากเจ้าหน้าที่";
+            $errorMessage ="คุณไม่ได้รับอนุมัติการสมัครสมาชิกจากเจ้าหน้าที่";
             header("location: oasign-in.php?status=error&msg=" . urlencode($errorMessage));
             exit;
         }
     }else{
         $errorMessage = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
             header("location: oasign-in.php?status=error&msg=" . urlencode($errorMessage));
+            exit;
     }
 }
 mysqli_close($conn);
