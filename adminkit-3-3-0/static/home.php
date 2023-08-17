@@ -88,44 +88,51 @@ session_destroy();
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-                        <!-- จบ slide รูป -->
+                    </div>
+                    <!-- จบ slide รูป -->
 
-                        <!-- ปริมาณเลือด -->
-                        <div class="mt-4 d-flex justify-content-center align-items-center">
-                            <div class="container">
-                                <div class="mt-2 text-center">
-                                    <h1>ปริมาณเลือดในคลัง</h1>
-                                </div>
+                    <!-- pr-->
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <div class="container">
+                            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">ข่าวการประชาสัมพันธ์</div>
+                            
+                        </div>
+                    </div>
+                    <!-- pr-->
 
-                                <div class="row row-cols-1 row-cols-md-4 g-4 mt-3">
-                                    <div class="col">
-                                        <div class="card h-60">
-                                            <img width="696" height="1024" src="img\blood\a.png" class="card-img-top" alt="bloodA">
-                                            <div class="container">
-                                                <div class="">
-                                                    <a class="button " >
-                                                        <span class="">
-                                                            <span ">ความต้องการโลหิต<br>
+                    <!-- ปริมาณเลือด -->
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <div class="container">
+                            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">ปริมาณเลือดในคลัง</div>
+                            <div class="row row-cols-1 row-cols-md-4 g-4 mt-3">
+                                <div class="col">
+                                    <div class="card h-60">
+                                        <img width="696" height="1024" src="img\blood\a.png" class="card-img-top" alt="bloodA">
+                                        <div class="container">
+                                            <div class="">
+                                                <a class="button ">
+                                                    <span class="">
+                                                        <span ">ความต้องการโลหิต<br>
                                                                 <h4></h4>
-                                                                <span style="font-size: 24px;">11,500</span>
-                                                                <span style="text-decoration-style: initial; text-decoration-color: initial;"><br>ยูนิต/เดือน</span>
-                                                            </span>
-                                                        </span>
-                                                    </a>
-                                                    <div class=""  >
-                                                        <div class="container">
-                                                            <div class="">
-                                                                <a class="" >
-                                                                    <span class="">
-                                                                        <span class="">โลหิตที่ได้รับ<br>
-                                                                            <h4>30%</h4>
-                                                                        </span>
+                                                                <span style=" font-size: 24px;">11,500</span>
+                                                        <span style="text-decoration-style: initial; text-decoration-color: initial;"><br>ยูนิต/เดือน</span>
+                                                    </span>
+                                                    </span>
+                                                </a>
+                                                <div class="">
+                                                    <div class="container">
+                                                        <div class="">
+                                                            <a class="">
+                                                                <span class="">
+                                                                    <span class="">โลหิตที่ได้รับ<br>
+                                                                        <h4>30%</h4>
                                                                     </span>
-                                                                </a>
-                                                            </div>
+                                                                </span>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -169,13 +176,14 @@ session_destroy();
                             </div>
                         </div>
                     </div>
-
                     <!-- ปริมาณเลือด -->
 
                     <!-- ปุ่มกลับด้านบน -->
                     <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-danger">
                         <i class="bi bi-arrow-up-circle"></i>
                     </button>
+                    <!-- ปุ่มกลับด้านบน -->
+                </div>
             </main>
         </div>
 

@@ -24,7 +24,7 @@ if(isset($_POST['donorsignin'])){
             exit;
         }elseif($status == 1){
             $successMessage = "เข้าสู่ระบบสำเร็จยินดีต้อนรับ $username";
-            header("location: donor.php?status=success&msg=" . urlencode($successMessage));
+            header("location: donormenu.php?status=success&msg=" . urlencode($successMessage));
             exit();
         }elseif($status == 2){
             $errorMessage = "คุณไม่ได้รับอนุมัติจากเจ้าหน้าที่";

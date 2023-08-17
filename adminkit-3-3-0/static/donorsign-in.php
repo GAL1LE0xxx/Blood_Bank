@@ -55,7 +55,7 @@ session_start();
                             </div>
 
                             <div class="mb-4 text-center mt-3">
-                                <p>ยังไม่ได้ลงทะเบียน ? <a href="outside_sign-up.php">สมัครสมาชิก</a></p>
+                                <p>ยังไม่ได้ลงทะเบียน ? <a href="donorsign-up.php">สมัครสมาชิก</a></p>
                             </div>
 
                             <div class="form-group">

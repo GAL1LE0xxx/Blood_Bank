@@ -2,6 +2,11 @@
 include('connect.php');
 session_start();
 
+if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
+    header("location: donorsign-in.php"); // redirect ไปยังหน้า login.php
+    exit;
+}
+
 $id = $_SESSION['id'];
 $username = $_SESSION['username'];
 
@@ -61,7 +66,7 @@ $result = mysqli_query($conn, $sql);
                 <div class="container-xl mt-3 ">
                     <div class="col-xl-100">
                         <!-- Account details card-->
-                        <div class="mt-3 card-hader">
+                        <div class="mt-3 card-hader ">
                             <h2>ตั้งค่าโปรไฟล์</h2>
                         </div>
                         <div class="card mb-4">
@@ -111,12 +116,12 @@ $result = mysqli_query($conn, $sql);
 
                                             <div class="mb-3">
                                                 <label class="form-label">อีเมล</label>
-                                                <input type="text" class="form-control " name="email" value="<?php echo $row['dn_email'] ?>" >
+                                                <input type="text" class="form-control " name="email" value="<?php echo $row['dn_email'] ?>">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="form-label">ที่อยู่</label>
-                                                <input type="text" class="form-control " name="address" value="<?php echo $row['dn_address'] ?>" >
+                                                <input type="text" class="form-control " name="address" value="<?php echo $row['dn_address'] ?>">
                                             </div>
 
                                             <button type="submit" class='btn btn-success' name="edit_donor">ยืนยัน</button>

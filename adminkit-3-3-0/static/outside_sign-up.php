@@ -14,7 +14,7 @@ session_start();
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="img/icons/icon.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-up.html" />
 
@@ -22,6 +22,8 @@ session_start();
 
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 </head>
 
 
@@ -34,41 +36,33 @@ session_start();
 					<div class="d-table-cell align-middle">
 
 						<div class="text-center mt-4">
-							<h1 class="h2">สมัครสมาชิกสำหรับหน่วยงานภายนอก</h1>
-							<?php if (isset($_SESSION['errors'])) : ?>
-							<div class="notification text-center">
-								<h3>
-									<?php
-									echo $_SESSION['errors'];
-									unset($_SESSION['errors']);
-									?>
-								</h3>
-							</div>
-						<?php endif ?>
+							<h1 class="h2 ">ลงทะเบียนสมาชิกสำหรับหน่วยงานภายนอก</h1>
 						</div>
-						
+
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
 									<form action="outside_sign-updb.php" method="post">
-										<div class="mb-3">
-											<label class="form-label">ชื่อผู้ใช้</label>
-											<input class="form-control form-control-lg" type="text" name="username" placeholder="กรุณากรอกชื่อผู้ใช้" />
+										<div class="row gx-3 mb-3">
+											<div class="col-md-6">
+												<label class="text mb-1" for="username">ชื่อผู้ใช้</label>
+												<input class="form-control" name="username" type="text" placeholder="กรุณากรอกชื่อผู้ใช้">
+											</div>
+											<div class="col-md-6">
+												<label class="text mb-1" for="outsidename">ชื่อหน่วยงาน</label>
+												<input class="form-control" name="outsidename" type="text" placeholder="กรุณากรอกชื่อหน่วยงาน">
+											</div>
 										</div>
 
-										<div class="mb-3">
-											<label class="form-label">รหัสผ่าน</label>
-											<input class="form-control form-control-lg" type="text" name="password" placeholder="กรุณากรอกรหัสผ่าน" />
-										</div>
-
-										<div class="mb-3">
-											<label class="form-label">ยืนยันรหัสผ่าน</label>
-											<input class="form-control form-control-lg" type="text" name="c_password" placeholder="กรุณายืนยันรหัสผ่าน" />
-										</div>
-
-										<div class="mb-3">
-											<label class="form-label">ชื่อหน่วยงาน</label>
-											<input class="form-control form-control-lg" type="text" name="outsidename" placeholder="กรุณากรอกชื่อหน่วยงาน" />
+										<div class="row gx-3 mb-3">
+											<div class="col-md-6">
+												<label class="text mb-1" for="password">รหัสผ่าน</label>
+												<input class="form-control" name="password" type="password" placeholder="กรุณากรอกรหัสผ่าน">
+											</div>
+											<div class="col-md-6">
+												<label class="text mb-1" for="c_password">ยืนยันรหัสผ่าน</label>
+												<input class="form-control" name="c_password" type="password" placeholder="กรุณายืนยันรหัสผ่าน">
+											</div>
 										</div>
 
 										<div class="mb-3">
@@ -81,18 +75,20 @@ session_start();
 											<input class="form-control form-control-lg" type="text" name="outsideaddress" placeholder="กรุณากรอกที่อยู่หน่วยงาน" />
 										</div>
 
-										<div class="mb-3">
-											<label class="form-label">ชื่อผู้ติดต่อ</label>
-											<input class="form-control form-control-lg" type="text" name="coname" placeholder="กรุณากรอกชื่อผู้ติดต่อ" />
+										<div class="row gx-3 mb-3">
+											<div class="col-md-6">
+												<label class="text mb-1" for="coname">ชื่อผู้ติดต่อ</label>
+												<input class="form-control" name="coname" type="text" placeholder="กรุณากรอกชื่อผู้ติดต่อ">
+											</div>
+											<div class="col-md-6">
+												<label class="text mb-1" for="cophone">เบอร์โทรศัพท์ผู้ติดต่อ</label>
+												<input class="form-control" name="cophone" type="text" placeholder="กรุณากรอกเบอร์โทรศัพท์ผู้ติดต่อ">
+											</div>
 										</div>
 
-										<div class="mb-3">
-											<label class="form-label">เบอร์โทรศัพท์ผู้ติดต่อ</label>
-											<input class="form-control form-control-lg" type="text" name="cophone" placeholder="กรุณากรอกเบอร์โทรศัพท์ผู้ติดต่อ" />
-										</div>
-
-										<div class="text-center mt-3">
-											<button type="submit" name="singupoutside" class="btn btn-lg btn-primary">สมัครสมาชิก</button>
+										<div class="text-center mt-4">
+											<button type="submit" name="singupoutside" class="btn btn-lg btn-success">สมัครสมาชิก</button>
+                                            <td><a class='btn btn-lg btn-danger' href='oasign-in.php'>ย้อนกลับ</a></td>
 										</div>
 									</form>
 								</div>
@@ -106,7 +102,41 @@ session_start();
 	</main>
 
 
+	<script>
+                // Get the URL query parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const status = urlParams.get('status');
+                const msg = urlParams.get('msg');
 
+                // Check the status and display the SweetAlert message
+                if (status === 'success') {
+                    Swal.fire({
+                        title: 'ลงทะเบียนสำเร็จ',
+                        text: msg,
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-primary'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to order.php with success status and message
+                            const redirectURL = 'oasign-in.php';
+                            window.location.href = redirectURL;
+                        }
+                    });
+                } else if (status === 'error') {
+                    Swal.fire({
+                        title: 'ลงทะเบียนไม่สำเร็จ',
+                        text: msg,
+                        icon: 'error',
+                        confirmButtonClass: 'btn btn-primary'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to order.php with success status and message
+                            const redirectURL = 'outside_sign-up.php';
+                            window.location.href = redirectURL;
+                        }
+                    });
+                }
+            </script>
 	<script src="js/app.js"></script>
 
 </body>
