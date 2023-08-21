@@ -29,7 +29,7 @@ session_start();
 <body>
     <section class="ftco-section d-flex align-items-center mt-1">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center"></div>
                 <div class="col-md-6 text-center mt-5">
                     <h2 class="heading-section"></h2>
                     <div class="login-wrap p-0">
