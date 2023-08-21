@@ -19,6 +19,27 @@
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css" type="text/css">
+    <style>
+        
+
+        .pagination .page-link {
+            background-color: white;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: red;
+            /* เปลี่ยนเป็นสีแดง */
+            color: white;
+            /* เปลี่ยนสีตัวอักษร */
+            border-color: red;
+            /* เปลี่ยนสีเส้นขอบ */
+        }
+    </style>
 </head>
 
 <body>
@@ -33,7 +54,7 @@
         <main class="content">
 
             <div class="mt-3 text-center">
-                <h1>ข่าวสารประชาสัมพันธ์</h1>
+            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">ข่าวการประชาสัมพันธ์</div>
             </div>
 
             <?php
@@ -76,7 +97,6 @@
                 $total_records = $pagination_row['total'];
                 $total_pages = ceil($total_records / $limit);
 
-
                 echo '<ul class="pagination justify-content-center">';
                 if ($current_page > 1) {
                     echo '<li class="page-item">';
@@ -86,7 +106,8 @@
                     echo '</li>';
                 }
                 for ($i = 1; $i <= $total_pages; $i++) {
-                    echo '<li class="page-item ' . ($i === $current_page ? 'active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                    $active_class = ($i === $current_page) ? 'active' : '';
+                    echo '<li class="page-item ' . $active_class . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
                 }
                 if ($current_page < $total_pages) {
                     echo '<li class="page-item">';

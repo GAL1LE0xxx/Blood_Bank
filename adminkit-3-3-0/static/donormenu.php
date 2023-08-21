@@ -95,8 +95,8 @@ $user = $_SESSION['username'];
                                 </div>
                                 <div class="col d-flex justify-content-center">
                                     <a href="donor.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
-                                        <i class="fas fa-cogs square-icon"></i>
-                                        <span class="mt-3" style="font-size: larger;">ผู้บริจาค</span>
+                                        <i class="fas fa-solid fa-droplet square-icon"></i>
+                                        <span class="mt-3" style="font-size: larger;">บริจาคโลหิต</span>
                                     </a>
                                 </div>
                                 <div class="col d-flex justify-content-center">

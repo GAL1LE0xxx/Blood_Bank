@@ -58,6 +58,10 @@ $user = $_SESSION['username'];
                     </li>
                 </ul>
             </nav>
+
+            <div class="container">
+                
+            </div>
         </div>
     </div>
 

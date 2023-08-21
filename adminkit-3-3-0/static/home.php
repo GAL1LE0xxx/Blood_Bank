@@ -36,7 +36,6 @@ session_destroy();
 
         <div class="main">
 
-            </nav>
             <nav class="navbar navbar-expand navbar-light navbar-bg ">
                 <a href="home.php">
                     <img width="60" height="60" src="img\photos\logo.png" alt="logo">
@@ -95,9 +94,51 @@ session_destroy();
                     <div class="mt-4 d-flex justify-content-center align-items-center">
                         <div class="container">
                             <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">ข่าวการประชาสัมพันธ์</div>
-                            
+                            <?php
+                            include("connect.php");
+
+                            // คำนวณหน้าที่กำลังแสดงอยู่
+                            $limit = 3; // จำนวนรายการต่อหน้า
+                            $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                            $start_from = ($current_page - 1) * $limit;
+
+                            // ดึงข้อมูลจากฐานข้อมูลโดยใช้ LIMIT และ OFFSET
+                            $sql = "SELECT * FROM publicrelations ORDER BY pr_id DESC LIMIT $start_from, $limit";
+                            $result = mysqli_query($conn, $sql);
+
+                            echo '<div class="container mt-5">';
+                            echo '<div class="row">';
+
+                            // ตรวจสอบว่ามีข้อมูลหรือไม่
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<div class="col-md-4 col-sm-6 mb-4">';
+                                    echo '<div class="card">';
+                                    echo '<a href="admin/pr_topic.php?id=' . $row['pr_id'] . '">';
+                                    echo '<div class="image-container">';
+                                    echo '<img src="uploads/' . $row['pr_image'] . '" class="responsive-image" alt="Responsive Image" style="width: 100%; height: 360px; object-fit: cover;">';
+                                    echo '</div>';
+                                    echo '<div class="card-body">';
+                                    echo '<h5 class="text-center">' . $row['pr_topic'] . '</h5>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</a>';
+                                }
+                            }
+
+                            echo '</div>';
+                            echo '</div>';
+
+                            ?>
+                            <div class=" d-md-flex justify-content-md-center">
+                                <a class="btn btn-outline-danger btn-lg" href="admin/pr.php" role="button">ดูทั้งหมด</a>
+                            </div>
                         </div>
                     </div>
+                    <?php
+                    mysqli_close($conn);
+                    ?>
                     <!-- pr-->
 
                     <!-- ปริมาณเลือด -->
@@ -108,32 +149,6 @@ session_destroy();
                                 <div class="col">
                                     <div class="card h-60">
                                         <img width="696" height="1024" src="img\blood\a.png" class="card-img-top" alt="bloodA">
-                                        <div class="container">
-                                            <div class="">
-                                                <a class="button ">
-                                                    <span class="">
-                                                        <span ">ความต้องการโลหิต<br>
-                                                                <h4></h4>
-                                                                <span style=" font-size: 24px;">11,500</span>
-                                                        <span style="text-decoration-style: initial; text-decoration-color: initial;"><br>ยูนิต/เดือน</span>
-                                                    </span>
-                                                    </span>
-                                                </a>
-                                                <div class="">
-                                                    <div class="container">
-                                                        <div class="">
-                                                            <a class="">
-                                                                <span class="">
-                                                                    <span class="">โลหิตที่ได้รับ<br>
-                                                                        <h4>30%</h4>
-                                                                    </span>
-                                                                </span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
                                     </div>
                                 </div>
@@ -184,6 +199,7 @@ session_destroy();
                     </button>
                     <!-- ปุ่มกลับด้านบน -->
                 </div>
+
             </main>
         </div>
 
