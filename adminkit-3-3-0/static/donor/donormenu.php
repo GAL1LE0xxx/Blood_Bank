@@ -69,7 +69,7 @@ $user = $_SESSION['username'];
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="donorprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="logout.php">ออกจากระบบ</a>
+                            <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                         </div>
                     </li>
                 </ul>

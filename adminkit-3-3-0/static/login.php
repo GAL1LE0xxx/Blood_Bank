@@ -33,8 +33,9 @@ session_start();
                 <div class="col-md-6 text-center mt-5">
                     <h2 class="heading-section"></h2>
                     <div class="login-wrap p-0">
-                        <img src="uploads/logo1.png" alt="" width="200" height="200">
-
+                        <a href="home.php">
+                            <img src="uploads/logo1.png" alt="" width="200" height="200">
+                        </a>
                         <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือด โรงพยาบาลตรัง</h2>
                         <h2 class="mb-4 text-center">สำหรับเจ้าหน้าที่</h2>
 
