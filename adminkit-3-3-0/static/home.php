@@ -50,10 +50,10 @@ session_destroy();
                         <a class="btn btn-outline-light" href="admin/pr.php">ข่าวสาร</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="btn btn-outline-light" href="oasign-in.php">หน่วยงานภายนอก</a>
+                        <a class="btn btn-outline-light" href="outsideagency/oasign-in.php">หน่วยงานภายนอก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light" href="donorsign-in.php">ผู้บริจาค</a>
+                        <a class="btn btn-outline-light" href="donor/donorsign-in.php">ผู้บริจาค</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-outline-light" href="login.php">เจ้าหน้าที่</a>

@@ -1,5 +1,5 @@
 <?php
-include "connect.php";
+include "../connect.php";
 session_start();
 
 if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
@@ -21,10 +21,10 @@ $user = $_SESSION['username'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon.png" />
+    <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="css/app.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
@@ -57,8 +57,8 @@ $user = $_SESSION['username'];
     <div class="wrapper">
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg ">
-                <a href="home.php">
-                    <img width="60" height="60" src="img\photos\logo.png" alt="logo">
+                <a href="../home.php">
+                    <img width="60" height="60" src="../img\photos\logo.png" alt="logo">
                 </a>
                 <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
                 <ul class="navbar-nav navbar-align">
@@ -82,7 +82,7 @@ $user = $_SESSION['username'];
                         <div class="card-body">
                             <div class="row">
                                 <div class="col d-flex justify-content-center ">
-                                    <a href="home.php" class="btn btn btn-outline-danger btn-lg btn-block square-btn">
+                                    <a href="../home.php" class="btn btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-home square-icon"></i> 
                                         <span class="mt-3" style="font-size: larger;">หน้าหลัก</span>
                                     </a>

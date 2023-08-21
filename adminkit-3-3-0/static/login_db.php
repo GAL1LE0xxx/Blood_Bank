@@ -32,7 +32,7 @@ if (isset($_POST['login_user'])) {
         } elseif ($position == 1) {
             // Redirect to technicalmed page
             $successMessage = "เข้าสู่ระบบสำเร็จยินดีต้อนรับ $username";
-            header("location: member.php?status=success&msg=" . urlencode($successMessage));
+            header("location: officer/member.php?status=success&msg=" . urlencode($successMessage));
         }
     } else {
         $errorMessage = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";

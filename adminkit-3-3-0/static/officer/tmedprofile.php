@@ -1,5 +1,5 @@
 <?php
-include('connect.php');
+include('../connect.php');
 
 session_start();
 $id = $_SESSION['id'];
@@ -21,7 +21,7 @@ if ($position != '1') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>บัญชีผู้ใช้</title>
     <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -49,16 +49,11 @@ if ($position != '1') {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+                                <a class="dropdown-item" href="tmedprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout.php">Log out</a>
+                                <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                             </div>
                         </li>
-                    </ul>
                 </div>
             </nav>
             <main class="content">
@@ -90,7 +85,7 @@ if ($position != '1') {
 
                                                 <input class="form-control" name="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
 
-                                                <input class="form-control" name ="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
+                                                <input class="form-control" name="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
                                             </div>
                                             <!-- Form Group (organization name)-->
                                             <div class="col-md-6">
@@ -115,7 +110,7 @@ if ($position != '1') {
                                         <button type="submit" name="edit_tmedprofile" class="mt-3 btn btn-primary">บันทึก</button>
                                         <button type="cancel" name="cancel" class="mt-3 btn btn-danger">ยกเลิก</button>
 
-                                       
+
 
                                     </form>
                                 <?php } ?>
@@ -153,6 +148,7 @@ if ($position != '1') {
                     </div>
                 </div>
             </footer>
+            <script src="../js/app.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-include("connect.php");
+include("../connect.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -13,10 +13,10 @@ session_start();
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="uploads/logo1.png" />
+    <link rel="shortcut icon" href="../uploads/logo1.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
     <title>หน่วยงานภายนอก</title>
-    <link href="css/app.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
@@ -29,8 +29,9 @@ session_start();
                 <div class="col-md-6 text-center mt-5">
                     <h2 class="heading-section"></h2>
                     <div class="login-wrap p-0">
-                        <img src="uploads/logo1.png" alt="" width="200" height="200">
-
+                        <a href="../home.php">
+                            <img src="../uploads/logo1.png" alt="" width="200" height="200">
+                        </a>
                         <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือด โรงพยาบาลตรัง</h2>
                         <h2 class="mb-4 text-center">สำหรับหน่วยงานภายนอก</h2>
 

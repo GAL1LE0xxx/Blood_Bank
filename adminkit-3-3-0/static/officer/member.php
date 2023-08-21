@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
-    header("location: login.php"); // redirect ไปยังหน้า login.php
+    header("location: ../login.php"); // redirect ไปยังหน้า login.php
     exit;
 }
 
@@ -25,12 +25,12 @@ if ($position != '1') {
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>จัดการข้อมูลการสมัครสมาชิก</title>
 
-    <link href="css/app.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
@@ -40,7 +40,7 @@ if ($position != '1') {
     <div class="wrapper">
         <?php include "tmednav.php"; ?>
         <div class="main">
-            <nav class="navbar navbar-expand navbar-light navbar-bg">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
                 </a>
@@ -56,15 +56,12 @@ if ($position != '1') {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="tmedprofile.php"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+                                <a class="dropdown-item" href="tmedprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.php">Log out</a>
+                                <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                             </div>
                         </li>
+                </div>
             </nav>
 
             <main class="content">
@@ -103,7 +100,7 @@ if ($position != '1') {
                                         <tbody>
                                             <?php
                                             // Include the database connection file
-                                            include('connect.php');
+                                            include('../connect.php');
 
                                             // Fetch data from the database
                                             $sql = "SELECT * FROM donor";
@@ -196,7 +193,7 @@ if ($position != '1') {
                                         <tbody>
                                             <?php
                                             // Include the database connection file
-                                            include('connect.php');
+                                            include('../connect.php');
 
                                             // Fetch data from the database
                                             $sql = "SELECT * FROM outsideagency";
@@ -277,7 +274,7 @@ if ($position != '1') {
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="../js/app.js"></script>
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
@@ -313,7 +310,7 @@ if ($position != '1') {
             });
         }
     </script>
-    ?>
+
 
 
 </body>
