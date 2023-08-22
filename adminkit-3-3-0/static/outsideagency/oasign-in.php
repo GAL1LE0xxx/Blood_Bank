@@ -34,7 +34,6 @@ session_start();
                         </a>
                         <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือด โรงพยาบาลตรัง</h2>
                         <h2 class="mb-4 text-center">สำหรับหน่วยงานภายนอก</h2>
-
                     </div>
 
                 </div>

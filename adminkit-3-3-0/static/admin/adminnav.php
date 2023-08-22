@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
@@ -56,6 +55,11 @@
                         <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">อนุมัติข้อมูลการสมัครสมาชิก</span>
                     </a>
                 </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="booking_ap.php">
+                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">อนุมัติการจองคิว</span>
+                    </a>
+                
 
 
 

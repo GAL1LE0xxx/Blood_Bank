@@ -10,6 +10,7 @@ if (isset($_POST['add_officer'])) {
     $lastname = $_POST['oc_lastname'];
     $phonenumber = $_POST['oc_phonenumber'];
     $position = $_POST['oc_position'];
+    
     $sql = "SELECT * FROM officer WHERE oc_username = '$username'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);

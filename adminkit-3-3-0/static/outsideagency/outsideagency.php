@@ -8,7 +8,12 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
 }
 
 $user = $_SESSION['username'];
+$sql = "SELECT * FROM outsideagency WHERE oa_username = '$user'";
 
+$result = mysqli_query($conn, $sql);
+while ($row = mysqli_fetch_assoc($result)) {
+$id = $row['oa_id'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,11 +40,11 @@ $user = $_SESSION['username'];
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 
 </head>
-    
-    
-<body>  
-    <div class="wrapper">   
-    
+
+
+<body>
+    <div class="wrapper">
+
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg ">
                 <a href="../home.php">
@@ -47,17 +52,17 @@ $user = $_SESSION['username'];
                 </a>
                 <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
                 <ul class="navbar-nav navbar-align">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                                <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
-                            </div>
-                        </li>
-                    </ul> 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                            <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
+                        </div>
+                    </li>
+                </ul>
             </nav>
 
             <div class="container overflow-hidden mt-5 ">
@@ -67,32 +72,37 @@ $user = $_SESSION['username'];
                             <div class="mt-2">
                                 <h3>กรอกข้อมูลการจองคิว</h3>
                             </div>
+                            <input type="hidden" class="form-control form-control-lg" id="id" name="id" value="<?php echo $id ?>">
+                             
                             <div class="mb-3 mt-3">
                                 <label class="form-label">สถานที่ :</label>
-                                <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="สถานที่ที่ต้องการให้ตั้งหน่วยบริจาค">
-                            </div>
-
-                            <div class="mb-3 ">
-                                <label class="form-label">จำนวนผู้บริจาค :</label>
-                                <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="จำนวนผู้บริจาค">
+                                <input type="text" class="form-control form-control-lg" id="location" name="location" placeholder="สถานที่ที่ต้องการให้ตั้งหน่วยบริจาค" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">วันที่ต้องการจอง :</label>
-                                <input class="form-control form-control-lg" type="date" name="birthdate" placeholder="" />
+                                <label class="form-label">จำนวนผู้บริจาค :</label>
+                                <input type="text" class="form-control form-control-lg" id="numberdonor" name="numberdonor" placeholder="จำนวนผู้บริจาค" required>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">วันที่ต้องการจอง :</label>
+                                    <input class="form-control form-control-lg" type="date" name="bookingdate" placeholder="" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="bookingtime">ช่วงเวลา :</label>
+                                    <select class="form-select form-control-lg" aria-label="Default select example" name="bookingtime" required>
+                                        <option value="08.30 - 09.00 น." selected>08.30 - 09.00 น.</option>
+                                        <option value="09.00 - 10.00 น.">09.00 - 10.00 น.</option>
+                                        <option value="10.05 - 11.00 น.">10.05 - 11.00 น.</option>
+                                        <option value="11.05 - 12.00 น.">11.05 - 12.00 น.</option>
+                                        <option value="12.05 - 13.00 น.">12.05 - 13.00 น.</option>
+                                        <option value="13.05 - 14.00 น.">13.05 - 14.00 น.</option>
+                                        <option value="14.05 - 15.00 น.">14.05 - 15.00 น.</option>
+                                        <option value="15.05 - 15.30 น.">15.05 - 15.30 น.</option>
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="row mb-5">
-
-                                <div class="col">
-                                    <label class="form-label">ตั้งแต่ :</label>
-                                    <input type="time" class="form-control" placeholder="First name" aria-label="First name">
-                                </div>
-                                <div class="col">
-                                    <label class="form-label">ถึง :</label>
-                                    <input type="time" class="form-control" placeholder="Last name" aria-label="Last name">
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 <button type="submit" name="oabooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
@@ -116,7 +126,7 @@ $user = $_SESSION['username'];
         // Check the status and display the SweetAlert message
         if (status === 'success') {
             Swal.fire({
-                title: 'Success',
+                title: 'success',
                 text: msg,
                 icon: 'success',
                 confirmButtonClass: 'btn btn-primary'
@@ -129,7 +139,7 @@ $user = $_SESSION['username'];
             });
         } else if (status === 'error') {
             Swal.fire({
-                title: 'Error',
+                title: msg,
                 text: msg,
                 icon: 'error',
                 confirmButtonClass: 'btn btn-primary'
@@ -143,19 +153,47 @@ $user = $_SESSION['username'];
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'th', // ระบุให้ใช้ภาษาไทย
-                // ปรับแต่งสไตล์ของปฏิทิน
-                viewDidMount: function() {
-                    calendarEl.style.backgroundColor = '#FF0000'; // เปลี่ยนสีพื้นหลังเป็นสีแดง
-                }
-            });
-            calendar.render();
-        });
-    </script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'th',
+        timeZone: 'Asia/Bangkok',
+        initialView: 'dayGridMonth',
+        height: 500,
+        events: 'fetchEvents.php',
+
+        schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+        selectable: false,
+        eventContent: (info) => {
+            let html =
+                `<div class="p-2">
+                      <div class="d-flex">
+                              <i class="fa-solid fa-user pe-2"></i>
+                              <div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">ถูกจองแล้ว ` +
+                `</div>
+                  </div>`;
+            return {
+                html: html
+            };
+        },
+
+        dateClick: function(info) {
+                moment.locale('th');
+                var selectedDate = info.dateStr;
+                var formattedDate = moment(selectedDate).format("DD MMMM YYYY");
+                // Show the Form Modal
+                $('#formModal').modal('show');
+                // Set the selected date in the form
+                $('#exampleFormControlTextarea1').val(formattedDate);
+                $('#hidden').val(selectedDate);
+            },
+    });
+
+    calendar.render();
+});
+</script>
+
 
 
     <style>
@@ -164,11 +202,6 @@ $user = $_SESSION['username'];
             /* เปลี่ยนสีพื้นหลังเป็นสีแดง */
         }
     </style>
-
-
-
-
-
 
 
 </body>

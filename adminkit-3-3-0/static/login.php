@@ -29,42 +29,38 @@ session_start();
 <body>
     <section class="ftco-section d-flex align-items-center mt-1">
         <div class="container">
-            <div class="row justify-content-center"></div>
-                <div class="col-md-6 text-center mt-5">
-                    <h2 class="heading-section"></h2>
-                    <div class="login-wrap p-0">
-                        <a href="home.php">
-                            <img src="uploads/logo1.png" alt="" width="200" height="200">
-                        </a>
-                        <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือด โรงพยาบาลตรัง</h2>
-                        <h2 class="mb-4 text-center">สำหรับเจ้าหน้าที่</h2>
-
-                    </div>
-
+            <div class="row justify-content-center">
+            <div class="col-md-6 text-center mt-5">
+                <h2 class="heading-section"></h2>
+                <div class="login-wrap p-0">
+                    <a href="home.php">
+                        <img src="uploads/logo1.png" alt="" width="200" height="200">
+                    </a>
+                    <h2 class="mb-4 text-center mt-5">ระบบจัดการธนาคารเลือด โรงพยาบาลตรัง</h2>
+                    <h2 class="mb-4 text-center">สำหรับเจ้าหน้าที่</h2>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-
-                        <form class="form-floating" action="login_db.php" method="post">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้" require>
-                                <label for="floatingInput">ชื่อผู้ใช้</label>
-                            </div>
-                            <div class="form-floating">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน" require>
-                                <label for="floatingPassword">รหัสผ่าน</label>
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <button type="submit" name="login_user" class="form-control btn btn-danger btn-lg submit px-3">เข้าสู่ระบบ</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
 
             </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+
+                    <form class="form-floating" action="login_db.php" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้" require>
+                            <label for="floatingInput">ชื่อผู้ใช้</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน" require>
+                            <label for="floatingPassword">รหัสผ่าน</label>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <button type="submit" name="login_user" class="form-control btn btn-danger btn-lg submit px-3">เข้าสู่ระบบ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         </div>
     </section>

@@ -24,7 +24,7 @@ if(isset($_POST['outsidesignin'])){
             exit;
         }elseif($status == 1){
             $successMessage = "เข้าสู่ระบบสำเร็จยินดีต้อนรับ $username";
-            header("location: outsideagency.php?status=success&msg=" . urlencode($successMessage));
+            header("location: oamenu.php?status=success&msg=" . urlencode($successMessage));
             exit;
         }elseif($status == 2){
             $errorMessage ="คุณไม่ได้รับอนุมัติการสมัครสมาชิกจากเจ้าหน้าที่";
