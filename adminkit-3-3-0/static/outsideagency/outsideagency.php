@@ -12,7 +12,7 @@ $sql = "SELECT * FROM outsideagency WHERE oa_username = '$user'";
 
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
-$id = $row['oa_id'];
+    $id = $row['oa_id'];
 }
 ?>
 
@@ -66,6 +66,7 @@ $id = $row['oa_id'];
             </nav>
 
             <div class="container overflow-hidden mt-5 ">
+                <a class="btn btn-danger mt-3 mb-3" href="oamenu.php">ย้อนกลับ</a>
                 <div class="row gx-5">
                     <div class="col">
                         <form class="form-control" action="oabooking_db.php" method="post">
@@ -73,7 +74,7 @@ $id = $row['oa_id'];
                                 <h3>กรอกข้อมูลการจองคิว</h3>
                             </div>
                             <input type="hidden" class="form-control form-control-lg" id="id" name="id" value="<?php echo $id ?>">
-                             
+
                             <div class="mb-3 mt-3">
                                 <label class="form-label">สถานที่ :</label>
                                 <input type="text" class="form-control form-control-lg" id="location" name="location" placeholder="สถานที่ที่ต้องการให้ตั้งหน่วยบริจาค" required>
@@ -109,9 +110,8 @@ $id = $row['oa_id'];
                             </div>
                         </form>
                     </div>
-
-                    <div class="col">
-                        <div id='calendar' class="p-3 border bg-light"></div>
+                    <div class="card mt-3">
+                        <div id='calendar' class="p-3 border bg-light "></div>
                     </div>
                 </div>
             </div>
@@ -153,46 +153,46 @@ $id = $row['oa_id'];
         }
     </script>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        locale: 'th',
-        timeZone: 'Asia/Bangkok',
-        initialView: 'dayGridMonth',
-        height: 500,
-        events: 'fetchEvents.php',
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'th',
+                timeZone: 'Asia/Bangkok',
+                initialView: 'dayGridMonth',
+                height: 700,
+                events: 'fetchEvents.php',
 
-        schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-        selectable: false,
-        eventContent: (info) => {
-            let html =
-                `<div class="p-2">
+                schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+                selectable: false,
+                eventContent: (info) => {
+                    let html =
+                        `<div class="p-2">
                       <div class="d-flex">
                               <i class="fa-solid fa-user pe-2"></i>
                               <div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">ถูกจองแล้ว ` +
-                `</div>
+                        `</div>
                   </div>`;
-            return {
-                html: html
-            };
-        },
+                    return {
+                        html: html
+                    };
+                },
 
-        dateClick: function(info) {
-                moment.locale('th');
-                var selectedDate = info.dateStr;
-                var formattedDate = moment(selectedDate).format("DD MMMM YYYY");
-                // Show the Form Modal
-                $('#formModal').modal('show');
-                // Set the selected date in the form
-                $('#exampleFormControlTextarea1').val(formattedDate);
-                $('#hidden').val(selectedDate);
-            },
-    });
+                dateClick: function(info) {
+                    moment.locale('th');
+                    var selectedDate = info.dateStr;
+                    var formattedDate = moment(selectedDate).format("DD MMMM YYYY");
+                    // Show the Form Modal
+                    $('#formModal').modal('show');
+                    // Set the selected date in the form
+                    $('#exampleFormControlTextarea1').val(formattedDate);
+                    $('#hidden').val(selectedDate);
+                },
+            });
 
-    calendar.render();
-});
-</script>
+            calendar.render();
+        });
+    </script>
 
 
 

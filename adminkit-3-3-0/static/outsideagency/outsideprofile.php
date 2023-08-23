@@ -103,7 +103,7 @@ $result = mysqli_query($conn, $sql);
 
                                         </div>
                                         <button type="submit" class='btn btn-success' name="edit_oaprofile">ยืนยัน</button>
-                                        <td><a class='btn btn-danger' href='outsideagency.php'>ย้อนกลับ</a></td>
+                                        <td><a class='btn btn-danger' href='oamenu.php'>ย้อนกลับ</a></td>
                                     </form>
 
                                 <?php } ?>

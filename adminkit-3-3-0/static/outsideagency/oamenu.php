@@ -67,7 +67,7 @@ $user = $_SESSION['username'];
                             <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="donorprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
+                            <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                         </div>
@@ -95,14 +95,14 @@ $user = $_SESSION['username'];
                                 </div>
                                 <div class="col d-flex justify-content-center">
                                     <a href="outsideagency.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
-                                        <i class="fas fa-solid fa-calendar square-icon"></i>
+                                        <i class="fas fa-solid fa-calendar-plus square-icon"></i>
                                         <span class="mt-3" style="font-size: larger;">จองคิว</span>
                                     </a>
                                 </div>
                                 <div class="col d-flex justify-content-center">
-                                    <a href="contact.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
-                                        <i class="fas fa-envelope square-icon"></i>
-                                        <span class="mt-3" style="font-size: larger;">ติดต่อเรา</span>
+                                    <a href="booking_check.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
+                                        <i class="fas fa-calendar square-icon"></i>
+                                        <span class="mt-3" style="font-size: larger;">ตรวจสอบการจองคิว</span>
                                     </a>
                                 </div>
                             </div>

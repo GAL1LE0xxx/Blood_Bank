@@ -45,6 +45,12 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="member.php">
+                        <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">จัดการข้อมูลการจองคิว</span>
+                    </a>
+                </li>
+
 
 
                 <li class="sidebar-header">
