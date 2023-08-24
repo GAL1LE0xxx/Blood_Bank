@@ -62,10 +62,6 @@ if ($position !== '0') {
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../login.php">Log out</a>
                             </div>
@@ -88,8 +84,7 @@ if ($position !== '0') {
                                         <thead>
                                             <tr>
                                                 <th>ลำดับ</th>
-                                                <th>เริ่ม</th>
-                                                <th>จบ</th>
+                                                <th>วันที่จอง</th>
                                                 <th>เวลา</th>
                                                 <th>สถานที่</th>
                                                 <th>จำนวนผู้บริจาค</th>
@@ -128,7 +123,6 @@ if ($position !== '0') {
                                                     echo "<tr>";
                                                     echo "<td>" . $row["out_id"] . "</td>";
                                                     echo "<td>" . $row["out_start"] . "</td>";
-                                                    echo "<td>" . $row["out_end"] . "</td>";
                                                     echo "<td>" . $row["out_time"] . "</td>";
                                                     echo "<td>" . $row["out_location"] . "</td>";
                                                     echo "<td>" . $row["out_amount"] . "</td>";

@@ -113,6 +113,21 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="card mt-3">
                         <div id='calendar' class="p-3 border bg-light "></div>
                     </div>
+                    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eventModalLabel">Event Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="eventDetails"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,6 +167,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             });
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -162,9 +179,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                 initialView: 'dayGridMonth',
                 height: 700,
                 events: 'fetchEvents.php',
-
                 schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
                 selectable: false,
+
                 eventContent: (info) => {
                     let html =
                         `<div class="p-2">
@@ -177,16 +194,20 @@ while ($row = mysqli_fetch_assoc($result)) {
                         html: html
                     };
                 },
-
+                // dateClick event
                 dateClick: function(info) {
                     moment.locale('th');
-                    var selectedDate = info.dateStr;
-                    var formattedDate = moment(selectedDate).format("DD MMMM YYYY");
-                    // Show the Form Modal
-                    $('#formModal').modal('show');
-                    // Set the selected date in the form
-                    $('#exampleFormControlTextarea1').val(formattedDate);
-                    $('#hidden').val(selectedDate);
+
+                    var selectedDate = moment(info.date).format('DD MMMM YYYY');
+                    var eventDetails = selectedDate;
+
+
+                    // Update the event modal content
+                    document.getElementById('eventDetails').innerHTML = eventDetails;
+
+                    // Show the event modal
+                    $('#eventModal').modal('show');
+                    
                 },
             });
 
@@ -194,6 +215,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         });
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
     <style>

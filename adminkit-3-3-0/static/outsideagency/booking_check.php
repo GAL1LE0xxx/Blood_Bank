@@ -9,17 +9,17 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
 
 $user = $_SESSION['username'];
 
-if (isset($_POST['out_location'])) {
-    $searchKeyword = $_POST['out_location'];
+if (isset($_POST['out_start'])) {
+    $searchKeyword = $_POST['out_start'];
 
     // สร้างคำสั่ง SQL สำหรับการค้นหา
-    $sql = "SELECT * FROM outsiteservice WHERE out_location LIKE '%$searchKeyword%'";
+    $sql = "SELECT * FROM outsiteservice WHERE out_start LIKE '%$searchKeyword%'";
 
     // ประมวลผลคำสั่ง SQL
     $result = $conn->query($sql);
 }
 
-$searchKeyword = isset($_POST['out_location']) ? $_POST['out_location'] : '';
+$searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
 
 
 ?>
@@ -45,6 +45,8 @@ $searchKeyword = isset($_POST['out_location']) ? $_POST['out_location'] : '';
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3./dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 </head>
 
@@ -80,8 +82,8 @@ $searchKeyword = isset($_POST['out_location']) ? $_POST['out_location'] : '';
                             <div class="container mt-3">
                                 <form method="post" action="">
                                     <div class="mb-3">
-                                        <label for="out_location" class="form-label">กรอกสถานที่บริจาคของท่าน:</label>
-                                        <input type="text" class="form-control" name="out_location" value="<?php echo $searchKeyword ?>">
+                                        <label for="out_start" class="form-label">กรอกวันที่บริจาคของท่าน:</label>
+                                        <input type="text" class="form-control" name="out_start" value="<?php echo $searchKeyword ?>">
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-success">ค้นหา</button>
@@ -98,12 +100,12 @@ $searchKeyword = isset($_POST['out_location']) ? $_POST['out_location'] : '';
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>วันที่เริ่ม</th>
-                                                <th>วันที่เสร็จสิ้น</th>
+                                                <th>วันที่จอง</th>
                                                 <th>เวลา</th>
                                                 <th>สถานที่</th>
                                                 <th>จำนวนผู้บริจาค</th>
                                                 <th>ผลการอนุมัติ</th>
+                                                <th>ยกเลิก</th>
                                                 <!-- เพิ่มคอลัมน์ตามโครงสร้างของตาราง -->
                                             </tr>
                                         </thead>
@@ -112,8 +114,7 @@ $searchKeyword = isset($_POST['out_location']) ? $_POST['out_location'] : '';
                                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                                     <tr>
                                                         <td><?= $row["out_id"] ?></td>
-                                                        <td><?= $row["out_start"] ?></td>
-                                                        <td><?= $row["out_end"] ?></td>
+                                                        <td><?= date("d/m/Y", strtotime($row["out_start"])) ?></td>
                                                         <td><?= $row["out_time"] ?></td>
                                                         <td><?= $row["out_location"] ?></td>
                                                         <td><?= $row["out_amount"] ?></td>
@@ -126,6 +127,11 @@ $searchKeyword = isset($_POST['out_location']) ? $_POST['out_location'] : '';
                                                             echo "<td><span class=\"badge bg-danger\">ไม่อนุมัติ</span></td>";
                                                         }
                                                         ?>
+                                                        <td>
+                                                            <a class='btn btn-danger' href='booking_delete_db.php?did=<?php echo $row["out_id"]; ?>' onclick="return confirmDelete('<?php echo $row["out_id"]; ?>')">
+                                                                <i class='bi bi-trash'></i>
+                                                            </a>
+                                                        </td>
                                                         <!-- เพิ่มเติมคอลัมน์ตามโครงสร้างของตาราง -->
                                                     </tr>
                                                 <?php endwhile; ?>
@@ -178,10 +184,28 @@ $searchKeyword = isset($_POST['out_location']) ? $_POST['out_location'] : '';
     <script src="bootstrap.min.js"></script>
     <script>
         document.getElementById("clearBtn").addEventListener("click", function() {
-            document.getElementById("out_location").value = ""; // เคลียร์ค่าในช่องค้นหา
+            document.getElementById("out_start").value = ""; // เคลียร์ค่าในช่องค้นหา
         });
     </script>
-
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: "ข้อมูลนี้ไม่สามารถกู้คืนได้",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'ยืนยันการลบ',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'booking_delete_db.php?did=' + id;
+                }
+            });
+            return false; // ไม่เปิดลิงก์อื่น
+        }
+    </script>
 </body>
 
 </html>

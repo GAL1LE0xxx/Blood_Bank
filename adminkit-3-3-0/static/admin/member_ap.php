@@ -21,7 +21,7 @@ if (isset($_GET['logout'])) {
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>อนุมัติข้อมูลการสมัครสมาชิก</title>
@@ -75,14 +75,11 @@ if (isset($_GET['logout'])) {
                                         <thead>
                                             <tr>
                                                 <th>ลำดับ</th>
-                                                <th>ชื่อผู้ใช้</th>
                                                 <th>ชื่อ-สกุล</th>
-                                                <th>เลขประจำตำประชาชน</th>
                                                 <th>วันเกิด</th>
                                                 <th>เพศ</th>
                                                 <th>ที่อยู่</th>
                                                 <th>เบอร์โทรศัพท์</th>
-                                                <th>อาชีพ</th>
                                                 <th>สถานะ</th>
                                                 <th>อนุมัติ</th>
                                                 <th>ไม่อนุมัติ</th>
@@ -96,17 +93,16 @@ if (isset($_GET['logout'])) {
                                             include('../connect.php');
 
                                             // Fetch data from the database
-                                            $sql = "SELECT * FROM donor";
+                                            $sql = "SELECT * FROM donor ORDER BY dn_id DESC"; // เรียงข้อมูลตาม dn_id จากมากไปน้อย
                                             $result = mysqli_query($conn, $sql);
+                                            
+                                            $tid = 1;  // เริ่มต้นค่าของตัวแปรนับลำดับ
 
                                             if (mysqli_num_rows($result) > 0) {
-                                                // Output data of each row
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $row["dn_id"] . "</td>";
-                                                    echo "<td>" . $row["dn_username"] . "</td>";
+                                                    echo "<td>" . $tid . "</td>";
                                                     echo "<td>" . $row["dn_name"] . "</td>";
-                                                    echo "<td>" . $row["dn_persernalid"] . "</td>";
                                                     echo "<td>" . $row["dn_birthdate"] . "</td>";
 
                                                     if ($row["dn_gender"] == "0") {
@@ -118,8 +114,8 @@ if (isset($_GET['logout'])) {
                                                     }
                                                     echo "<td>" . $row["dn_address"] . "</td>";
                                                     echo "<td>" . $row["dn_phonenumber"] . "</td>";
-                                                    echo "<td>" . $row["dn_occupation"] . "</td>";
                                                    
+                                                    
                                                     if ($row["dn_status"] == "0") {
                                                         echo "<td><span class=\"badge bg-warning\">รออนุมัติ</span></td>";
                                                     } elseif ($row["dn_status"] == "1") {
@@ -127,9 +123,12 @@ if (isset($_GET['logout'])) {
                                                     } elseif ($row["dn_status"] == "2") {
                                                         echo "<td><span class=\"badge bg-danger\">ไม่อนุมัติ</span></td>";
                                                     }
+                                                   
+                                                    
                                                     echo "<td><a class='btn btn-success' href='status_update.php?id=" . $row["dn_id"] .  "'><i class='bi bi-check-circle'></i></a></td>";
                                                     echo "<td><a class='btn btn-danger' href='status_update.php?did=" . $row["dn_id"] . "'><i class='bi bi-x-circle'></i></a></td>";
                                                     echo "</tr>";
+                                                    $tid++;
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -162,9 +161,7 @@ if (isset($_GET['logout'])) {
                                         <thead>
                                             <tr>
                                                 <th>ลำดับ</th>
-                                                <th>ชื่อผู้ใช้</th>
                                                 <th>ชื่อหน่วยงาน</th>
-                                                <th>รายละเอียดหน่วยงาน</th>
                                                 <th>ที่อยู่หน่วยงาน</th>
                                                 <th>ชื่อผู้ประสานงาน</th>
                                                 <th>เบอร์โทรศัพท์ผู้ประสานงาน</th>
@@ -181,18 +178,17 @@ if (isset($_GET['logout'])) {
                                             // Include the database connection file
                                             include('../connect.php');
 
-                                            // Fetch data from the database
-                                            $sql = "SELECT * FROM outsideagency";
+                                            $sql = "SELECT * FROM outsideagency ORDER BY oa_id DESC"; // เรียงข้อมูลตาม dn_id จากมากไปน้อย
                                             $result = mysqli_query($conn, $sql);
+                                            
+                                            $tid = 1;  // เริ่มต้นค่าของตัวแปรนับลำดับ
 
                                             if (mysqli_num_rows($result) > 0) {
                                                 // Output data of each row
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $row["oa_id"] . "</td>";
-                                                    echo "<td>" . $row["oa_username"] . "</td>";
+                                                    echo "<td>" . $tid . "</td>";
                                                     echo "<td>" . $row["oa_name"] . "</td>";
-                                                    echo "<td>" . $row["oa_details"] . "</td>";
                                                     echo "<td>" . $row["oa_address"] . "</td>";
                                                     echo "<td>" . $row["oa_coname"] . "</td>";
                                                     echo "<td>" . $row["oa_cophone"] . "</td>";
@@ -208,6 +204,8 @@ if (isset($_GET['logout'])) {
                                                     echo "<td><a class='btn btn-danger' href='oastatus_update.php?did=" . $row["oa_id"] . "'><i class='bi bi-x-circle'></i></a></td>";
 
                                                     echo "</tr>";
+                                                    $tid++;
+
                                                 }
                                             } else {
                                                 echo "0 results";

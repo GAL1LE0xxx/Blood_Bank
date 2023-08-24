@@ -82,14 +82,10 @@ if ($position != '1') {
                                         <thead>
                                             <tr>
                                                 <th>ลำดับ</th>
-                                                <th>ชื่อผู้ใช้</th>
                                                 <th>ชื่อ-สกุล</th>
-                                                <th>เลขประจำตำประชาชน</th>
                                                 <th>วันเกิด</th>
-                                                <th>เพศ</th>
                                                 <th>ที่อยู่</th>
                                                 <th>เบอร์โทรศัพท์</th>
-                                                <th>อาชีพ</th>
                                                 <th>สถานะ</th>
                                                 <th>แก้ไข</th>
                                                 <th>ลบ</th>
@@ -103,30 +99,20 @@ if ($position != '1') {
                                             include('../connect.php');
 
                                             // Fetch data from the database
-                                            $sql = "SELECT * FROM donor";
+                                            $sql = "SELECT * FROM donor ORDER BY dn_id DESC"; // เรียงข้อมูลตาม dn_id จากมากไปน้อย
                                             $result = mysqli_query($conn, $sql);
-
+                                            
+                                            $tid = 1; // เริ่มต้นค่าของตัวแปรนับลำดับ
+                                            
                                             if (mysqli_num_rows($result) > 0) {
-                                                $tid = '1';
-                                                // Output data of each row
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
-                                                    echo "<td>" . $row["dn_username"] . "</td>";
                                                     echo "<td>" . $row["dn_name"] . "</td>";
-                                                    echo "<td>" . $row["dn_persernalid"] . "</td>";
                                                     echo "<td>" . $row["dn_birthdate"] . "</td>";
-
-                                                    if ($row["dn_gender"] == "0") {
-                                                        echo "<td>ชาย</td>";
-                                                    } elseif ($row["dn_gender"] == "1") {
-                                                        echo "<td>หญิง</td>";
-                                                    } else {
-                                                        echo "<td>Unknown</td>";
-                                                    }
+                        
                                                     echo "<td>" . $row["dn_address"] . "</td>";
                                                     echo "<td>" . $row["dn_phonenumber"] . "</td>";
-                                                    echo "<td>" . $row["dn_occupation"] . "</td>";
 
                                                     if ($row["dn_status"] == "0") {
                                                         echo "<td><span class=\"badge bg-warning\">รออนุมัติ</span></td>";
@@ -137,7 +123,7 @@ if ($position != '1') {
                                                     }
                                                     echo "<td><a class='btn btn-primary ' href='member_edit.php?id=" . $row["dn_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
 
-                                                    echo "<td><a class='btn btn-danger' href='member_delete_db?did=" . $row["dn_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
+                                                    echo "<td><a class='btn btn-danger' href='member_delete_db.php?did=" . $row["dn_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
                                                     echo "</tr>";
 
                                                     $tid++;
@@ -176,14 +162,11 @@ if ($position != '1') {
                                         <thead>
                                             <tr>
                                                 <th>ลำดับ</th>
-                                                <th>ชื่อผู้ใช้</th>
                                                 <th>ชื่อหน่วยงาน</th>
-                                                <th>รายละเอียดหน่วยงาน</th>
                                                 <th>ที่อยู่หน่วยงาน</th>
                                                 <th>ชื่อผู้ประสานงาน</th>
                                                 <th>เบอร์โทรศัพท์ผู้ประสานงาน</th>
                                                 <th>สถานะ</th>
-
                                                 <th>แก้ไข</th>
                                                 <th>ลบ</th>
                                                 <th></th>
@@ -196,18 +179,15 @@ if ($position != '1') {
                                             include('../connect.php');
 
                                             // Fetch data from the database
-                                            $sql = "SELECT * FROM outsideagency";
+                                            $sql = "SELECT * FROM outsideagency ORDER BY oa_id DESC"; // เรียงข้อมูลตาม dn_id จากมากไปน้อย
                                             $result = mysqli_query($conn, $sql);
-
+                                            
+                                            $tid = 1; // เริ่มต้นค่าของตัวแปรนับลำดับ
                                             if (mysqli_num_rows($result) > 0) {
-                                                // Output data of each row
-                                                $tid = '1';
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
-                                                    echo "<td>" . $row["oa_username"] . "</td>";
                                                     echo "<td>" . $row["oa_name"] . "</td>";
-                                                    echo "<td>" . $row["oa_details"] . "</td>";
                                                     echo "<td>" . $row["oa_address"] . "</td>";
                                                     echo "<td>" . $row["oa_coname"] . "</td>";
                                                     echo "<td>" . $row["oa_cophone"] . "</td>";
