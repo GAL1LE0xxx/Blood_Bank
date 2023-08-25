@@ -132,7 +132,7 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
                                                         ?>
                                                         <td>
                                                             <a class='btn btn-danger' href='booking_delete_db.php?did=<?php echo $row["out_id"]; ?>' onclick="return confirmDelete('<?php echo $row["out_id"]; ?>')">
-                                                                <i class='bi bi-trash'></i>
+                                                                <i class='bi bi-trash'>ยกเลิก</i>
                                                             </a>
                                                         </td>
                                                         <!-- เพิ่มเติมคอลัมน์ตามโครงสร้างของตาราง -->
