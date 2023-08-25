@@ -2,27 +2,29 @@
 include "../connect.php";
 session_start();
 
-if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
-    header("location: oasign-in.php"); // redirect ไปยังหน้า login.php
+if (!isset($_SESSION['username'])) {
+    header("location: oasign-in.php");
     exit;
 }
 
 $user = $_SESSION['username'];
+$logged_in_oa_id = $_SESSION['id'];  
 
 if (isset($_POST['out_start'])) {
     $searchKeyword = $_POST['out_start'];
 
-    // สร้างคำสั่ง SQL สำหรับการค้นหา
-    $sql = "SELECT * FROM outsiteservice WHERE out_start LIKE '%$searchKeyword%'";
+    // สร้างคำสั่ง SQL สำหรับการค้นหาข้อมูลจากทั้ง 2 ตาราง
+    $sql = "SELECT o.*, os.* FROM outsideagency o
+            INNER JOIN outsiteservice os ON o.oa_id = os.oa_id
+            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$logged_in_oa_id'";
 
     // ประมวลผลคำสั่ง SQL
     $result = $conn->query($sql);
 }
 
 $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +63,7 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                            <span class="text-dark"><?php echo $_SESSION['id']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
@@ -83,7 +85,7 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
                                 <form method="post" action="">
                                     <div class="mb-3">
                                         <label for="out_start" class="form-label">กรอกวันที่บริจาคของท่าน:</label>
-                                        <input type="text" class="form-control" name="out_start" value="<?php echo $searchKeyword ?>">
+                                        <input type="date" class="form-control" name="out_start" value="<?php echo $searchKeyword ?>">
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-success">ค้นหา</button>
@@ -110,10 +112,11 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $tid = 1; ?>
                                             <?php if ($result->num_rows > 0) : ?>
                                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                                     <tr>
-                                                        <td><?= $row["out_id"] ?></td>
+                                                        <td><?= $tid ?></td>
                                                         <td><?= date("d/m/Y", strtotime($row["out_start"])) ?></td>
                                                         <td><?= $row["out_time"] ?></td>
                                                         <td><?= $row["out_location"] ?></td>
@@ -134,6 +137,8 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
                                                         </td>
                                                         <!-- เพิ่มเติมคอลัมน์ตามโครงสร้างของตาราง -->
                                                     </tr>
+                                                    <?php $tid++; ?>
+
                                                 <?php endwhile; ?>
                                             <?php elseif (!empty($searchKeyword)) : ?>
                                                 <tr>
@@ -182,6 +187,41 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
         </div>
     </div>
     <script src="bootstrap.min.js"></script>
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
+
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'booking_check.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'booking_check.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
     <script>
         document.getElementById("clearBtn").addEventListener("click", function() {
             document.getElementById("out_start").value = ""; // เคลียร์ค่าในช่องค้นหา
