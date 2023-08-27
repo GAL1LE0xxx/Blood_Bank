@@ -13,7 +13,7 @@ $result = mysqli_query($conn, $sql);
 if ($position != '0') {
     header("Location: ../logout.php");
     exit; // จบการทำงานของสคริปต์ทันทีหลังจาก redirect
-}   
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,12 +52,8 @@ if ($position != '0') {
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../login.php">Log out</a>
+                                <a class="dropdown-item" href="../logout.php">Log out</a>
                             </div>
                         </li>
                     </ul>
@@ -82,24 +78,24 @@ if ($position != '0') {
                                         <!-- Form Row-->
                                         <div class="row gx-3 mb-3">
                                             <!-- Form Group (first name)-->
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 mb-3">
                                                 <label class="text mb-1" for="firstname">ชื่อ</label>
                                                 <input class="form-control" name="firstname" type="text" value="<?php echo $row['oc_firstname'] ?>">
                                             </div>
                                             <!-- Form Group (last name)-->
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 mb-3">
                                                 <label class="text mb-1" for="lastname">สกุล</label>
 
                                                 <input class="form-control" name="lastname" type="text" value="<?php echo $row['oc_lastname'] ?>">
 
                                             </div>
                                             <!-- Form Group (organization name)-->
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 mb-3">
                                                 <label class="text mb-1" for="phonenumber">เบอร์โทรศัพท์</label>
                                                 <input class="form-control" name="phonenumber" type="text" value="<?php echo $row['oc_phonenumber'] ?>">
                                             </div>
                                             <!-- Form Group (location)-->
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 mb-3 ">
                                                 <label class="text mb-1" for="position">ตำแหน่ง</label>
                                                 <input class="form-control" name="position" type="text" value="<?php if ($row['oc_position'] == "0") {
                                                                                                                     echo "แอดมิน";
@@ -112,7 +108,7 @@ if ($position != '0') {
                                         </div>
 
                                         <!-- Save changes button-->
-                                        <button type="submit" name="edit_oaprofile" class="mt-3 btn btn-primary">บันทึก</button>
+                                        <button type="submit" name="edit_adminprofile" class="mt-3 btn btn-primary">บันทึก</button>
                                         <button type="cancel" name="cancel" class="mt-3 btn btn-danger">ย้อนกลับ</button>
 
                                     </form>
@@ -151,34 +147,41 @@ if ($position != '0') {
                     </div>
                 </div>
             </footer>
-            <?php
-            if (isset($_GET['status']) && isset($_GET['msg'])) {
-                $status = $_GET['status'];
-                $message = $_GET['msg'];
+            <script>
+                // Get the URL query parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const status = urlParams.get('status');
+                const msg = urlParams.get('msg');
 
-                if ($status === 'success') {
-                    echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'สำเร็จ!',
-                    text: '$message',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-              </script>";
-                } elseif ($status === 'error') {
-                    echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'เกิดข้อผิดพลาด!',
-                    text: '$message',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-              </script>";
+                // Check the status and display the SweetAlert message
+                if (status === 'success') {
+                    Swal.fire({
+                        title: 'Success',
+                        text: msg,
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-primary'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to order.php with success status and message
+                            const redirectURL = 'adminprofile.php';
+                            window.location.href = redirectURL;
+                        }
+                    });
+                } else if (status === 'error') {
+                    Swal.fire({
+                        title: 'Error',
+                        text: msg,
+                        icon: 'error',
+                        confirmButtonClass: 'btn btn-primary'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to order.php with success status and message
+                            const redirectURL = 'adminprofile.php';
+                            window.location.href = redirectURL;
+                        }
+                    });
                 }
-            }
-            ?>
+            </script>
 </body>
 
 </html>

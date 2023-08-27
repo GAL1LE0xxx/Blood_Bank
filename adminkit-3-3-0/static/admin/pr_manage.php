@@ -21,7 +21,7 @@ if (isset($_GET['logout'])) {
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>จัดการข้อมูลประชาสัมพันธ์</title>
@@ -29,6 +29,10 @@ if (isset($_GET['logout'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 </head>
 
 <body>
@@ -51,13 +55,9 @@ if (isset($_GET['logout'])) {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+                                <a class="dropdown-item" href="adminprofile.html"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../login.php">Log out</a>
+                                <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                             </div>
                         </li>
             </nav>
@@ -72,7 +72,7 @@ if (isset($_GET['logout'])) {
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table class="table table-hover my-0">
+                                    <table id="myTable" class="table table-hover my-0">
                                         <thead>
                                             <tr>
                                                 <th>ลำดับที่</th>
@@ -90,18 +90,13 @@ if (isset($_GET['logout'])) {
                                             // เชื่อมต่อ database
                                             include('../connect.php');
 
-                                            // Pagination settings
-                                            $records_per_page = 10; // Number of records to display per page
-                                            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                                            $start_from = ($current_page - 1) * $records_per_page;
-
-                                            // ดึงข้อมูลจาก database โดยใช้ LIMIT เพื่อแบ่งหน้า
-                                            $sql = "SELECT * FROM publicrelations ORDER BY pr_date DESC LIMIT $start_from, $records_per_page";
+                                            // ดึงข้อมูลจาก database โดยใช้ LIMIT เพื่อแบ่งหน้าและเรียงลำดับ
+                                            $sql = "SELECT * FROM publicrelations ORDER BY pr_date DESC";
                                             $result = mysqli_query($conn, $sql);
 
-
                                             if (mysqli_num_rows($result) > 0) {
-                                                $tid = ($current_page - 1) * $records_per_page + 1;
+                                                $tid = '1';
+
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
@@ -118,48 +113,13 @@ if (isset($_GET['logout'])) {
                                                 echo "<tr><td colspan='7'>0 results</td></tr>";
                                             }
 
-                                            // หาจำนวนหน้าทั้งหมดเพื่อสร้าง navigation links
-                                            $sql_total = "SELECT COUNT(*) AS total_records FROM publicrelations";
-                                            $result_total = mysqli_query($conn, $sql_total);
-                                            $row_total = mysqli_fetch_assoc($result_total);
-                                            $total_records = $row_total['total_records'];
-                                            $total_pages = ceil($total_records / $records_per_page);
-
-                                            // ปิด database
                                             mysqli_close($conn);
                                             ?>
+
 
                                         </tbody>
                                     </table>
 
-                                    <!-- Add the pagination links below the table using Bootstrap -->
-                                    <div class="mt-3">
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination justify-content-center">
-                                                <?php if ($current_page > 1) : ?>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page=<?php echo $current_page - 1; ?>" aria-label="ก่อนหน้า">
-                                                            <span aria-hidden="true">ก่อนหน้า</span>
-                                                        </a>
-                                                    </li>
-                                                <?php endif; ?>
-
-                                                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                                    <li class="page-item <?php echo $i == $current_page ? 'active' : ''; ?>">
-                                                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                                                    </li>
-                                                <?php endfor; ?>
-
-                                                <?php if ($current_page < $total_pages) : ?>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page=<?php echo $current_page + 1; ?>" aria-label="ต่อไป">
-                                                            <span aria-hidden="true">ต่อไป</span>
-                                                        </a>
-                                                    </li>
-                                                <?php endif; ?>
-                                            </ul>
-                                        </nav>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -199,9 +159,49 @@ if (isset($_GET['logout'])) {
             </footer>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
     <script src="../js/app.js"></script>
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
 
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'officer.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'officer.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
 
 </body>
 

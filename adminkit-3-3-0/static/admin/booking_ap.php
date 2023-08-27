@@ -39,6 +39,8 @@ if ($position !== '0') {
     <title>อนุมัติข้อมูลการสมัครสมาชิก</title>
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 </head>
 
 <body>
@@ -80,7 +82,8 @@ if ($position !== '0') {
                             <div class="card flex-fill">
 
                                 <div class="table-responsive">
-                                    <table class="table table-hover my-0 ">
+                                    <table id="myTable" class="table table-hover my-0 ">
+
                                         <thead>
                                             <tr>
                                                 <th>ลำดับ</th>
@@ -91,12 +94,8 @@ if ($position !== '0') {
                                                 <th>ผู้จอง</th>
                                                 <th>สถานะ</th>
                                                 <th>อนุมัติโดย</th>
-
-
-
                                                 <th>อนุมัติ</th>
                                                 <th>ไม่อนุมัติ</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
 
@@ -118,15 +117,17 @@ if ($position !== '0') {
                                             $result = mysqli_query($conn, $sql);
 
                                             if (mysqli_num_rows($result) > 0) {
+                                                $tid = '1';
+
                                                 // Output data of each row
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $row["out_id"] . "</td>";
+                                                    echo "<td>" . $tid . "</td>";
                                                     echo "<td>" . $row["out_start"] . "</td>";
                                                     echo "<td>" . $row["out_time"] . "</td>";
                                                     echo "<td>" . $row["out_location"] . "</td>";
                                                     echo "<td>" . $row["out_amount"] . "</td>";
-                                                    echo "<td>" . $row["oa_username"] . "</td>";
+                                                    echo "<td>" . $row["oa_name"] . "</td>";
 
                                                     if ($row["out_approval"] == "0") {
                                                         echo "<td><span class=\"badge bg-warning\">รออนุมัติ</span></td>";
@@ -145,6 +146,7 @@ if ($position !== '0') {
 
 
                                                     echo "</tr>";
+                                                    $tid++;
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -198,6 +200,13 @@ if ($position !== '0') {
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
     <script src="js/app.js"></script>
 
 

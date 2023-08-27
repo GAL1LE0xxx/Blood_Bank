@@ -8,11 +8,14 @@ if (isset($_POST['edit_specificblood'])) {
 
     $sql = "UPDATE specificblood SET sb_information='$sbblood' WHERE sb_id = '$id'";
     if (mysqli_query($conn, $sql)) {
-        $_SESSION['success'] = "แก้ไขข้อมูลสำเร็จ";
+        $successMessage = "แก้ไขข้อมูลสำเร็จ";
+        header("Location: blood.php?status=success&msg=" . urlencode($successMessage));
+        exit();
     } else {
-        $_SESSION['errors'] = "แก้ไขข้อมูลไม่สำเร็จ";
+        $errorMessage = "แก้ไขข้อมูลไม่สำเร็จ";
+        header("Location: blood.php?status=error&msg=" . urlencode($errorMessage));
+        exit();
     }
 }
 mysqli_close($conn);
 header('location: blood.php');
-?>

@@ -103,13 +103,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                                     </select>
                                 </div>
                             </div>
-
-
                             <div class="form-group">
                                 <button type="submit" name="oabooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
                             </div>
                         </form>
                     </div>
+                    
                     <div class="card mt-3">
                         <div id='calendar' class="p-3 border bg-light "></div>
                     </div>
@@ -207,7 +206,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                     // Show the event modal
                     $('#eventModal').modal('show');
-                    
+
                 },
             });
 

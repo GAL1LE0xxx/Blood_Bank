@@ -27,11 +27,14 @@ if (isset($_GET['logout'])) {
     <title>อนุมัติข้อมูลการสมัครสมาชิก</title>
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+
 </head>
 
 <body>
     <div class="wrapper">
-    <?php include "adminnav.php"; ?>
+        <?php include "adminnav.php"; ?>
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
@@ -61,103 +64,102 @@ if (isset($_GET['logout'])) {
             </nav>
 
             <main class="content">
-                <!-- อนุมัติข้อมูลผู้บริจาค -->
-                <div class="container-fluid p-0">
+                <ul class="nav nav-tabs" id="pills-tab" role="tablist">
+                    <li class="nav-item " role="presentation">
+                        <button class="nav-link active bg-light" id="donor-tab" data-bs-toggle="tab" data-bs-target="#donor" type="button" role="tab" aria-controls="donor" aria-selected="true">ผู้บริจาค</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link bg-light" id="outsideagency-tab" data-bs-toggle="tab" data-bs-target="#outsideagency" type="button" role="tab" aria-controls="outsideagency" aria-selected="false">หน่วยงานภายนอก</button>
+                    </li>
 
-                    <h1 class="h3 mb-3"><strong>อนุมัติข้อมูลผู้บริจาค</strong> </h1>
+                </ul>
+                <div class="tab-content " id="myTabContent">
+                    <div class="tab-pane fade show active " id="donor" role="tabpanel" aria-labelledby="donor-tab">
+                        <!-- อนุมัติข้อมูลผู้บริจาค -->
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-12 col-lg-15 col-xxl- d-flex">
+                                    <div class="card flex-fill">
+                                        <div class="table-responsive">
+                                            <table id="myTable" class="table table-hover my-0 ">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ลำดับ</th>
+                                                        <th>ชื่อ-สกุล</th>
+                                                        <th>วันเกิด</th>
+                                                        <th>เพศ</th>
+                                                        <th>ที่อยู่</th>
+                                                        <th>เบอร์โทรศัพท์</th>
+                                                        <th>สถานะ</th>
+                                                        <th>อนุมัติ</th>
+                                                        <th>ไม่อนุมัติ</th>
+                                                    </tr>
+                                                </thead>
 
-                    <div class="row">
-                        <div class="col-12 col-lg-15 col-xxl- d-flex">
-                            <div class="card flex-fill">
+                                                <tbody>
+                                                    <?php
+                                                    // Include the database connection file
+                                                    include('../connect.php');
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover my-0 ">
-                                        <thead>
-                                            <tr>
-                                                <th>ลำดับ</th>
-                                                <th>ชื่อ-สกุล</th>
-                                                <th>วันเกิด</th>
-                                                <th>เพศ</th>
-                                                <th>ที่อยู่</th>
-                                                <th>เบอร์โทรศัพท์</th>
-                                                <th>สถานะ</th>
-                                                <th>อนุมัติ</th>
-                                                <th>ไม่อนุมัติ</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
+                                                    // Fetch data from the database
+                                                    $sql = "SELECT * FROM donor ORDER BY dn_id DESC"; // เรียงข้อมูลตาม dn_id จากมากไปน้อย
+                                                    $result = mysqli_query($conn, $sql);
+                                                    $tid = 1;  // เริ่มต้นค่าของตัวแปรนับลำดับ
+                                                    if (mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            echo "<tr>";
+                                                            echo "<td>" . $tid . "</td>";
+                                                            echo "<td>" . $row["dn_name"] . "</td>";
+                                                            echo "<td>" . $row["dn_birthdate"] . "</td>";
 
-                                        <tbody>
-                                            <?php
-                                            // Include the database connection file
-                                            include('../connect.php');
-
-                                            // Fetch data from the database
-                                            $sql = "SELECT * FROM donor ORDER BY dn_id DESC"; // เรียงข้อมูลตาม dn_id จากมากไปน้อย
-                                            $result = mysqli_query($conn, $sql);
-                                            
-                                            $tid = 1;  // เริ่มต้นค่าของตัวแปรนับลำดับ
-
-                                            if (mysqli_num_rows($result) > 0) {
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $tid . "</td>";
-                                                    echo "<td>" . $row["dn_name"] . "</td>";
-                                                    echo "<td>" . $row["dn_birthdate"] . "</td>";
-
-                                                    if ($row["dn_gender"] == "0") {
-                                                        echo "<td>ชาย</td>";
-                                                    } elseif ($row["dn_gender"] == "1") {
-                                                        echo "<td>หญิง</td>";
+                                                            if ($row["dn_gender"] == "0") {
+                                                                echo "<td>ชาย</td>";
+                                                            } elseif ($row["dn_gender"] == "1") {
+                                                                echo "<td>หญิง</td>";
+                                                            } else {
+                                                                echo "<td>Unknown</td>";
+                                                            }
+                                                            echo "<td>" . $row["dn_address"] . "</td>";
+                                                            echo "<td>" . $row["dn_phonenumber"] . "</td>";
+                                                            if ($row["dn_status"] == "0") {
+                                                                echo "<td><span class=\"badge bg-warning\">รออนุมัติ</span></td>";
+                                                            } elseif ($row["dn_status"] == "1") {
+                                                                echo "<td><span class=\"badge bg-success\">อนุมัติ</span></td>";;
+                                                            } elseif ($row["dn_status"] == "2") {
+                                                                echo "<td><span class=\"badge bg-danger\">ไม่อนุมัติ</span></td>";
+                                                            }
+                                                            echo "<td><a class='btn btn-success' href='status_update.php?id=" . $row["dn_id"] .  "'><i class='bi bi-check-circle'></i></a></td>";
+                                                            echo "<td><a class='btn btn-danger' href='status_update.php?did=" . $row["dn_id"] . "'><i class='bi bi-x-circle'></i></a></td>";
+                                                            echo "</tr>";
+                                                            $tid++;
+                                                        }
                                                     } else {
-                                                        echo "<td>Unknown</td>";
+                                                        echo "0 results";
                                                     }
-                                                    echo "<td>" . $row["dn_address"] . "</td>";
-                                                    echo "<td>" . $row["dn_phonenumber"] . "</td>";
-                                                   
-                                                    
-                                                    if ($row["dn_status"] == "0") {
-                                                        echo "<td><span class=\"badge bg-warning\">รออนุมัติ</span></td>";
-                                                    } elseif ($row["dn_status"] == "1") {
-                                                        echo "<td><span class=\"badge bg-success\">อนุมัติ</span></td>";;
-                                                    } elseif ($row["dn_status"] == "2") {
-                                                        echo "<td><span class=\"badge bg-danger\">ไม่อนุมัติ</span></td>";
-                                                    }
-                                                   
-                                                    
-                                                    echo "<td><a class='btn btn-success' href='status_update.php?id=" . $row["dn_id"] .  "'><i class='bi bi-check-circle'></i></a></td>";
-                                                    echo "<td><a class='btn btn-danger' href='status_update.php?did=" . $row["dn_id"] . "'><i class='bi bi-x-circle'></i></a></td>";
-                                                    echo "</tr>";
-                                                    $tid++;
-                                                }
-                                            } else {
-                                                echo "0 results";
-                                            }
 
-                                            // Close the database connection
-                                            mysqli_close($conn);
-                                            ?>
-                                        </tbody>
+                                                    // Close the database connection
+                                                    mysqli_close($conn);
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- อนุมัติข้อมูลผู้บริจาค -->
 
+            <!-- อนุมัติข้อมูลผู้บริจาค -->
+            <div class="tab-pane fade" id="outsideagency" role="tabpanel" aria-labelledby="outsideagency-tab">
                 <!-- อนุมัติข้อมูลผู้หน่วยงานภายนอก -->
                 <div class="container-fluid p-0">
-
-                    <h1 class="h3 mb-3"><strong>อนุมัติข้อมูลหน่วยงานภายนอก</strong> </h1>
-
                     <div class="row">
                         <div class="col-12 col-lg-15 col-xxl- d-flex">
                             <div class="card flex-fill">
-
                                 <div class="table-responsive">
-                                    <table class="table table-hover my-0 ">
+                                    <table id="myTable2" class="table table-hover my-0 ">
                                         <thead>
                                             <tr>
                                                 <th>ลำดับ</th>
@@ -166,10 +168,8 @@ if (isset($_GET['logout'])) {
                                                 <th>ชื่อผู้ประสานงาน</th>
                                                 <th>เบอร์โทรศัพท์ผู้ประสานงาน</th>
                                                 <th>สถานะ</th>
-
                                                 <th>อนุมัติ</th>
                                                 <th>ไม่อนุมัติ</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
 
@@ -180,7 +180,7 @@ if (isset($_GET['logout'])) {
 
                                             $sql = "SELECT * FROM outsideagency ORDER BY oa_id DESC"; // เรียงข้อมูลตาม dn_id จากมากไปน้อย
                                             $result = mysqli_query($conn, $sql);
-                                            
+
                                             $tid = 1;  // เริ่มต้นค่าของตัวแปรนับลำดับ
 
                                             if (mysqli_num_rows($result) > 0) {
@@ -205,7 +205,6 @@ if (isset($_GET['logout'])) {
 
                                                     echo "</tr>";
                                                     $tid++;
-
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -215,14 +214,14 @@ if (isset($_GET['logout'])) {
                                             mysqli_close($conn);
                                             ?>
                                         </tbody>
+                                    </table>
                                 </div>
-                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- อนุมัติข้อมูลผู้หน่วยงานภายนอก -->
+            </div>
+            <!-- อนุมัติข้อมูลผู้หน่วยงานภายนอก -->
             </main>
 
             <footer class="footer">
@@ -254,6 +253,18 @@ if (isset($_GET['logout'])) {
             </footer>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable2').DataTable();
+        });
+    </script>
 
     <script src="js/app.js"></script>
 

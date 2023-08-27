@@ -15,7 +15,9 @@ if ($position != '0') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 </html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,6 +36,7 @@ if ($position != '0') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -79,7 +82,7 @@ if ($position != '0') {
                                         เพิ่มผู้ใช้</a>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover my-0 ">
+                                    <table id="myTable" class="table table-hover my-0 ">
                                         <thead>
                                             <tr>
                                                 <th>ลำดับที่</th>
@@ -108,7 +111,6 @@ if ($position != '0') {
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $tid . "</td>";
-                                                    echo "<td class = 'd-none'>" . $row["oc_id"] . "</td>";
                                                     echo "<td>" . $row["oc_username"] . "</td>";
                                                     echo "<td>" . $row["oc_firstname"] . "</td>";
                                                     echo "<td>" . $row["oc_lastname"] . "</td>";
@@ -136,8 +138,8 @@ if ($position != '0') {
                                             mysqli_close($conn);
                                             ?>
                                         </tbody>
+                                    </table>
                                 </div>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -177,7 +179,15 @@ if ($position != '0') {
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
     <script src="js/app.js"></script>
+    
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
