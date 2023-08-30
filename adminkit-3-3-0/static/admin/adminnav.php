@@ -17,7 +17,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center flex-column" href="../home.php">
-            <img width="60" height="60" src="..\img\photos\logo.png" alt="logo">
+                <img width="60" height="60" src="..\img\photos\logo.png" alt="logo">
                 <span class="align-middle">ธนาคารเลือด</span>
                 <span class="align-middle">โรงพยาบาลตรัง</span>
             </a>
@@ -55,12 +55,6 @@
                         <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">อนุมัติข้อมูลการสมัครสมาชิก</span>
                     </a>
                 </li>
-                <li class="sidebar-item ">
-                    <a class="sidebar-link" href="booking_ap.php">
-                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">อนุมัติการจองคิว</span>
-                    </a>
-                
-
 
 
                 <li class="sidebar-header">

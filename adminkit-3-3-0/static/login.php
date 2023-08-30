@@ -91,7 +91,7 @@ session_start();
             });
         } else if (status === 'error') {
             Swal.fire({
-                title: 'Error',
+                title: 'ผิดพลาด',
                 text: msg,
                 icon: 'error',
                 confirmButtonClass: 'btn btn-primary'

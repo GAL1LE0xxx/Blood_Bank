@@ -46,12 +46,16 @@
                 </li>
 
                 <li class="sidebar-item ">
-                    <a class="sidebar-link" href="member.php">
-                        <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">จัดการข้อมูลการจองคิว</span>
+                    <a class="sidebar-link" href="booking_ap.php">
+                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">อนุมัติการจองคิว</span>
                     </a>
                 </li>
 
-
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="blooddonate.php">
+                        <i class="align-middle" data-feather="droplet"></i> <span class="align-middle">จัดการข้อมูลการบริจาคโลหิต</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-header">
                     รายงาน
@@ -81,11 +85,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle"></span>
-                    </a>
-                </li>
+                
             </ul>
         </div>
     </nav>

@@ -1,12 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("location: login.php");
+if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
+    header("location: ../login.php"); // redirect ไปยังหน้า login.php
+    exit;
 }
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header("location: login.php");
+
+$user = $_SESSION['username'];
+$position = $_SESSION['position'];
+if ($position != '1') {
+    echo '<script>alert("สำหรับเจ้าหน้าที่เท่านั้น");window.location="../home.php";</script>';
+    exit;
 }
 ?>
 
@@ -25,7 +28,7 @@ if (isset($_GET['logout'])) {
     <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <title>จัดการข้อมูลการสมัครสมาชิก</title>
+    <title>จัดการข้อมูลการบริจาคเฉพาะส่วน</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
     <link href="../css/app.css" rel="stylesheet">
@@ -70,71 +73,29 @@ if (isset($_GET['logout'])) {
                                     <tbody>
                                         <div class="contentdata ">
                                             <div class="m-sm-4">
-                                                <h1 class="h3 mb-3 text"><strong>เพิ่มข้อมูลผู้บริจาค</strong> </h1>
+                                                <h1 class="h3 mb-3 text"><strong>เพิ่มข้อมูลการบริจาคโลหิตเฉพาะส่วน</strong> </h1>
                                             </div>
                                             <div class="m-sm-4">
-                                                <form action="member_add_db.php" method="post">
+                                                <form action="sdonate_add_db.php" method="post">
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="username">ชื่อผู้ใช้</label>
-                                                            <input class="form-control" name="username" type="text" placeholder="กรุณากรอกชื่อผู้ใช้">
+                                                            <label class="text mb-1" for="donorid">รหัสผู้่บริจาค</label>
+                                                            <input class="form-control" name="donorid" type="text" placeholder="กรุณากรอกรหัสผู้บริจาค">
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="name">ชื่อ-สกุล</label>
-                                                            <input class="form-control" name="name" type="text" placeholder="กรุณากรอกชื่อและนามสกุล">
+                                                            <label class="text mb-1" for="donateday">วันที่บริจาค</label>
+                                                            <input class="form-control" name="donateday" type="date">
                                                         </div>
                                                     </div>
-
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="password">รหัสผ่าน</label>
-                                                            <input class="form-control" name="password" type="password" placeholder="กรุณากรอกรหัสผ่าน">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="text mb-1" for="c_password">ยืนยันรหัสผ่าน</label>
-                                                            <input class="form-control" name="c_password" type="password" placeholder="กรุณายืนยันรหัสผ่าน">
+                                                            <label class="text mb-1" for="amount">บริมาณโลหิต</label>
+                                                            <input class="form-control" name="amount" type="text" placeholder="กรุณากรอกบริมาณโลหิต">
                                                         </div>
                                                     </div>
 
-                                                    <div class="row gx-3 mb-3">
-                                                        <div class="col-md-6">
-                                                            <label class="text mb-1" for="persernalid">เลขประจำตัวประชาชน</label>
-                                                            <input class="form-control" name="persernalid" type="text" placeholder="กรุณากรอกเลขประจำตัวประชาชน">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="text mb-1" for="email">อีเมล</label>
-                                                            <input class="form-control" name="email" type="email" placeholder="กรุณากรอกอีเมล">
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="mb-3">
-                                                        <label class="form-label">ที่อยู่</label>
-                                                        <input class="form-control form-control-lg" type="text" name="address" placeholder="กรุณากรอกที่อยู่" />
-                                                    </div>
-
-                                                    <div class="row gx-3 mb-3">
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">เบอร์โทรศัพท์</label>
-                                                            <input class="form-control form-control-lg" type="text" name="phonenumber" placeholder="กรุณากรอกเบอร์โทรศัพท์" />
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label" for="gender">เพศ</label>
-                                                            <select class="form-select form-select-lg" id="floatingSelect" aria-label="Floating label select example" name="gender">
-                                                                <option selected>กรุณาเลือกเพศของท่าน</option>
-                                                                <option value="0">ชาย</option>
-                                                                <option value="1">หญิง</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label class="form-label">วัน/เดือน/ปี เกิด</label>
-                                                        <input class="form-control form-control-lg" type="date" name="birthdate" placeholder="" />
-                                                    </div>
-
-                                                    <button type="submit" class='btn btn-success' name="add_member">ยืนยัน</button>
-                                                    <td><a class='btn btn-danger' href='member.php'>ย้อนกลับ</a></td>
+                                                    <button type="submit" class='btn btn-success' name="add_sdonate">ยืนยัน</button>
+                                                    <td><a class='btn btn-danger' href='blooddonate.php'>ย้อนกลับ</a></td>
                                                 </form>
                                             </div>
                                         </div>
@@ -194,7 +155,7 @@ if (isset($_GET['logout'])) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to order.php with success status and message
-                    const redirectURL = 'member.php';
+                    const redirectURL = 'blooddonate.php';
                     window.location.href = redirectURL;
                 }
             });
@@ -207,7 +168,7 @@ if (isset($_GET['logout'])) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to order.php with success status and message
-                    const redirectURL = 'member_add.php';
+                    const redirectURL = 'sdonate_add.php';
                     window.location.href = redirectURL;
                 }
             });

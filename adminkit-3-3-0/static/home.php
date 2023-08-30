@@ -28,6 +28,9 @@ session_destroy();
     <link href="css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
+
 </head>
 
 <body>
@@ -252,14 +255,13 @@ session_destroy();
         });
 
         function scrollToTop() {
-            window.scrollTo({
+            window.scrollTo({   
                 top: 0,
                 behavior: 'smooth'
             });
         }
     </script>
     <!-- จบปุ่มกลับด้านบน -->
-
 </body>
 
 </html>

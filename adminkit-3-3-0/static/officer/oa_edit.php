@@ -45,13 +45,16 @@ if (isset($_GET['id'])) {
 
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
+
 </head>
 
 <body>
     <div class="wrapper">
         <?php include "tmednav.php"; ?>
         <div class="main">
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
                 </a>
@@ -85,56 +88,53 @@ if (isset($_GET['id'])) {
                             <div class="card flex-fill ">
 
                                 <div class="table-responsive">
-                                    <tbody>
-                                        <div class="contentdata ">
-
-                                            <div class="m-sm-4">
-                                                <form action="oa_edit_db.php" method="post">
-                                                    <div class="mb-3">
-                                                        <h5 class="card-title mb-3">ลำดับ</h5>
-                                                        <input type="text" class="form-control " name="oa_id" value="<?php echo $id ?>" readonly>
+                                    <div class="contentdata ">
+                                        <div class="m-sm-4">
+                                            <form action="oa_edit_db.php" method="post">
+                                                <div class="mb-3">
+                                                    <h5 class="card-title mb-3">ลำดับ</h5>
+                                                    <input type="text" class="form-control " name="oa_id" value="<?php echo $id ?>" readonly>
+                                                </div>
+                                                <div class="row gx-3 mb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="text mb-1" for="username">ชื่อผู้ใช้</label>
+                                                        <input class="form-control" name="username" type="text" value="<?php echo $username ?>">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <h5 class="card-title mb-3">ชื่อผู้ใช้</h5>
-                                                        <input type="text" class="form-control " name="username" value="<?php echo $username ?>" required>
+                                                    <div class="col-md-6">
+                                                        <label class="text mb-1" for="outsidename">ชื่อหน่วยงาน</label>
+                                                        <input class="form-control" name="outsidename" type="text" value="<?php echo $outsidename ?>">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <h5 class="card-title mb-3">รายละเอียดหน่วยงาน</h5>
+                                                    <textarea class="form-control" rows="3" name="outsidedetails"><?php echo $outsidedetails ?></textarea>
+                                                </div>
+
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">ที่อยู่หน่วยงาน</label>
+                                                    <input type="text" class="form-control " name="outsideaddress" value="<?php echo $outsideaddress ?>" />
+                                                </div>
+                                                <div class="row gx-3 mb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="text mb-1" for="coname">ชื่อผู้ติดต่อ</label>
+                                                        <input class="form-control" name="coname" type="text" value="<?php echo $coname ?>">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="text mb-1" for="cophone">เบอร์โทรศัพท์ผู้ติดต่อ</label>
+                                                        <input class="form-control" name="cophone" type="text" value="<?php echo $cophone ?>">
                                                     </div>
 
-                                                    <div class="mb-3">
-                                                        <h5 class="card-title mb-3">ชื่อหน่วยงาน</h5>
-                                                        <input type="text" class="form-control " name="outsidename" value="<?php echo $outsidename ?>" />
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <h5 class="card-title mb-3">รายละเอียดหน่วยงาน</h5>
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" type="text" name="outsidedetails" value="<?php echo $outsidedetails ?>"></textarea>
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label class="form-label">ที่อยู่หน่วยงาน</label>
-                                                        <input type="text" class="form-control " name="outsideaddress" value="<?php echo $outsideaddress ?>" />
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label class="form-label">ชื่อผู้ติดต่อ</label>
-                                                        <input type="text" class="form-control " name="coname" value="<?php echo $coname ?>"/>
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label class="form-label">เบอร์โทรศัพท์ผู้ติดต่อ</label>
-                                                        <input type="text" class="form-control " name="cophone" value="<?php echo $cophone ?>" />
-                                                    </div>
-
-                                                    <button type="submit" class='btn btn-success' name="edit_oa">ยืนยัน</button>
-                                                    <td><a class='btn btn-danger' href='member.php'>ย้อนกลับ</a></td>
-                                                </form>
-                                            </div>
-
-
+                                                </div>
+                                                <button type="submit" class='btn btn-success' name="edit_oa">ยืนยัน</button>
+                                                <td><a class='btn btn-danger' href='member.php'>ย้อนกลับ</a></td>
+                                            </form>
 
                                         </div>
-                                    </tbody>
 
-                                    </table>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -174,7 +174,41 @@ if (isset($_GET['id'])) {
     </div>
 
     <script src="../js/app.js"></script>
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
 
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'member.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'oa_edit.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
 
 </body>
 

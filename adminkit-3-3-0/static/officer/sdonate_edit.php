@@ -12,21 +12,26 @@ if ($position != '1') {
     echo '<script>alert("สำหรับเจ้าหน้าที่เท่านั้น");window.location="../home.php";</script>';
     exit;
 }
-
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM donor WHERE dn_id = '$id'";
+    $sql = "SELECT specificdonation.*, donor.dn_name 
+            FROM specificdonation 
+            JOIN donor ON specificdonation.dn_id = donor.dn_id 
+            WHERE specificdonation.sd_id = $id";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
-    $username = $row['dn_username'];
-    $name = $row['dn_name'];
-    $persernalid = $row['dn_persernalid'];
-    $email = $row['dn_email'];
-    $address = $row['dn_address'];
-    $phonenumber = $row['dn_phonenumber'];
-    $gender = $row['dn_gender'];
-    $birthdate = $row['dn_birthdate'];
+
+    if ($row) {
+        $donateday = $row['sd_date'];
+        $amount = $row['sd_amount'];
+        $status = $row['sd_status'];
+        $donorid = $row['dn_id'];
+        $name = $row['dn_name'];
+    } else {
+        // Handle case when no matching donation is found
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +46,7 @@ if (isset($_GET['id'])) {
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>จัดการข้อมูลการสมัครสมาชิก</title>
@@ -95,64 +100,48 @@ if (isset($_GET['id'])) {
                                         <div class="contentdata ">
 
                                             <div class="m-sm-4">
-                                                <form action="member_edit_db.php" method="post">
+                                                <form action="sdonate_edit_db.php" method="post">
                                                     <div class="mb-3">
                                                         <h5 class="card-title mb-3">ลำดับ</h5>
-                                                        <input type="text" class="form-control " name="dn_id" value="<?php echo $id ?>" readonly>
+                                                        <input type="text" class="form-control " name="sd_id" value="<?php echo $id ?>" readonly>
                                                     </div>
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="username">ชื่อผู้ใช้</label>
-                                                            <input class="form-control" name="username" type="text" value="<?php echo $username ?>" required>
+                                                            <label class="text mb-1" for="donorid">รหัสผู้ใช้</label>
+                                                            <input class="form-control" name="donorid" type="text" value="<?php echo $donorid ?>" required>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="name">ชื่อ-สกุล</label>
-                                                            <input class="form-control" name="name" type="text" value="<?php echo $name ?>" required>
+                                                            <label class="text mb-1" for="amount">ปริมาณเลือดที่บริจาค</label>
+                                                            <input class="form-control" name="amount" type="text" value="<?php echo $amount ?>" required>
                                                         </div>
                                                     </div>
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="form-label">เลขประจำตัวประชาชน</label>
-                                                            <input type="text" class="form-control " name="persernalid" value="<?php echo $persernalid ?>" required>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">อีเมล</label>
-                                                            <input type="text" class="form-control " name="email" value="<?php echo $email ?>" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">ที่อยู่</label>
-                                                        <input type="text" class="form-control " name="address" value="<?php echo $address ?>" required>
-                                                    </div>
-                                                    <div class="row gx-3 mb-3">
-
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">เบอร์โทรศัพท์</label>
-                                                            <input type="text" class="form-control " name="phonenumber" value="<?php echo $phonenumber ?>" required>
+                                                            <label class="text mb-1" for="donateday">วันที่บริจาค</label>
+                                                            <input class="form-control" name="donateday" type="date" value="<?php echo $donateday ?>" required>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label class="form-label" for="gender">เพศ</label>
-                                                            <select class="form-select form-select-lg" id="floatingSelect" aria-label="Floating label select example" name="gender" required>
-                                                                <option disabled selected value="">กรุณาเลือกเพศของท่าน</option>
-                                                                <option value="0" <?php if ($gender == "0") {
-                                                                                        echo "selected";
-                                                                                    } ?>>ชาย</option>
-                                                                <option value="1" <?php if ($gender == "1") {
-                                                                                        echo "selected";
-                                                                                    } ?>>หญิง</option>
-                                                            </select>
-
+                                                            <div class="col-md-6">
+                                                                <label class="text mb-1" for="status">สถานะของโลหิต</label>
+                                                                <select class="form-select form-select" id="floatingSelect" aria-label="Floating label select example" name="status" required>
+                                                                    <option disabled selected value="">กรุณาเลือกสถานะของโลหิต</option>
+                                                                    <option value="0" <?php if ($status == "0") {
+                                                                                            echo "selected";
+                                                                                        } ?>>ยังไม่ถูกนำไปใช้</option>
+                                                                    <option value="1" <?php if ($status == "1") {
+                                                                                            echo "selected";
+                                                                                        } ?>>ถูกนำไปใช้แล้ว</option>
+                                                                    <option value="2" <?php if ($status == "2") {
+                                                                                            echo "selected";
+                                                                                        } ?>>ไม่สามารถนำไปใช้ได้</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="mb-3">
-                                                        <label class="form-label">วัน/เดือน/ปี เกิด</label>
-                                                        <input type="date" class="form-control " name="birthdate" value="<?php echo $birthdate ?>" required>
-                                                    </div>
 
-                                                    <button type="submit" class='btn btn-success' name="edit_member">ยืนยัน</button>
-                                                    <td><a class='btn btn-danger' href='member.php'>ย้อนกลับ</a></td>
+                                                    <button type="submit" class='btn btn-success' name="edit_sdonate">ยืนยัน</button>
+                                                    <td><a class='btn btn-danger' href='blooddonate.php'>ย้อนกลับ</a></td>
                                                 </form>
                                             </div>
 
@@ -200,40 +189,40 @@ if (isset($_GET['id'])) {
     </div>
 
     <script>
-    // Get the URL query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const status = urlParams.get('status');
-    const msg = urlParams.get('msg');
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
 
-    // Check the status and display the SweetAlert message
-    if (status === 'success') {
-        Swal.fire({
-            title: 'Success',
-            text: msg,
-            icon: 'success',
-            confirmButtonClass: 'btn btn-primary'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Redirect to order.php with success status and message
-                const redirectURL = 'member.php';
-                window.location.href = redirectURL;
-            }
-        });
-    } else if (status === 'error') {
-        Swal.fire({
-            title: 'Error',
-            text: msg,
-            icon: 'error',
-            confirmButtonClass: 'btn btn-primary'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Redirect to order.php with success status and message
-                const redirectURL = 'member_edit.php';
-                window.location.href = redirectURL;
-            }
-        });
-    }
-</script>
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'blooddonate.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'wdonate_edit.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
     <script src="../js/app.js"></script>
 
 

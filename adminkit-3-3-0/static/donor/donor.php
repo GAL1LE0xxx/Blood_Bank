@@ -60,7 +60,9 @@ $user = $_SESSION['username'];
             </nav>
 
             <div class="container">
-                
+                <div class="card">
+
+                </div>
             </div>
         </div>
     </div>

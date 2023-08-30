@@ -16,10 +16,12 @@ $row = mysqli_fetch_assoc($result);
 $oc_id = $row['oc_id'];
 $user = $row['oc_username'];
 
-if ($position !== '0') {
-    echo '<script>alert("สำหรับผู้ดูแลระบบเท่านั้น");window.location="../home.php";</script>';
-    exit;
+if ($position !== '1') {
+    $errorMessage = "สำหรับเจ้าหน้าที่เท่านั้น";
+    header("Location: ../login.php?status=error&msg=" . urlencode($errorMessage));
+    exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -40,12 +42,14 @@ if ($position !== '0') {
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 
 </head>
 
 <body>
     <div class="wrapper">
-        <?php include "adminnav.php"; ?>
+        <?php include "tmednav.php"; ?>
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
@@ -63,9 +67,9 @@ if ($position !== '0') {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> บัญชีผู้ใช้</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../login.php">Log out</a>
+                                <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                             </div>
                         </li>
             </nav>
@@ -207,8 +211,43 @@ if ($position !== '0') {
             $('#myTable').DataTable();
         });
     </script>
-    <script src="js/app.js"></script>
+    <script src="../js/app.js"></script>
 
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
+
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'booking_ap.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'booking_ap.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
 
 </body>
 
