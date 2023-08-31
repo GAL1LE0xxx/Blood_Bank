@@ -16,7 +16,6 @@ $user = $_SESSION['username'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>ผู้บริจาค</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -100,9 +99,9 @@ $user = $_SESSION['username'];
                                     </a>
                                 </div>
                                 <div class="col d-flex justify-content-center">
-                                    <a href="contact.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
-                                        <i class="fas fa-envelope square-icon"></i>
-                                        <span class="mt-3" style="font-size: larger;">ติดต่อเรา</span>
+                                    <a href="h_donate.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
+                                        <i class="fas fa-history square-icon"></i>
+                                        <span class="mt-3" style="font-size: larger;">ประวัติการบริจาค</span>
                                     </a>
                                 </div>
                             </div>
