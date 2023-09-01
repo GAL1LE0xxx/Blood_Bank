@@ -41,6 +41,22 @@ $id = $_SESSION['id'];
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <style>
+        /* เปลี่ยนสีของ nav-pills */
+        .nav-pills .nav-link {
+            /* เปลี่ยนสีพื้นหลังของ tab */
+            color:  #FF3333;
+            /* เปลี่ยนสีข้อความของ tab */
+        }
+
+        /* เปลี่ยนสีของ tab ที่ถูกเลือก */
+        .nav-pills .nav-link.active {
+            background-color: #FF3333;
+            /* เปลี่ยนสีพื้นหลังของ tab ที่ถูกเลือก */
+            color: #FFFFFF;
+            /* เปลี่ยนสีข้อความของ tab ที่ถูกเลือก */
+        }
+    </style>
 
 </head>
 
@@ -236,7 +252,7 @@ $id = $_SESSION['id'];
                                                                         echo "<tr><td colspan='3'>ไม่พบข้อมูล</td></tr>";
                                                                     }
                                                                     ?>
-                                                                </tbody>    
+                                                                </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
