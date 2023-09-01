@@ -10,22 +10,6 @@ if (!isset($_SESSION['username'])) {
 $user = $_SESSION['username'];
 $id = $_SESSION['id'];
 
-$sql = "SELECT *
-FROM donor 
-LEFT JOIN wholedonation ON donor.dn_id = wholedonation.dn_id
-LEFT JOIN wholeblood ON donor.wb_id = wholeblood.wb_id
-WHERE donor.dn_id = '$id' 
-ORDER BY wholedonation.wd_date DESC
-";
-
-
-
-$result = mysqli_query($conn, $sql);
-
-if ($row = mysqli_fetch_assoc($result)) {
-    $name = $row['dn_name'];
-    $date = $row['wd_date'];
-}
 
 ?>
 
@@ -55,6 +39,8 @@ if ($row = mysqli_fetch_assoc($result)) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3./dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
 
 </head>
 
@@ -84,70 +70,217 @@ if ($row = mysqli_fetch_assoc($result)) {
                 <div class="container">
                     <a class="btn btn-danger mt-3 mb-3" href="donormenu.php">ย้อนกลับ</a>
                     <h1 class="text-center text-light bg-danger rounded-3 mb-4">ตรวจสอบประวัติการบริจาค</h1>
-                    <div class="container">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <?php
+                    <div class="mb-3">
+                        <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="wbblood-tab" data-bs-toggle="tab" data-bs-target="#wbblood" type="button" role="tab" aria-controls="wbblood" aria-selected="true">โลหิตรวม</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="specificblood-tab" data-bs-toggle="tab" data-bs-target="#specificblood" type="button" role="tab" aria-controls="specificblood" aria-selected="false">โลหิตเฉพาะส่วน</button>
+                            </li>
 
-                                echo "<p class=''>รหัสผู้บริจาค : $id</p>";
-                                echo "<p class=''>ชื่อ-สกุล : $name </p>";
-                                echo "<p class=''>หมู่เลือด : " . $row["wb_bloodtype"] . "</p>";
-                                echo "<p class=''>วันครบกำหนดบริจาค : " . date("d/m/Y", strtotime($date . "+3 months")) . "</p>";
-
-                                ?>
-                            </div>
-                        </div>
+                        </ul>
                     </div>
-                </div>
-                <div class="container">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="container">
-                                <div class="table-responsive">
-                                    <table class="table table-hover ">
-                                        <thead>
-                                            <tr>
-                                                <th>ครั้งที่</th>
-                                                <th>วันที่บริจาค</th>
-                                                <th>สถานะ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                    <!-- ประวัติการบริจาคโลหิตรวม -->
+                    <div>
+                        <div class="container">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="wbblood" role="tabpanel" aria-labelledby="wbblood-tab">
+
+
+                                    <div class="card mb-3">
+                                        <div class="card-body">
                                             <?php
-                                            $result = mysqli_query($conn, $sql);
-                                            $tid = 1;
+                                            $sql1 = "SELECT *
+                                            FROM donor 
+                                            LEFT JOIN wholedonation ON donor.dn_id = wholedonation.dn_id
+                                            LEFT JOIN wholeblood ON donor.wb_id = wholeblood.wb_id
+                                            WHERE donor.dn_id = '$id' 
+                                            ORDER BY wholedonation.wd_date DESC";
 
-                                            if ($result && mysqli_num_rows($result) > 0) {
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $tid . "</td>";
-                                                    echo "<td>" . date("d/m/Y", strtotime($row['wd_date'])) . "</td>";
+                                            $result1 = mysqli_query($conn, $sql1);
 
-                                                    if ($row["wd_status"] == "0") {
-                                                        echo "<td><span class=\"badge bg-warning\">ยังไม่ถูกนำไปใช้</span></td>";
-                                                    } elseif ($row["wd_status"] == "1") {
-                                                        echo "<td><span class=\"badge bg-success\">ถูกนำไปใช้แล้ว</span></td>";
-                                                    } elseif ($row["wd_status"] == "2") {
-                                                        echo "<td><span class=\"badge bg-danger\">ไม่สามารถนำไปใช้ได้</span></td>";
-                                                    }
-                                                    echo "</tr>";
-                                                    $tid++;
-                                                }
-                                            } else {
-                                                echo "<tr><td colspan='3'>ไม่พบข้อมูล</td></tr>";
+                                            if ($row1 = mysqli_fetch_assoc($result1)) {
+                                                $name = $row1['dn_name'];
+                                                $date = $row1['wd_date'];
                                             }
+
+                                            echo "<p class=''>รหัสผู้บริจาค : $id</p>";
+                                            echo "<p class=''>ชื่อ-สกุล : $name </p>";
+                                            echo "<p class=''>หมู่เลือด : " . $row1["wb_bloodtype"] . "</p>";
+                                            echo "<p class=''>วันครบกำหนดบริจาค : " . date("d/m/Y", strtotime($date . "+3 months")) . "</p>";
+
                                             ?>
-                                        </tbody>
-                                    </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    <div class="text-center">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ลำดับ</th>
+                                                                        <th>วันที่บริจาค</th>
+                                                                        <th>สถานะ</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $result1 = mysqli_query($conn, $sql1);
+                                                                    $tid = 1;
+
+                                                                    if ($result1 && mysqli_num_rows($result1) > 0) {
+                                                                        while ($row1 = mysqli_fetch_assoc($result1)) {
+                                                                            echo "<tr>";
+                                                                            echo "<td>" . $tid . "</td>";
+                                                                            echo "<td>" . date("d/m/Y", strtotime($row1['wd_date'])) . "</td>";
+
+                                                                            if ($row1["wd_status"] == "0") {
+                                                                                echo "<td><span class=\"badge bg-warning\">ยังไม่ถูกนำไปใช้</span></td>";
+                                                                            } elseif ($row1["wd_status"] == "1") {
+                                                                                echo "<td><span class=\"badge bg-success\">ถูกนำไปใช้แล้ว</span></td>";
+                                                                            } elseif ($row1["wd_status"] == "2") {
+                                                                                echo "<td><span class=\"badge bg-danger\">ไม่สามารถนำไปใช้ได้</span></td>";
+                                                                            }
+                                                                            echo "</tr>";
+                                                                            $tid++;
+                                                                        }
+                                                                    } else {
+                                                                        echo "<tr><td colspan='3'>ไม่พบข้อมูล</td></tr>";
+                                                                    }
+                                                                    ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!-- ประวัติการบริจาคโลหิตรวม -->
+
+                    <!-- ประวัติการบริจาคโลหิตเฉพาะส่วน -->
+                    <div>
+                        <div class="container">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade" id="specificblood" role="tabpanel" aria-labelledby="specificblood-tab">
+
+
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <?php
+                                            $sql2 = "SELECT * FROM donor 
+                                            LEFT JOIN specificdonation ON donor.dn_id = specificdonation.dn_id 
+                                            LEFT JOIN specificblood ON donor.sb_id = specificblood.sb_id 
+                                            WHERE donor.dn_id = '$id' 
+                                            ORDER BY specificdonation.sd_date DESC";
+
+                                            $result2 = mysqli_query($conn, $sql2);
+                                            if ($row2 = mysqli_fetch_assoc($result2)) {
+                                                $name = $row2['dn_name'];
+                                                $date = $row2['sd_date'];
+                                            }
+
+                                            echo "<p class=''>รหัสผู้บริจาค : $id</p>";
+                                            echo "<p class=''>ชื่อ-สกุล : $name </p>";
+                                            echo "<p class=''>วันครบกำหนดบริจาค : " . date("d/m/Y", strtotime($date . "+1 months")) . "</p>";
+
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    <div class="text-center">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ลำดับ</th>
+                                                                        <th>วันที่บริจาค</th>
+                                                                        <th>สถานะ</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $result2 = mysqli_query($conn, $sql2);
+                                                                    $tid = 1;
+
+                                                                    if ($result2 && mysqli_num_rows($result2) > 0) {
+                                                                        while ($row2 = mysqli_fetch_assoc($result2)) {
+                                                                            echo "<tr>";
+                                                                            echo "<td>" . $tid . "</td>";
+                                                                            echo "<td>" . date("d/m/Y", strtotime($row2['sd_date'])) . "</td>";
+
+                                                                            if ($row2["sd_status"] == "0") {
+                                                                                echo "<td><span class=\"badge bg-warning\">ยังไม่ถูกนำไปใช้</span></td>";
+                                                                            } elseif ($row2["sd_status"] == "1") {
+                                                                                echo "<td><span class=\"badge bg-success\">ถูกนำไปใช้แล้ว</span></td>";
+                                                                            } elseif ($row2["sd_status"] == "2") {
+                                                                                echo "<td><span class=\"badge bg-danger\">ไม่สามารถนำไปใช้ได้</span></td>";
+                                                                            }
+                                                                            echo "</tr>";
+                                                                            $tid++;
+                                                                        }
+                                                                    } else {
+                                                                        echo "<tr><td colspan='3'>ไม่พบข้อมูล</td></tr>";
+                                                                    }
+                                                                    ?>
+                                                                </tbody>    
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ประวัติการบริจาคโลหิตเฉพาะส่วน -->
+
+            </main>
         </div>
-        </main>
     </div>
-    </div>
+    <footer class="footer bg-danger text-white">
+        <div class="container-fluid">
+            <div class="row text-white">
+                <div class="col-sm-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <p class="mb-0">
+                        <a class="text-white" href="../home.php" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-white" href="../home.php" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
+                        &copy;
+                    </p>
+                </div>
+                <div class="col-sm-12 col-md-6 text-center text-md-end">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://adminkit.io/" target="_blank">Support</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://adminkit.io/" target="_blank">Help Center</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://adminkit.io/" target="_blank">Privacy</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://adminkit.io/" target="_blank">Terms</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
