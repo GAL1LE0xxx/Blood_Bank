@@ -8,6 +8,7 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
 }
 
 $user = $_SESSION['username'];
+$id = $_SESSION['id'];
 
 ?>
 <!DOCTYPE html>
@@ -60,8 +61,11 @@ $user = $_SESSION['username'];
             </nav>
 
             <div class="container">
-                <div class="card">
+                <div class="card mt-4">
+                <div class="card-body">
 
+                
+                </div>
                 </div>
             </div>
         </div>

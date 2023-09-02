@@ -45,13 +45,13 @@ $id = $_SESSION['id'];
         /* เปลี่ยนสีของ nav-pills */
         .nav-pills .nav-link {
             /* เปลี่ยนสีพื้นหลังของ tab */
-            color:  #FF3333;
+            color:  #dc3444;
             /* เปลี่ยนสีข้อความของ tab */
         }
 
         /* เปลี่ยนสีของ tab ที่ถูกเลือก */
         .nav-pills .nav-link.active {
-            background-color: #FF3333;
+            background-color: #dc3444;
             /* เปลี่ยนสีพื้นหลังของ tab ที่ถูกเลือก */
             color: #FFFFFF;
             /* เปลี่ยนสีข้อความของ tab ที่ถูกเลือก */

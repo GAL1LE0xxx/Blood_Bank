@@ -183,9 +183,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                 eventContent: (info) => {
                     let html =
-                        `<div class="p-2">
-                      <div class="d-flex">
-                              <i class="fa-solid fa-user pe-2"></i>
+                        `<div class="p-2 bg-danger">
+                      <div class="d-flex bg-danger">
+                              <i class="fa-solid fa-user pe-2 "></i>
                               <div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">ถูกจองแล้ว ` +
                         `</div>
                   </div>`;
