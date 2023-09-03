@@ -60,79 +60,74 @@ if (isset($_GET['logout'])) {
                 </div>
             </nav>
             <main class="content">
-                <div class="container">
-                    <div class="mb-3">
-                        <ul class="nav nav-pills " id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="wbblood-tab" data-bs-toggle="tab" data-bs-target="#wbblood" type="button" role="tab" aria-controls="wbblood" aria-selected="true">จัดการข้อมูลโลหิตรวม</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="specificblood-tab" data-bs-toggle="tab" data-bs-target="#specificblood" type="button" role="tab" aria-controls="specificblood" aria-selected="false">จัดการข้อมูลโลหิตเฉพาะส่วน</button>
-                            </li>
+                <div class="mb-3">
+                    <ul class="nav nav-pills " id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="wbblood-tab" data-bs-toggle="tab" data-bs-target="#wbblood" type="button" role="tab" aria-controls="wbblood" aria-selected="true">จัดการข้อมูลโลหิตรวม</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="specificblood-tab" data-bs-toggle="tab" data-bs-target="#specificblood" type="button" role="tab" aria-controls="specificblood" aria-selected="false">จัดการข้อมูลโลหิตเฉพาะส่วน</button>
+                        </li>
 
-                        </ul>
-                    </div>
+                    </ul>
                 </div>
                 <!-- จัดการข้อมูลโลหิตรวม -->
                 <div>
-                    <div class="container">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="wbblood" role="tabpanel" aria-labelledby="wbblood-tab">
-                                <div class="container-fluid p-0 mt-3">
-                                    <h1 class="h3 mb-3 "><strong>จัดการข้อมูลโลหิตรวม</strong> </h1>
-                                    <div class="container-fluid p-0">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-100 col-xxl- d-flex">
-                                                <div class="card flex-fill">
-                                                    <div class="card-header">
-                                                        <a href="wbblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
-                                                    </div>
-                                                    <div class="table-responsive table-striped">
-                                                        <table id="myTable" class="table table-hover my-0 ">
-
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>ลำดับ</th>
-                                                                    <th>หมู่เลือด</th>
-                                                                    <th>แก้ไข </th>
-                                                                    <th>ลบ</th>
-                                                                </tr>
-                                                            </thead>
-
-                                                            <tbody>
-                                                                <?php
-                                                                // Include the database connection file
-                                                                include('../connect.php');
-
-                                                                // Fetch data from the database
-                                                                $sql = "SELECT * FROM wholeblood";
-                                                                $result = mysqli_query($conn, $sql);
-
-                                                                if (mysqli_num_rows($result) > 0) {
-                                                                    // Output data of each row
-                                                                    $tid = '1';
-                                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                                        echo "<tr>";
-                                                                        echo "<td>" . $tid . "</td>";
-                                                                        echo "<td>" . $row["wb_bloodtype"] . "</td>";
-
-                                                                        echo "<td><a class='btn btn-primary' href='wbblood_edit.php?id=" . $row["wb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
-
-                                                                        echo "<td><a class='btn btn-danger' href='wbblood_delete_db.php?did=" . $row["wb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
-                                                                        echo "</tr>";
-                                                                        $tid++;
-                                                                    }
-                                                                } else {
-                                                                    echo "0 results";
-                                                                }
-
-                                                                // Close the database connection
-                                                                mysqli_close($conn);
-                                                                ?>
-                                                            </tbody>
-                                                    </div>
-                                                    </table>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="wbblood" role="tabpanel" aria-labelledby="wbblood-tab">
+                            <div class="container-fluid p-0 mt-3">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-100 col-xxl- d-flex">
+                                            <div class="card flex-fill">
+                                                <div class="card-header">
+                                                    <a href="wbblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
                                                 </div>
+                                                <div class="table-responsive table-striped">
+                                                    <table id="myTable" class="table table-hover my-0 ">
+
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ลำดับ</th>
+                                                                <th>หมู่เลือด</th>
+                                                                <th>แก้ไข </th>
+                                                                <th>ลบ</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <?php
+                                                            // Include the database connection file
+                                                            include('../connect.php');
+
+                                                            // Fetch data from the database
+                                                            $sql = "SELECT * FROM wholeblood";
+                                                            $result = mysqli_query($conn, $sql);
+
+                                                            if (mysqli_num_rows($result) > 0) {
+                                                                // Output data of each row
+                                                                $tid = '1';
+                                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                                    echo "<tr>";
+                                                                    echo "<td>" . $tid . "</td>";
+                                                                    echo "<td>" . $row["wb_bloodtype"] . "</td>";
+
+                                                                    echo "<td><a class='btn btn-primary' href='wbblood_edit.php?id=" . $row["wb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
+
+                                                                    echo "<td><a class='btn btn-danger' href='wbblood_delete_db.php?did=" . $row["wb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
+                                                                    echo "</tr>";
+                                                                    $tid++;
+                                                                }
+                                                            } else {
+                                                                echo "0 results";
+                                                            }
+
+                                                            // Close the database connection
+                                                            mysqli_close($conn);
+                                                            ?>
+                                                        </tbody>
+                                                </div>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -145,64 +140,61 @@ if (isset($_GET['logout'])) {
 
                 <!-- จัดการข้อมูลโลหิตเฉพาะส่วน -->
                 <div>
-                    <div class="container">
-                        <div class="tab-content" id="myTabContent">
+                    <div class="tab-content" id="myTabContent">
 
-                            <div class="tab-pane fade" id="specificblood" role="tabpanel" aria-labelledby="specificblood-tab">
+                        <div class="tab-pane fade" id="specificblood" role="tabpanel" aria-labelledby="specificblood-tab">
+                            <div class="container-fluid p-0">
                                 <div class="container-fluid p-0">
-                                    <h1 class="h3 mb-3 mt-3"><strong>จัดการข้อมูลโลหิตเฉพาะส่วน</strong> </h1>
-                                    <div class="container-fluid p-0">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-100 col-xxl- d-flex">
-                                                <div class="card flex-fill">
-                                                    <div class="card-header">
-                                                        <a href="specificblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <table id="myTable2" class="table table-hover my-0 ">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>ลำดับ</th>
-                                                                    <th>หมู่เลือด</th>
-                                                                    <th>แก้ไข </th>
-                                                                    <th>ลบ</th>
-                                                                </tr>
-                                                            </thead>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-100 col-xxl- d-flex">
+                                            <div class="card flex-fill">
+                                                <div class="card-header">
+                                                    <a href="specificblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table id="myTable2" class="table table-hover my-0 ">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ลำดับ</th>
+                                                                <th>หมู่เลือด</th>
+                                                                <th>แก้ไข </th>
+                                                                <th>ลบ</th>
+                                                            </tr>
+                                                        </thead>
 
-                                                            <tbody>
-                                                                <?php
-                                                                // Include the database connection file
-                                                                include('../connect.php');
+                                                        <tbody>
+                                                            <?php
+                                                            // Include the database connection file
+                                                            include('../connect.php');
 
-                                                                // Fetch data from the database
-                                                                $sql = "SELECT * FROM specificblood";
-                                                                $result = mysqli_query($conn, $sql);
+                                                            // Fetch data from the database
+                                                            $sql = "SELECT * FROM specificblood";
+                                                            $result = mysqli_query($conn, $sql);
 
-                                                                if (mysqli_num_rows($result) > 0) {
-                                                                    // Output data of each row
-                                                                    $tid = '1';
-                                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                                        echo "<tr>";
-                                                                        echo "<td>" . $tid . "</td>";
-                                                                        echo "<td>" . $row["sb_information"] . "</td>";
+                                                            if (mysqli_num_rows($result) > 0) {
+                                                                // Output data of each row
+                                                                $tid = '1';
+                                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                                    echo "<tr>";
+                                                                    echo "<td>" . $tid . "</td>";
+                                                                    echo "<td>" . $row["sb_information"] . "</td>";
 
-                                                                        echo "<td><a class='btn btn-primary' href='specificblood_edit.php?id=" . $row["sb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
+                                                                    echo "<td><a class='btn btn-primary' href='specificblood_edit.php?id=" . $row["sb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
 
-                                                                        echo "<td><a class='btn btn-danger' href='specificblood_delete_db.php?did=" . $row["sb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
-                                                                        echo "</tr>";
-                                                                        $tid++;
-                                                                    }
-                                                                } else {
-                                                                    echo "0 results";
+                                                                    echo "<td><a class='btn btn-danger' href='specificblood_delete_db.php?did=" . $row["sb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
+                                                                    echo "</tr>";
+                                                                    $tid++;
                                                                 }
+                                                            } else {
+                                                                echo "0 results";
+                                                            }
 
-                                                                // Close the database connection
-                                                                mysqli_close($conn);
-                                                                ?>
+                                                            // Close the database connection
+                                                            mysqli_close($conn);
+                                                            ?>
 
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
