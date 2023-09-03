@@ -55,6 +55,11 @@
                         <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">อนุมัติข้อมูลการสมัครสมาชิก</span>
                     </a>
                 </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="screening.php">
+                        <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">แก้ไขแบบประเมินเบื้องต้น</span>
+                    </a>
+                </li>
 
 
                 <li class="sidebar-header">

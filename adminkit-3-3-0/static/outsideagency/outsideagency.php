@@ -14,6 +14,18 @@ $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
     $id = $row['oa_id'];
 }
+
+if (isset($_POST['out_start'])) {
+    $searchKeyword = $_POST['out_start'];
+
+    // สร้างคำสั่ง SQL สำหรับการค้นหาข้อมูลจากทั้ง 2 ตาราง
+    $sql = "SELECT o.*, os.* FROM outsideagency o
+            INNER JOIN outsiteservice os ON o.oa_id = os.oa_id
+            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$id'";
+
+    // ประมวลผลคำสั่ง SQL
+    $result = $conn->query($sql);
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +50,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
 
 </head>
 
@@ -92,14 +108,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <div class="col-md-6">
                                     <label class="form-label" for="bookingtime">ช่วงเวลา :</label>
                                     <select class="form-select form-control-lg" aria-label="Default select example" name="bookingtime" required>
-                                        <option value="08.30 - 09.00 น." selected>08.30 - 09.00 น.</option>
-                                        <option value="09.00 - 10.00 น.">09.00 - 10.00 น.</option>
-                                        <option value="10.05 - 11.00 น.">10.05 - 11.00 น.</option>
-                                        <option value="11.05 - 12.00 น.">11.05 - 12.00 น.</option>
-                                        <option value="12.05 - 13.00 น.">12.05 - 13.00 น.</option>
-                                        <option value="13.05 - 14.00 น.">13.05 - 14.00 น.</option>
-                                        <option value="14.05 - 15.00 น.">14.05 - 15.00 น.</option>
-                                        <option value="15.05 - 15.30 น.">15.05 - 15.30 น.</option>
+                                        <option disabled selected>กรุณาเลือกช่วงเวลา</option>
+                                        <option value="ช่วงเช้า">ช่วงเช้า</option>
+                                        <option value="ช่วงบ่าย">ช่วงบ่าย</option>
                                     </select>
                                 </div>
                             </div>
@@ -108,28 +119,37 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                         </form>
                     </div>
-                    
+
                     <div class="card mt-3">
                         <div id='calendar' class="p-3 border bg-light "></div>
                     </div>
-                    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="eventModalLabel">Event Details</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                    <<!-- โมเดลเหตุการณ์ -->
+                        <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="eventModalLabel">รายละเอียดเหตุการณ์</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php if (!empty($result)) : ?>
+                                            <?php echo $id ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <p id="eventDetails"></p>
                                 </div>
-                                <div class="modal-body">
-                                    <div id="eventDetails"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
+
             </div>
         </div>
+    </div>
     </div>
     <script>
         // Get the URL query parameters
@@ -166,7 +186,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             });
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/th.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -62,10 +62,9 @@ $id = $_SESSION['id'];
 
             <div class="container">
                 <div class="card mt-4">
-                <div class="card-body">
+                    <div class="card-body">
 
-                
-                </div>
+                    </div>
                 </div>
             </div>
         </div>

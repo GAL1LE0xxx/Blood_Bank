@@ -11,7 +11,7 @@ if (isset($_POST['edit_officer'])) {
     $position = $_POST['oc_position'];
     $sql = "UPDATE officer SET oc_username='$username',oc_firstname='$firstname',oc_lastname='$lastname',oc_phonenumber='$phonenumber',oc_position='$position' WHERE oc_id='$id'";
     if (mysqli_query($conn, $sql)) {
-        $successMessage = "แก้ไขข้อมูลสำเร็จ";
+        $successMessage = "แก้ไขผู้ใช้สำเร็จ";
         header("Location: officer.php?status=success&msg=" . urlencode($successMessage));
         exit();
     } else {
