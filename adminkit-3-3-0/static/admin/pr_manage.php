@@ -80,7 +80,7 @@ if (isset($_GET['logout'])) {
                                                 <th>รายละเอียด</th>
                                                 <th>วันที่เพิ่ม</th>
                                                 <th>ผู้เพิ่ม</th>
-                                                <th>รายละเอียด</th>
+                                                <th>แก้ไข</th>
                                                 <th>ลบ</th>
                                             </tr>
                                         </thead>
@@ -166,7 +166,7 @@ if (isset($_GET['logout'])) {
             $('#myTable').DataTable();
         });
     </script>
-    <script src="../js/app.js"></script>
+    <script src="js/app.js"></script>
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
