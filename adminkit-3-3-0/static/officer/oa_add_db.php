@@ -29,7 +29,7 @@ if (isset($_POST['add_oa'])) {
 		}
 	} else {
 		$encryptpassword = md5($password);
-		$sql = "INSERT INTO outsideagency (oa_username,oa_password,oa_name,oa_details,oa_address,oa_coname,oa_cophone) VALUES ('$username','$encryptpassword','$outsidename','$outsidedetails','$outsideaddress','$coname','$cophone')";
+		$sql = "INSERT INTO outsideagency (oa_username,oa_password,oa_name,oa_details,oa_address,oa_coname,oa_cophone,oa_status) VALUES ('$username','$encryptpassword','$outsidename','$outsidedetails','$outsideaddress','$coname','$cophone','1')";
 		if (mysqli_query($conn, $sql)) {	
 			$successMessage = "เพิ่มผู้ใช้สำเร็จ";
 			header("Location: oa_add.php?status=success&msg=" . urlencode($successMessage));

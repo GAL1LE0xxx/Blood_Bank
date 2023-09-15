@@ -51,7 +51,7 @@ if ($position != '0') {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                                <a class="dropdown-item" href="adminprofile.php"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../logout.php">Log out</a>
                             </div>
@@ -98,7 +98,7 @@ if ($position != '0') {
                                             <div class="col-md-6 mb-3 ">
                                                 <label class="text mb-1" for="position">ตำแหน่ง</label>
                                                 <input class="form-control" name="position" type="text" value="<?php if ($row['oc_position'] == "0") {
-                                                                                                                    echo "แอดมิน";
+                                                                                                                    echo "ผู้ดูแลระบบ";
                                                                                                                 } elseif ($row['oc_position'] == "1") {
                                                                                                                     echo "นักเทคนิคการแพทย์";
                                                                                                                 } else {

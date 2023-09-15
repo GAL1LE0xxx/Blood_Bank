@@ -118,7 +118,7 @@ if ($position != '0') {
                                                         <label class="form-check">
                                                             <input class="form-check-input" type="radio" id="admin" name="oc_position" value="0" required>
                                                             <span class="form-check-label">
-                                                                แอดมิน
+                                                            ผู้ดูแลระบบ
                                                             </span>
                                                         </label>
 

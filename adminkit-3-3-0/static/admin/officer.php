@@ -117,7 +117,7 @@ if ($position != '0') {
                                                     echo "<td>" . $row["oc_phonenumber"] . "</td>";
 
                                                     if ($row["oc_position"] == "0") {
-                                                        echo "<td>แอดมิน</td>";
+                                                        echo "<td>ผู้ดูแลระบบ</td>";
                                                     } elseif ($row["oc_position"] == "1") {
                                                         echo "<td>นักเทคนิคการแพทย์</td>";
                                                     } else {

@@ -30,7 +30,7 @@ if (isset($_POST['add_member'])) {
 		}
 	} else {
 		$encryptpassword = md5($password);
-		$sql = "INSERT INTO donor (dn_username,dn_password,dn_name,dn_persernalid,dn_gender,dn_email,dn_address,dn_phonenumber,dn_birthdate) VALUES ('$username','$encryptpassword','$name','$persernalid','$gender','$email','$address','$phonenumber','$birthdate')";
+		$sql = "INSERT INTO donor (dn_username,dn_password,dn_name,dn_persernalid,dn_gender,dn_email,dn_address,dn_phonenumber,dn_birthdate,dn_status) VALUES ('$username','$encryptpassword','$name','$persernalid','$gender','$email','$address','$phonenumber','$birthdate','1')";
 		if (mysqli_query($conn, $sql)) {
 			$successMessage = "เพิ่มผู้ใช้สำเร็จ";
 			header("Location: member_add.php?status=success&msg=" . urlencode($successMessage));
