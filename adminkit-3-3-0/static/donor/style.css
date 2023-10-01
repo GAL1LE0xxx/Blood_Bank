@@ -1,0 +1,10 @@
+/* สไตล์แถบแสดงความคืบหน้า */
+.progress {
+    height: 20px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    background-color: #ff0000; /* สีพื้นหลังของแถบแสดงความคืบหน้า */
+    color: #b1b1b1; /* สีข้อความภายในแถบแสดงความคืบหน้า */
+}

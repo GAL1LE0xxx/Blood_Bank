@@ -75,7 +75,7 @@ if ($position !== '0') {
                 <div class="card">
                     <div class="card-body">
                         <div class="card-header">
-                            <a href="screening_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
+                            <!-- <a href="screening_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a> -->
                         </div>
                         <div class="table-responsive">
                             <table id="myTable" class="table table-hover my-0">

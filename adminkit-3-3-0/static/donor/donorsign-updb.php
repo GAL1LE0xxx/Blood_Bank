@@ -23,7 +23,7 @@ if (isset($_POST['singupuser'])) {
 		header("Location: donorsign-up.php?status=error&msg=" . urlencode($errorMessage));
 		exit();
 	} else if ($row) {
-		if ($row['oc_username'] === $username) {
+		if ($row['donor_username'] === $username) {
 			$errorMessage = "มีชื่อผู้ใช้นี้ในระบบแล้ว";
 			header("Location: donorsign-up.php?status=error&msg=" . urlencode($errorMessage));
 			exit();

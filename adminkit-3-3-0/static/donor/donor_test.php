@@ -127,42 +127,42 @@ $id = $_SESSION['id'];
                                         <h2>แบบคัดกรองสุขภาพ</h2>
                                         <div class="row gx-3 mb-3">
                                             <div class="col-md-6">
-                                                <label class="text mb-1" for="pressure">ความดันโลหิต (มิลิ)</label>
-                                                <input class="form-control" name="pressure" type="text" required>
+                                                <label class="text mb-1" for="pressure">ความดันโลหิต</label>
+                                                <input class="form-control" name="pressure" type="text">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="pulse">ชีพจร</label>
-                                                <input class="form-control" name="pulse" type="text" required>
+                                                <input class="form-control" name="pulse" type="text">
                                             </div>
                                         </div>
 
                                         <div class="row gx-3 mb-3">
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="hb">ระดับฮีโมโกลบิน</label>
-                                                <input class="form-control" name="hb" type="text" required>
+                                                <input class="form-control" name="hb" type="text">
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="temperature">อุณหภูมิร่างกาย</label>
-                                                <input class="form-control" name="temperature" type="text" required>
+                                                <input class="form-control" name="temperature" type="text">
                                             </div>
                                         </div>
 
                                         <div class="row gx-3 mb-3">
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="weight">น้ำหนัก</label>
-                                                <input class="form-control" name="weight" type="text" required>
+                                                <input class="form-control" name="weight" type="text">
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="height">ส่วนสูง</label>
-                                                <input class="form-control" name="height" type="text" required>
+                                                <input class="form-control" name="height" type="text">
                                             </div>
                                         </div>
 
                                         <button class="btn btn-danger" type="button" id="prev1">Previous</button>
 
-                                        <button class="btn btn-danger" type="submit" name="screening_submit" onclick="return validateForm()">Submit</button>
+                                        <button class="btn btn-danger" type="submit" name="screening_submit">Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -223,27 +223,10 @@ $id = $_SESSION['id'];
                             progressBar.style.width = "0%";
                         });
 
-                        // สำหรับปุ่ม "Next" ในขั้นตอนที่ 1
                         next1Button.addEventListener("click", function() {
-                            // ตรวจสอบ radiobutton ที่ถูกเลือกในตาราง
-                            var radios = document.querySelectorAll('input[name^="answer_1_"]');
-                            var checked = false;
-
-                            for (var i = 0; i < radios.length; i++) {
-                                if (radios[i].checked) {
-                                    checked = true;
-                                    break;
-                                }
-                            }
-
-                            // ถ้าไม่มี radiobutton ถูกเลือกให้แสดงข้อความแจ้งเตือน
-                            if (!checked) {
-                                alert('กรุณาตอบคำถามในแบบประเมินสุขภาพ');
-                            } else {
-                                step1.style.display = "none";
-                                step2.style.display = "block";
-                                progressBar.style.width = "66%";
-                            }
+                            step1.style.display = "none";
+                            step2.style.display = "block";
+                            progressBar.style.width = "66%";
                         });
 
                         prev1Button.addEventListener("click", function() {
@@ -280,7 +263,7 @@ $id = $_SESSION['id'];
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     // Redirect to order.php with success status and message
-                                    const redirectURL = 'donor.php';
+                                    const redirectURL = 'donor_test.php';
                                     window.location.href = redirectURL;
                                 }
                             });
@@ -293,7 +276,7 @@ $id = $_SESSION['id'];
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     // Redirect to order.php with success status and message
-                                    const redirectURL = 'donor.php';
+                                    const redirectURL = 'donor_test.php';
                                     window.location.href = redirectURL;
                                 }
                             });

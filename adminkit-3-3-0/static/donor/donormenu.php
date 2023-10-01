@@ -53,7 +53,7 @@ $user = $_SESSION['username'];
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapper mb-1">
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg ">
                 <a href="../home.php">
@@ -99,6 +99,12 @@ $user = $_SESSION['username'];
                                     </a>
                                 </div>
                                 <div class="col d-flex justify-content-center">
+                                    <a href="onsitelservice.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
+                                        <i class="fas fa-solid fa-calendar square-icon"></i>
+                                        <span class="mt-3" style="font-size: larger;">จองคิวบริจาคโลหิต</span>
+                                    </a>
+                                </div>
+                                <div class="col d-flex justify-content-center">
                                     <a href="h_donate.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-history square-icon"></i>
                                         <span class="mt-3" style="font-size: larger;">ประวัติการบริจาค</span>
@@ -114,8 +120,8 @@ $user = $_SESSION['username'];
     <footer class="footer bg-danger text-white">
         <div class="container-fluid">
             <div class="row text-white">
-                <div class="col-sm-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
-                    <p class="mb-0">
+                <div >
+                    <p class="mb-1">
                         <a class="text-white" href="home.php" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-white" href="home.php" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
                         &copy;
                     </p>
