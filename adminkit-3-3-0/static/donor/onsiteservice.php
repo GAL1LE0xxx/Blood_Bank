@@ -105,7 +105,7 @@ $id = $_SESSION['id'];
                                                     <label class="form-label">วันที่ต้องการจอง :</label>
                                                     <input class="form-control form-control-lg" type="date" name="bookingdate" placeholder="" required min="<?php echo date('Y-m-d', strtotime('+1 month')); ?>">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6"></div>
                                                     <label class="form-label" for="bookingtime">เวลา :</label>
                                                     <input class="form-control form-control-lg" type="time" name="bookingtime" placeholder="" required>
                                                 </div>
