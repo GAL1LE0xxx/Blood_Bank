@@ -78,7 +78,7 @@ $id = $_SESSION['id'];
                                         <p> 3. ก่อนบริจาคเลือด และก่อนเจาะเลือดบริจาคให้ดื่มน้ำ 3-4 แก้ว จะช่วยทำให้โลหิตไหลเวียนดีขึ้น</p>
                                         <p> 4. งดเครื่องดื่มแอลกอฮอล์ งดสูบบุหรี่ทั้งก่อนและหลังบริจาคโลหิต 1 ชั่วโมง</p>
                                         <p> 5. หลังบริจาคเลือด ควรดื่มน้ำให้มากกว่าปกติและรับประทานยาเสริมธาตุเหล็ก วันละ 1 เม็ด หลังอาหารจนหมด เพื่อชดเชยธาตุเหล็กที่สูญเสียไป</p>
-                                        <button class="btn btn-danger" type="button" id="next0">Next</button>
+                                        <button class="btn btn-danger" type="button" id="next0">ถัดไป</button>
                                     </div>
 
                                     <div id="step1" style="display: none;">
@@ -95,7 +95,6 @@ $id = $_SESSION['id'];
 
                                             <tbody>
                                                 <?php
-
                                                 $sql = "SELECT * FROM screening";
                                                 $result = mysqli_query($conn, $sql);
                                                 $tid = 1;
@@ -120,8 +119,8 @@ $id = $_SESSION['id'];
 
                                             </tbody>
                                         </table>
-                                        <button class="btn btn-danger mt-3" type="button" id="prev0">Previous</button>
-                                        <button class="btn btn-danger mt-3" type="button" id="next1">Next</button>
+                                        <button class="btn btn-danger mt-3" type="button" id="prev0">ก่อนหน้า</button>
+                                        <button class="btn btn-danger mt-3" type="button" id="next1">ถัดไป</button>
                                     </div>
                                     <div id="step2" style="display: none;">
                                         <h2>แบบคัดกรองสุขภาพ</h2>
@@ -160,17 +159,52 @@ $id = $_SESSION['id'];
                                             </div>
                                         </div>
 
-                                        <button class="btn btn-danger" type="button" id="prev1">Previous</button>
+                                        <button class="btn btn-danger" type="button" id="prev1">ก่อนหน้า</button>
 
-                                        <button class="btn btn-danger" type="submit" name="screening_submit" onclick="return validateForm()">Submit</button>
+                                        <button class="btn btn-danger" type="submit" name="screening_submit" onclick="return validateForm()">ยืนยัน</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer bg-danger text-white">
+            <div class="container-fluid">
+                <div class="row text-white">
+                    <div class="col-sm-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0">
+                            <a class="text-white" href="home.php" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-white" href="home.php" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
+                            &copy;
+                        </p> 
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-center text-md-end">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Support</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Help Center</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Privacy</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Terms</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
-                    <!-- <script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             // ตรวจสอบการส่งค่าแบบ POST จากฟอร์ม
                             document.querySelector('form').addEventListener('submit', function(event) {
@@ -198,107 +232,107 @@ $id = $_SESSION['id'];
                         });
                     </script> -->
 
-                    <script>
-                        const form = document.querySelector("#multi-step-form");
-                        const step0 = document.querySelector("#step0");
-                        const step1 = document.querySelector("#step1");
-                        const step2 = document.querySelector("#step2");
-                        const step3 = document.querySelector("#step3");
-                        const next0Button = document.querySelector("#next0");
-                        const prev0Button = document.querySelector("#prev0");
-                        const next1Button = document.querySelector("#next1");
-                        const prev1Button = document.querySelector("#prev1");
-                        const next2Button = document.querySelector("#next2");
-                        const prev2Button = document.querySelector("#prev2");
-                        const progressBar = document.querySelector(".progress-bar");
+    <script>
+        const form = document.querySelector("#multi-step-form");
+        const step0 = document.querySelector("#step0");
+        const step1 = document.querySelector("#step1");
+        const step2 = document.querySelector("#step2");
+        const step3 = document.querySelector("#step3");
+        const next0Button = document.querySelector("#next0");
+        const prev0Button = document.querySelector("#prev0");
+        const next1Button = document.querySelector("#next1");
+        const prev1Button = document.querySelector("#prev1");
+        const next2Button = document.querySelector("#next2");
+        const prev2Button = document.querySelector("#prev2");
+        const progressBar = document.querySelector(".progress-bar");
 
-                        next0Button.addEventListener("click", function() {
-                            step0.style.display = "none";
-                            step1.style.display = "block";
-                            progressBar.style.width = "33%";
-                        });
-                        prev0Button.addEventListener("click", function() {
-                            step0.style.display = "block";
-                            step1.style.display = "none";
-                            progressBar.style.width = "0%";
-                        });
+        next0Button.addEventListener("click", function() {
+            step0.style.display = "none";
+            step1.style.display = "block";
+            progressBar.style.width = "33%";
+        });
+        prev0Button.addEventListener("click", function() {
+            step0.style.display = "block";
+            step1.style.display = "none";
+            progressBar.style.width = "0%";
+        });
 
-                        // สำหรับปุ่ม "Next" ในขั้นตอนที่ 1
-                        next1Button.addEventListener("click", function() {
-                            // ตรวจสอบ radiobutton ที่ถูกเลือกในตาราง
-                            var radios = document.querySelectorAll('input[name^="answer_1_"]');
-                            var checked = false;
+        // สำหรับปุ่ม "Next" ในขั้นตอนที่ 1
+        next1Button.addEventListener("click", function() {
+            // ตรวจสอบ radiobutton ที่ถูกเลือกในตาราง
+            var radios = document.querySelectorAll('input[name^="answer_1_"]');
+            var checked = false;
 
-                            for (var i = 0; i < radios.length; i++) {
-                                if (radios[i].checked) {
-                                    checked = true;
-                                    break;
-                                }
-                            }
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    checked = true;
+                    break;
+                }
+            }
 
-                            // ถ้าไม่มี radiobutton ถูกเลือกให้แสดงข้อความแจ้งเตือน
-                            if (!checked) {
-                                alert('กรุณาตอบคำถามในแบบประเมินสุขภาพ');
-                            } else {
-                                step1.style.display = "none";
-                                step2.style.display = "block";
-                                progressBar.style.width = "66%";
-                            }
-                        });
+            // ถ้าไม่มี radiobutton ถูกเลือกให้แสดงข้อความแจ้งเตือน
+            if (!checked) {
+                alert('กรุณาตอบคำถามในแบบประเมินสุขภาพ');
+            } else {
+                step1.style.display = "none";
+                step2.style.display = "block";
+                progressBar.style.width = "66%";
+            }
+        });
 
-                        prev1Button.addEventListener("click", function() {
-                            step1.style.display = "block";
-                            step2.style.display = "none";
-                            progressBar.style.width = "33%";
-                        });
+        prev1Button.addEventListener("click", function() {
+            step1.style.display = "block";
+            step2.style.display = "none";
+            progressBar.style.width = "33%";
+        });
 
-                        next2Button.addEventListener("click", function() {
-                            step2.style.display = "none";
-                            step3.style.display = "block";
-                            progressBar.style.width = "100%";
-                        });
+        next2Button.addEventListener("click", function() {
+            step2.style.display = "none";
+            step3.style.display = "block";
+            progressBar.style.width = "100%";
+        });
 
-                        prev2Button.addEventListener("click", function() {
-                            step2.style.display = "block";
-                            step3.style.display = "none";
-                            progressBar.style.width = "66%";
-                        });
-                    </script>
-                    <script>
-                        // Get the URL query parameters
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const status = urlParams.get('status');
-                        const msg = urlParams.get('msg');
+        prev2Button.addEventListener("click", function() {
+            step2.style.display = "block";
+            step3.style.display = "none";
+            progressBar.style.width = "66%";
+        });
+    </script>
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
 
-                        // Check the status and display the SweetAlert message
-                        if (status === 'success') {
-                            Swal.fire({
-                                title: 'Success',
-                                text: msg,
-                                icon: 'success',
-                                confirmButtonClass: 'btn btn-primary'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // Redirect to order.php with success status and message
-                                    const redirectURL = 'donor.php';
-                                    window.location.href = redirectURL;
-                                }
-                            });
-                        } else if (status === 'error') {
-                            Swal.fire({
-                                title: 'Error',
-                                text: msg,
-                                icon: 'error',
-                                confirmButtonClass: 'btn btn-primary'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // Redirect to order.php with success status and message
-                                    const redirectURL = 'donor.php';
-                                    window.location.href = redirectURL;
-                                }
-                            });
-                        }
-                    </script>
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'donor.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'donor.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
 
 </body>
 

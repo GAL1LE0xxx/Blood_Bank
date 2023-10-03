@@ -99,7 +99,7 @@ $user = $_SESSION['username'];
                                     </a>
                                 </div>
                                 <div class="col d-flex justify-content-center">
-                                    <a href="onsitelservice.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
+                                    <a href="onsiteservice.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-solid fa-calendar square-icon"></i>
                                         <span class="mt-3" style="font-size: larger;">จองคิวบริจาคโลหิต</span>
                                     </a>
@@ -118,33 +118,33 @@ $user = $_SESSION['username'];
         </div>
     </div>
     <footer class="footer bg-danger text-white">
-        <div class="container-fluid">
-            <div class="row text-white">
-                <div >
-                    <p class="mb-1">
-                        <a class="text-white" href="home.php" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-white" href="home.php" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
-                        &copy;
-                    </p>
-                </div>
-                <div class="col-sm-12 col-md-6 text-center text-md-end">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://adminkit.io/" target="_blank">Support</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://adminkit.io/" target="_blank">Help Center</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://adminkit.io/" target="_blank">Privacy</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://adminkit.io/" target="_blank">Terms</a>
-                        </li>
-                    </ul>
+            <div class="container-fluid">
+                <div class="row text-white">
+                    <div class="col-sm-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0">
+                            <a class="text-white" href="home.php" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-white" href="home.php" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
+                            &copy;
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-center text-md-end">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Support</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Help Center</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Privacy</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-white" href="https://adminkit.io/" target="_blank">Terms</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
     
     <script>
         // Get the URL query parameters

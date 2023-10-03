@@ -7,8 +7,9 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
     exit;
 }
 
+$name = $_SESSION['name'];
 $user = $_SESSION['username'];
-$sql = "SELECT * FROM outsideagency WHERE oa_username = '$user'";
+$sql = "SELECT * FROM outsideagency WHERE oa_username = '$user' , oa_name ='$name'";
 
 $result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($result)) {
@@ -103,13 +104,13 @@ if (isset($_POST['out_start'])) {
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label">วันที่ต้องการจอง :</label>
-                                    <input class="form-control form-control-lg" type="date" name="bookingdate" placeholder="" required>
+                                    <input class="form-control form-control-lg" type="date" name="bookingdate" placeholder="" required min="<?php echo date('Y-m-d', strtotime('+1 month')); ?>">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label" for="bookingtime">ช่วงเวลา :</label>
-                                    <select class="form-select form-control-lg" aria-label="Default select example" name="bookingtime" required>
-                                        <option disabled selected>กรุณาเลือกช่วงเวลา</option>
-                                        <option value="ช่วงเช้า">ช่วงเช้า</option>
+                                    <label class="form-label"   or="bookingtime">ช่วงเวลา :</label>
+                                    <select class="form-select  form-control-lg" aria-label="Default select example" name="bookingtime" required>
+                                        <option disabled selec  ed>กรุณาเลือกช่วงเวลา</option>
+                                        <option value="ช่วงเช้า"  ช่วงเช้า</option>
                                         <option value="ช่วงบ่าย">ช่วงบ่าย</option>
                                     </select>
                                 </div>
@@ -123,28 +124,7 @@ if (isset($_POST['out_start'])) {
                     <div class="card mt-3">
                         <div id='calendar' class="p-3 border bg-light "></div>
                     </div>
-                    <<!-- โมเดลเหตุการณ์ -->
-                        <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="eventModalLabel">รายละเอียดเหตุการณ์</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <?php if (!empty($result)) : ?>
-                                            <?php echo $id ?>
-                                        <?php endif; ?>
-                                    </div>
-                                    <p id="eventDetails"></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                                </div>
-                            </div>
-                        </div>
+                    
                 </div>
 
             </div>
@@ -206,7 +186,7 @@ if (isset($_POST['out_start'])) {
                         `<div class="p-2 bg-danger">
                       <div class="d-flex bg-danger">
                               <i class="fa-solid fa-user pe-2 "></i>
-                              <div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">ถูกจองแล้ว ` +
+                              <div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">ถูกจองแล้วโดย <?php echo $_SESSION['name']; ?>` +
                         `</div>
                   </div>`;
                     return {

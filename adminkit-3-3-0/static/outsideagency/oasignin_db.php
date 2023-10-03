@@ -13,8 +13,10 @@ if(isset($_POST['outsidesignin'])){
     if(mysqli_num_rows($result) == 1){
         $row = mysqli_fetch_assoc($result);
         $id = $row['oa_id'];
+        $name = $row['oa_name'];
         $_SESSION['id'] = $id;     
         $_SESSION['username'] = $username;
+        $_SESSION['name'] = $name;
         $status = $row['oa_status'];
         $_SESSION['status'] = $status;
 
