@@ -10,7 +10,7 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="../img/icons/icon.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-up.html" />
 
@@ -86,7 +86,7 @@
 											</div>
 											<div class="col-md-6">
 												<label class="form-label" for="gender">เพศ</label>
-												<select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="gender">
+												<select class="form-select form-control-lg" id="floatingSelect" aria-label="Floating label select example" name="gender">
 													<option selected>กรุณาเลือกเพศของท่าน</option>
 													<option value="0">ชาย</option>
 													<option value="1">หญิง</option>
@@ -94,10 +94,24 @@
 											</div>
 										</div>
 
-										<div class="mb-3">
+										<div class="row gx-3 mb-3">
+											<div class="col-md-6">
+												<label class="form-label" for="bloodtype">หมู่เลือด</label>
+												<select class="form-select form-control-lg" id="floatingSelect" aria-label="Floating label select example" name="bloodtype">
+													<option selected>กรุณาเลือกหมู่เลือดของท่าน</option>
+													<option value="1">A</option>
+													<option value="2">B</option>
+													<option value="3">O</option>
+													<option value="4">AB</option>
+												</select>
+											</div>
+											<div class="col-md-6">
 											<label class="form-label">วัน/เดือน/ปี เกิด</label>
 											<input class="form-control form-control-lg" type="date" name="birthdate" placeholder="" />
 										</div>
+										</div>
+
+										
 
 										<div class="text-center mt-3">
 											<button type="submit" name="singupuser" class="btn btn-lg btn-success">สมัครสมาชิก</button>
