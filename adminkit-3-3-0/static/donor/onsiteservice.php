@@ -1,15 +1,32 @@
 <?php
-session_start();
 include "../connect.php";
+session_start();
+
 if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้าระบบอยู่
-    header("location: oasign-in.php"); // redirect ไปยังหน้า login.php
+    header("location: donorsign-in.php"); // redirect ไปยังหน้า login.php
     exit;
 }
-
-$user = $_SESSION['username'];
 $id = $_SESSION['id'];
+$name = $_SESSION['name'];
+$user = $_SESSION['username'];
+$logged_in_dn_id = $_SESSION['id'];
 
+
+if (isset($_POST['on_date'])) {
+    $searchKeyword = $_POST['on_date'];
+
+    // สร้างคำสั่ง SQL สำหรับการค้นหาข้อมูลจากทั้ง 2 ตาราง
+    $sql = "SELECT d.*, os.* FROM donor d
+            INNER JOIN onsiteservice os ON d.dn_id = os.dn_id
+            WHERE os.on_date LIKE '%$searchKeyword%' AND d.dn_id = '$logged_in_dn_id'";
+
+    // ประมวลผลคำสั่ง SQL
+    $result = mysqli_query($conn, $sql);
+}
+
+$searchKeyword = isset($_POST['on_date']) ? $_POST['on_date'] : '';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +79,7 @@ $id = $_SESSION['id'];
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                            <span class="text-dark"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="donorprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
@@ -74,68 +91,30 @@ $id = $_SESSION['id'];
             </nav>
             <main class="content">
                 <div class="container overflow-hidden ">
-                    <ul class="nav nav-pills " id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active  " id="back-button" onclick="window.history.back()" type="button">ย้อนกลับ</button>
-                        </li>
-                    </ul>
-                    <div class="mb-3">
-                        <ul class="nav nav-pills mt-4" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="onbooking-tab" data-bs-toggle="tab" data-bs-target="#onbooking" type="button" role="tab" aria-controls="onbooking" aria-selected="true">จองคิว</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="onbookingcheck-tab" data-bs-toggle="tab" data-bs-target="#onbookingcheck" type="button" role="tab" aria-controls="onbookingcheck" aria-selected="false">ตรวจสอบการจองคิว</button>
-                            </li>
-                        </ul>
-                    </div>
+                    <a class="btn btn-danger mt-3 mb-3" href="donormenu.php">ย้อนกลับ</a>
 
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="onbooking" role="tabpanel" aria-labelledby="donor-tab">
-                            <div class="container-fluid p-0">
-                                <div class="row gx-5">
-                                    <div class="col">
-                                        <form class="form-control" action="onbooking_db.php" method="post">
-                                            <div class="mt-2">
-                                                <h3>กรอกข้อมูลการจองคิว</h3>
-                                            </div>
-                                            <input type="hidden" class="form-control form-control-lg" id="id" name="id" value="<?php echo $id ?>">
-                                            <div class="row gx-3 mb-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">วันที่ต้องการจอง :</label>
-                                                    <input class="form-control form-control-lg" type="date" name="bookingdate" placeholder="" required min="<?php echo date('Y-m-d', strtotime('+1 month')); ?>">
-                                                </div>
-                                                <div class="col-md-6"></div>
-                                                    <label class="form-label" for="bookingtime">เวลา :</label>
-                                                    <input class="form-control form-control-lg" type="time" name="bookingtime" placeholder="" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="onbooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade" id="onbookingcheck" role="tabpanel" aria-labelledby="onbookingcheck-tab">
-                            <div class="container-fluid p-0">
-                                <div class="mt-4">
-                                    <form class="form-control" action="oabooking_db.php" method="post">
+                    <!-- จองคิว -->
+                    <div class="container-fluid p-0">
+                        <div class="mt-4">
+                            <div class="card mb-4 ">
+                                <div class="card-body">
+                                    <form class="form-control " action="onbooking_db.php" method="post">
                                         <div class="mt-2">
-                                            <h3>ตรวจสอบข้อมูลการจองคิว</h3>
+                                            <h3>กรอกข้อมูลการจองคิว</h3>
                                         </div>
                                         <input type="hidden" class="form-control form-control-lg" id="id" name="id" value="<?php echo $id ?>">
                                         <div class="row gx-3 mb-3">
-                                            <label class="form-label">วันที่ :</label>
-                                            <input class="form-control form-control-lg" type="date" name="bookingdate" placeholder="" required>
+                                            <div class="col-md-6">
+                                                <label class="form-label">วันที่ต้องการจอง :</label>
+                                                <input class="form-control form-control-lg" type="date" name="bookingdate" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label" for="bookingtime">เวลา :</label>
+                                                <input class="form-control form-control-lg" type="time" name="bookingtime" required>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" name="oabooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
+                                            <button type="submit" name="onbooking" class="form-control btn btn-danger btn-lg submit px-3 mt-3 mb-3">ยืนยันการจอง</button>
                                         </div>
                                     </form>
                                 </div>
@@ -143,48 +122,149 @@ $id = $_SESSION['id'];
                         </div>
                     </div>
 
+                    <!-- จองคิว -->
 
+                    <!-- ตรวจสอบคิว -->
+                    <div class="container-fluid p-0">
+                        <div class="mt-4">
+                            <div class="card mb-4 ">
+                                <div class="card-body">
+                                    <div class="container mt-3">
+
+                                        <form class="form-control" action="" method="POST"> <!-- แก้ไข action และ method -->
+                                            <div class="mt-2">
+                                                <h3>ตรวจสอบข้อมูลการจองคิว</h3>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="on_date" class="form-label">กรอกวันที่จองคิวของท่าน:</label>
+                                                <input type="date" class="form-control" name="on_date" value="<?php echo $searchKeyword ?>">
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-success">ค้นหา</button>
+                                                <button type="submit" class="btn btn-danger" name="clear" value="true" id="clearBtn">เคลียร์</button>
+                                            </div>
+                                            <?php if (isset($_POST['clear'])) {
+                                                $searchKeyword = '';
+                                                unset($result);
+                                            } ?>
+                                        </form>
+
+                                        <?php if (!empty($result)) : ?>
+                                            <table class="table table-bordered mt-3">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>ชื่อผู้จอง</th>
+                                                        <th>วันที่จอง</th>
+                                                        <th>เวลา</th>
+                                                        <th>ยกเลิก</th>
+                                                        <!-- เพิ่มคอลัมน์ตามโครงสร้างของตาราง -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $tid = 1; ?>
+                                                    <?php if ($result->num_rows > 0) : ?>
+                                                        <?php while ($row = $result->fetch_assoc()) : ?>
+                                                            <tr>
+                                                                <td><?= $tid ?></td>
+                                                                <td><?= $row["dn_name"] ?></td>
+                                                                <td><?= date("d/m/Y", strtotime($row["on_date"])) ?></td>
+                                                                <td><?= $row["on_time"] ?></td>
+                                                                <td>
+                                                                    <a class='btn btn-danger' href='onbooking_delete_db.php?did=<?php echo $row["on_id"]; ?>' onclick="return confirmDelete('<?php echo $row["on_id"]; ?>')">
+                                                                        <i class='bi bi-trash'>ยกเลิก</i>
+                                                                    </a>
+                                                                </td>
+                                                                <!-- เพิ่มเติมคอลัมน์ตามโครงสร้างของตาราง -->
+                                                            </tr>
+                                                            <?php $tid++; ?>
+
+                                                        <?php endwhile; ?>
+                                                    <?php elseif (!empty($searchKeyword)) : ?>
+                                                        <tr>
+                                                            <td colspan="7">ขออภัยไม่พบข้อมูล</td>
+                                                        </tr>
+                                                    <?php endif; ?>
+
+                                                </tbody>
+                                            </table>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <!-- ตรวจสอบคิว -->
 
                 </div>
-
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
-        
-        <script>
-            // Get the URL query parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const status = urlParams.get('status');
-            const msg = urlParams.get('msg');
+        </main>
 
-            // Check the status and display the SweetAlert message
-            if (status === 'success') {
-                Swal.fire({
-                    title: 'Success',
-                    text: msg,
-                    icon: 'success',
-                    confirmButtonClass: 'btn btn-primary'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirect to order.php with success status and message
-                        const redirectURL = 'donor.php';
-                        window.location.href = redirectURL;
-                    }
-                });
-            } else if (status === 'error') {
-                Swal.fire({
-                    title: 'Error',
-                    text: msg,
-                    icon: 'error',
-                    confirmButtonClass: 'btn btn-primary'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirect to order.php with success status and message
-                        const redirectURL = 'donor.php';
-                        window.location.href = redirectURL;
-                    }
-                });
-            }
-        </script>
+
+    </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Get the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const msg = urlParams.get('msg');
+
+        // Check the status and display the SweetAlert message
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Success',
+                text: msg,
+                icon: 'success',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'onsiteservice.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error',
+                text: msg,
+                icon: 'error',
+                confirmButtonClass: 'btn btn-primary'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to order.php with success status and message
+                    const redirectURL = 'onsiteservice.php';
+                    window.location.href = redirectURL;
+                }
+            });
+        }
+    </script>
+    <script>
+        document.getElementById("clearBtn").addEventListener("click", function() {
+            document.getElementById("on_date").value = ""; // เคลียร์ค่าในช่องค้นหา
+        });
+    </script>
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: "ข้อมูลนี้ไม่สามารถกู้คืนได้",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'ยืนยันการลบ',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'onbooking_delete_db.php?did=' + id;
+                }
+            });
+            return false; // ไม่เปิดลิงก์อื่น
+        }
+    </script>
 
 </body>
 

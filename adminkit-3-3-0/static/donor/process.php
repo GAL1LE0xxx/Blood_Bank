@@ -20,7 +20,7 @@ if (isset($_POST['screening_submit'])) {
             }
 
             // ตรวจสอบว่า $answers มีข้อมูลครบ 37 ตัวหรือไม่
-            if (count($answers) == 37) {
+            if (!empty($answers) && count($answers) == 37) {
                 // ทำการบันทึกข้อมูลลงในฐานข้อมูล
                 $sql = "INSERT INTO screeningresults (dn_id, sr_date, sr_answer_1, sr_answer_2, sr_answer_3, sr_answer_4, sr_answer_5, sr_answer_6, sr_answer_7, sr_answer_8, sr_answer_9, sr_answer_10, sr_answer_11, sr_answer_12, sr_answer_13, sr_answer_14, sr_answer_15, sr_answer_16, sr_answer_17, sr_answer_18, sr_answer_19, sr_answer_20, sr_answer_21, sr_answer_22, sr_answer_23, sr_answer_24, sr_answer_25, sr_answer_26, sr_answer_27, sr_answer_28, sr_answer_29, sr_answer_30, sr_answer_31, sr_answer_32, sr_answer_33, sr_answer_34, sr_answer_35, sr_answer_36, sr_answer_37)
                 VALUES ('$id', '$date', '" . implode("', '", $answers) . "')";

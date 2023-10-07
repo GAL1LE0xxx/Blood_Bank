@@ -9,9 +9,14 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
 
 $name = $_SESSION['name'];
 $user = $_SESSION['username'];
-$sql = "SELECT * FROM outsideagency WHERE oa_username = '$user' , oa_name ='$name'";
+$sql = "SELECT * FROM outsideagency WHERE oa_username = '$user' AND oa_name = '$name'";
+
 
 $result = mysqli_query($conn, $sql);
+if (!$result) {
+    die("Error in SQL query: " . mysqli_error($conn));
+}
+
 while ($row = mysqli_fetch_assoc($result)) {
     $id = $row['oa_id'];
 }
@@ -22,7 +27,8 @@ if (isset($_POST['out_start'])) {
     // สร้างคำสั่ง SQL สำหรับการค้นหาข้อมูลจากทั้ง 2 ตาราง
     $sql = "SELECT o.*, os.* FROM outsideagency o
             INNER JOIN outsiteservice os ON o.oa_id = os.oa_id
-            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$id'";
+            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$id'";    
+
 
     // ประมวลผลคำสั่ง SQL
     $result = $conn->query($sql);
@@ -71,7 +77,7 @@ if (isset($_POST['out_start'])) {
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                            <span class="text-dark"><?php echo $_SESSION['name  ']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
@@ -90,7 +96,7 @@ if (isset($_POST['out_start'])) {
                             <div class="mt-2">
                                 <h3>กรอกข้อมูลการจองคิว</h3>
                             </div>
-                            <input type="hidden" class="form-control form-control-lg" id="id" name="id" value="<?php echo $id ?>">
+                            <input type="hidden" class="form-control form-control-lg" id="oa_id" name="oa_id" value="<?php echo $_SESSION['id'] ?>">
 
                             <div class="mb-3 mt-3">
                                 <label class="form-label">สถานที่ :</label>
@@ -107,10 +113,10 @@ if (isset($_POST['out_start'])) {
                                     <input class="form-control form-control-lg" type="date" name="bookingdate" placeholder="" required min="<?php echo date('Y-m-d', strtotime('+1 month')); ?>">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label"   or="bookingtime">ช่วงเวลา :</label>
+                                    <label class="form-label" or="bookingtime">ช่วงเวลา :</label>
                                     <select class="form-select  form-control-lg" aria-label="Default select example" name="bookingtime" required>
-                                        <option disabled selec  ed>กรุณาเลือกช่วงเวลา</option>
-                                        <option value="ช่วงเช้า"  ช่วงเช้า</option>
+                                        <option disabled seleced>กรุณาเลือกช่วงเวลา</option>
+                                        <option value="ช่วงเช้า">ช่วงเช้า</option>
                                         <option value="ช่วงบ่าย">ช่วงบ่าย</option>
                                     </select>
                                 </div>
@@ -124,13 +130,14 @@ if (isset($_POST['out_start'])) {
                     <div class="card mt-3">
                         <div id='calendar' class="p-3 border bg-light "></div>
                     </div>
-                    
+
                 </div>
 
             </div>
         </div>
     </div>
-    </div>
+
+
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);

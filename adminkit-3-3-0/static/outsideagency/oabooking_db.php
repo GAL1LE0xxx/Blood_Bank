@@ -3,7 +3,7 @@ include("../connect.php");
 session_start();
 
 if(isset($_POST['oabooking'])){
-    $id = $_POST['id'];
+    $id = $_POST['oa_id'];
     $location = $_POST['location'];
     $numberdonor = $_POST['numberdonor'];
     $bookingdate = $_POST['bookingdate'];

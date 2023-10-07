@@ -8,21 +8,22 @@ if (!isset($_SESSION['username'])) {
 }
 
 $user = $_SESSION['username'];
-$logged_in_oa_id = $_SESSION['id'];  
+$logged_in_oa_id = isset($_SESSION['id']) ? $_SESSION['id'] : '';  // เพิ่มการตรวจสอบค่า id จาก Session
+$searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : ''; // Define searchKeyword here
 
 if (isset($_POST['out_start'])) {
     $searchKeyword = $_POST['out_start'];
+}   
 
-    // สร้างคำสั่ง SQL สำหรับการค้นหาข้อมูลจากทั้ง 2 ตาราง
+// สร้างคำสั่ง SQL สำหรับการค้นหาข้อมูลจากทั้ง 2 ตาราง
     $sql = "SELECT o.*, os.* FROM outsideagency o
             INNER JOIN outsiteservice os ON o.oa_id = os.oa_id
-            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$logged_in_oa_id'";
+            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$logged_in_oa_id'";   
 
-    // ประมวลผลคำสั่ง SQL
-    $result = $conn->query($sql);
-}
+// ประมวลผลคำสั่ง SQL
+$result = $conn->query($sql);
 
-$searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +64,7 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark"><?php echo $_SESSION['id']; ?></span>
+                            <span class="text-dark"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
@@ -135,7 +136,6 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : '';
                                                                 <i class='bi bi-trash'>ยกเลิก</i>
                                                             </a>
                                                         </td>
-                                                        <!-- เพิ่มเติมคอลัมน์ตามโครงสร้างของตาราง -->
                                                     </tr>
                                                     <?php $tid++; ?>
 

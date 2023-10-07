@@ -61,7 +61,7 @@ $id = $_SESSION['id'];
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="adminprofile.php"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../logout.php">Log out</a>
+                                <a class="dropdown-item" href="../../logout.php">Log out</a>
                             </div>
                         </li>
                     </ul>
@@ -76,24 +76,50 @@ $id = $_SESSION['id'];
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <select class="form-control" name="wholeblood">
-                                        <option>เลือกหมู่เลือด</option>
+                                        <option>เลือกหมู่โลหิต</option>
                                         <?php
                                         $query = "SELECT * FROM wholeblood";
-                                        $result = mysqli_query($conn, $query) or die ('error');
-                                        if(mysqli_num_rows($result) > 0 ){
-                                            while($row = mysqli_fetch_assoc($result)){?>
-                                        <option value=<?php echo $row['wb_id']?>><?php echo $row['wb_bloodtype']?></option>    
-                                       <?php }
-                                    }
+                                        $result = mysqli_query($conn, $query) or die('error');
+                                        if (mysqli_num_rows($result) > 0) {
+                                            while ($row = mysqli_fetch_assoc($result)) { ?>
+                                                <option value=<?php echo $row['wb_id'] ?>><?php echo $row['wb_bloodtype'] ?></option>
+                                        <?php }
+                                        }
                                         ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
-
+                                <div class="form-group">
+                                    <select class="form-control" name="specificblood">
+                                        <option>เลือกโลหิตเฉพาะส่วน</option>
+                                        <?php
+                                        $query = "SELECT * FROM specificblood";
+                                        $result = mysqli_query($conn, $query) or die('error');
+                                        if (mysqli_num_rows($result) > 0) {
+                                            while ($row = mysqli_fetch_assoc($result)) { ?>
+                                                <option value=<?php echo $row['sb_id'] ?>><?php echo $row['sb_information'] ?></option>
+                                        <?php }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-3">
-
+                            <div class="form-group">
+                                    <select class="form-control" name="gender">
+                                        <option>เลือกเพศ</option>
+                                        <?php
+                                        $query = "SELECT * FROM donor";
+                                        $result = mysqli_query($conn, $query) or die('error');
+                                        if (mysqli_num_rows($result) > 0) {
+                                            while ($row = mysqli_fetch_assoc($result)) { ?>
+                                                <option value=<?php echo $row['dn_id'] ?>><?php echo $row['dn_gender'] ?></option>
+                                        <?php }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
                         </form>
                     </div>

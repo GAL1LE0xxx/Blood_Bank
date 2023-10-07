@@ -179,7 +179,7 @@ $id = $_SESSION['id'];
                         <p class="mb-0">
                             <a class="text-white" href="home.php" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-white" href="home.php" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
                             &copy;
-                        </p> 
+                        </p>
                     </div>
                     <div class="col-sm-12 col-md-6 text-center text-md-end">
                         <ul class="list-inline">
@@ -261,24 +261,28 @@ $id = $_SESSION['id'];
         next1Button.addEventListener("click", function() {
             // ตรวจสอบ radiobutton ที่ถูกเลือกในตาราง
             var radios = document.querySelectorAll('input[name^="answer_1_"]');
-            var checked = false;
+            var checkedCount = 0;
 
             for (var i = 0; i < radios.length; i++) {
                 if (radios[i].checked) {
-                    checked = true;
-                    break;
+                    checkedCount++;
                 }
             }
 
-            // ถ้าไม่มี radiobutton ถูกเลือกให้แสดงข้อความแจ้งเตือน
-            if (!checked) {
-                alert('กรุณาตอบคำถามในแบบประเมินสุขภาพ');
+            // ถ้าไม่มี radiobutton ถูกเลือกหรือไม่ครบ 37 ข้อให้แสดง SweetAlert
+            if (checkedCount !== 37) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'กรุณาตอบคำถามทุกข้อในแบบประเมินสุขภาพ (ครบ 37 ข้อ)'
+                });
             } else {
                 step1.style.display = "none";
                 step2.style.display = "block";
                 progressBar.style.width = "66%";
             }
         });
+
 
         prev1Button.addEventListener("click", function() {
             step1.style.display = "block";

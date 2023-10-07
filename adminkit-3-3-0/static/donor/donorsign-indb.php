@@ -17,6 +17,9 @@ if(isset($_POST['donorsignin'])){
         $_SESSION['username'] = $username;
         $status = $row['dn_status'];
         $_SESSION['status'] = $status;
+        $name = $row['dn_name'];
+        $_SESSION['name'] = $name;
+
 
         if($status == 0){
             $errorMessage = "คุณยังไม่ได้รับอนุมัติจากเจ้าหน้าที่";
