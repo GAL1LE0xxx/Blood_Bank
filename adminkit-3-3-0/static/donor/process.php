@@ -36,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($conn->query($sql) === TRUE) {
             $successMessage = "บันทึกข้อมูลสำเร็จ";
-            header("Location: donor_test.php?status=success&msg=" . urlencode($successMessage));
+            header("Location: donor.php?status=success&msg=" . urlencode($successMessage));
         } else {
             $errorMessage = "บันทึกข้อมูลไม่สำเร็จ";
-            header("Location: donor_test.php?status=error&msg=" . urlencode($errorMessage)) . $conn->error;
+            header("Location: donor.php?status=error&msg=" . urlencode($errorMessage)) . $conn->error;
         }
 
 

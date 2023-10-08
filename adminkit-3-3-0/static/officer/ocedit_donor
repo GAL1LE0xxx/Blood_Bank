@@ -9,8 +9,8 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
 $user = $_SESSION['username'];
 $id = $_SESSION['id'];
 
-if (isset($_SESSION['id'])) {
-    $dn_id = $_SESSION['id']; // หรือจะใช้วิธีอื่น ๆ ในการรับรหัสผู้ใช้
+if (isset($_SESSION['donorid'])) {
+    $dn_id = $_SESSION['donorid']; // หรือจะใช้วิธีอื่น ๆ ในการรับรหัสผู้ใช้
 
     // ทำคำสั่ง SQL เพื่อดึงข้อมูลของผู้ใช้จากฐานข้อมูล
     $sql = "SELECT * FROM healthresults WHERE dn_id = '$dn_id' AND DATE(hr_date) = CURDATE() ";
@@ -29,10 +29,8 @@ if (isset($_SESSION['id'])) {
         // ไม่สามารถดึงข้อมูลได้
         echo "เกิดข้อผิดพลาดในการดึงข้อมูล";
     }
-} else {
-    // ไม่มีการเข้าสู่ระบบ
-    echo "กรุณาเข้าสู่ระบบก่อน";
-}
+} 
+
 
 ?>
 <!DOCTYPE html>
@@ -66,25 +64,32 @@ if (isset($_SESSION['id'])) {
 
 <body>
     <div class="wrapper">
+        <?php include "tmednav.php"; ?>
         <div class="main">
-            <nav class="navbar navbar-expand navbar-light navbar-bg ">
-                <a href="../home.php">
-                    <img width="60" height="60" src="../img\photos\logo.png" alt="logo">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
                 </a>
-                <span>ธนาคารเลือดโรงพยาบาลตรัง <br> Blood Bank Trang Hospital </span>
-                <ul class="navbar-nav navbar-align">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark"><?php echo $_SESSION['name']; ?></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="donorprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
-                        </div>
-                    </li>
-                </ul>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav navbar-align">
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                                <i class="align-middle" data-feather="settings"></i>
+                            </a>
+
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                                <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="tmedprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
+                            </div>
+                        </li>
+                </div>
             </nav>
+
             <main class="content">
                 <div class="container">
                     <div class="container ">
@@ -116,7 +121,17 @@ if (isset($_SESSION['id'])) {
                                     ?>
 
                                     <h2>แก้ไขแบบคัดกรองสุขภาพ (<?php echo $thaiDate; ?>)</h2>
-
+                                    
+                                    <div class="row gx-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="donorid">รหัสผู้บริจาค :</label>
+                                                <input class="form-control" name="donorid" type="text" placeholder="กรุณากรอกรหัสผู้บริจาค" onblur="fetchUserInfo()" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="user-info">ชื่อผู้บริจาค :</label>
+                                                <input class="form-control" name="user-info" id="user-info" readonly>
+                                            </div>
+                                        </div>
 
 
                                     <div class="row gx-3 mb-3">
@@ -161,40 +176,36 @@ if (isset($_SESSION['id'])) {
                     </div>
                 </div>
             </main>
-        </div>
-    </div>
-    </div>
-    <div class="footer">
-        <footer class="footer bg-danger text-white">
-            <div class="container-fluid">
-                <div class="row text-white">
-                    <div class="col-sm-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
-                        <p class="mb-0">
-                            <a class="text-white" href="home.php" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-white" href="home.php" target="_blank"><strong>โรงพยาบาลตรัง</strong></a>
-                            &copy;
-                        </p>
-                    </div>
-                    <div class="col-sm-12 col-md-6 text-center text-md-end">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a class="text-white" href="https://adminkit.io/" target="_blank">Support</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-white" href="https://adminkit.io/" target="_blank">Help Center</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-white" href="https://adminkit.io/" target="_blank">Privacy</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-white" href="https://adminkit.io/" target="_blank">Terms</a>
-                            </li>
-                        </ul>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>ธนาคารเลือด</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>โรงพยาบาลตรัง</strong></a> &copy;
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </div>
-
+    <script src="js/app.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- <script>
@@ -224,77 +235,25 @@ if (isset($_SESSION['id'])) {
                             });
                         });
                     </script> -->
-
     <script>
-        const form = document.querySelector("#multi-step-form");
-        const step0 = document.querySelector("#step0");
-        const step1 = document.querySelector("#step1");
-        const step2 = document.querySelector("#step2");
-        const step3 = document.querySelector("#step3");
-        const next0Button = document.querySelector("#next0");
-        const prev0Button = document.querySelector("#prev0");
-        const next1Button = document.querySelector("#next1");
-        const prev1Button = document.querySelector("#prev1");
-        const next2Button = document.querySelector("#next2");
-        const prev2Button = document.querySelector("#prev2");
-        const progressBar = document.querySelector(".progress-bar");
+        function fetchUserInfo() {
+            // ดึงค่ารหัสผู้บริจาคที่ผู้ใช้ป้อน
+            var donorid = document.getElementsByName('donorid')[0].value;
 
-        next0Button.addEventListener("click", function() {
-            step0.style.display = "none";
-            step1.style.display = "block";
-            progressBar.style.width = "33%";
-        });
-        prev0Button.addEventListener("click", function() {
-            step0.style.display = "block";
-            step1.style.display = "none";
-            progressBar.style.width = "0%";
-        });
-
-        // สำหรับปุ่ม "Next" ในขั้นตอนที่ 1
-        next1Button.addEventListener("click", function() {
-            // ตรวจสอบ radiobutton ที่ถูกเลือกในตาราง
-            var radios = document.querySelectorAll('input[name^="answer_1_"]');
-            var checkedCount = 0;
-
-            for (var i = 0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                    checkedCount++;
+            // ส่งคำร้องขอ AJAX ไปยังไฟล์ PHP ที่จะดึงข้อมูลผู้ใช้
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_user_info.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // แสดงข้อมูลผู้ใช้ที่ได้รับจากเซิร์ฟเวอร์
+                    document.getElementById('user-info').value = xhr.responseText; // เปลี่ยน user-info.name เป็น xhr.responseText
                 }
-            }
-
-            // ถ้าไม่มี radiobutton ถูกเลือกหรือไม่ครบ 37 ข้อให้แสดง SweetAlert
-            if (checkedCount !== 37) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'ผิดพลาด',
-                    text: 'กรุณาตอบคำถามทุกข้อในแบบประเมินสุขภาพ (ครบ 37 ข้อ)'
-                });
-            } else {
-                step1.style.display = "none";
-                step2.style.display = "block";
-                progressBar.style.width = "66%";
-            }
-        });
-
-
-        prev1Button.addEventListener("click", function() {
-            step1.style.display = "block";
-            step2.style.display = "none";
-            progressBar.style.width = "33%";
-        });
-
-        next2Button.addEventListener("click", function() {
-            step2.style.display = "none";
-            step3.style.display = "block";
-            progressBar.style.width = "100%";
-        });
-
-        prev2Button.addEventListener("click", function() {
-            step2.style.display = "block";
-            step3.style.display = "none";
-            progressBar.style.width = "66%";
-        });
+            };
+            xhr.send("donorid=" + donorid);
+        }
     </script>
+
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
@@ -304,27 +263,27 @@ if (isset($_SESSION['id'])) {
         // Check the status and display the SweetAlert message
         if (status === 'success') {
             Swal.fire({
-                title: 'Success',
+                title: 'บันทึกข้อมูลสำเร็จ',
                 text: msg,
                 icon: 'success',
                 confirmButtonClass: 'btn btn-primary'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to order.php with success status and message
-                    const redirectURL = 'edit_donor.php';
+                    const redirectURL = 'oc_donor.php';
                     window.location.href = redirectURL;
                 }
             });
         } else if (status === 'error') {
             Swal.fire({
-                title: 'Error',
+                title: 'บันทึกข้อมูลสำเร็จ',
                 text: msg,
-                icon: 'error',
+                icon: 'warning',
                 confirmButtonClass: 'btn btn-primary'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to order.php with success status and message
-                    const redirectURL = 'edit_donor.php';
+                    const redirectURL = 'oc_donor.php';
                     window.location.href = redirectURL;
                 }
             });
