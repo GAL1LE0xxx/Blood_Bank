@@ -82,7 +82,49 @@ $id = $_SESSION['id'];
                                     </div>
 
                                     <div id="step1" style="display: none;">
-                                        <h2>แบบประเมินสุขภาพ 1/2</h2>
+                                        <h2>แบบคัดกรองสุขภาพ</h2>
+                                        <div class="row gx-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="pressure">ความดันโลหิต (มิลลิเมตรปรอท) :</label>
+                                                <input class="form-control" name="pressure" type="text" placeholder="ระบุความดันโลหิต (เช่น 120/80)" required>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="pulse">ชีพจร (ครั้งต่อนาที) :</label>
+                                                <input class="form-control" name="pulse" type="text" placeholder="ระบุชีพจรครั้งต่อนาที" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row gx-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="hb">ระดับฮีโมโกลบิน (กรัมต่อเดซิลิตร) : </label>
+                                                <input class="form-control" name="hb" type="text" placeholder="ระบุระดับฮีโมโกลบิน" required>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="temperature">อุณหภูมิร่างกาย (องศาเซลเซียส) :</label>
+                                                <input class="form-control" name="temperature" type="text" placeholder="ระบุอุณหภูมิร่างกาย" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row gx-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="weight">น้ำหนัก (กิโลกรัม) :</label>
+                                                <input class="form-control" name="weight" type="text" placeholder="ระบุน้ำหนัก" required>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="text mb-1" for="height">ส่วนสูง (เซนติเมตร) :</label>
+                                                <input class="form-control" name="height" type="text" placeholder="ระบุส่วนสูง" required>
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn-danger mt-3" type="button" id="prev0">ก่อนหน้า</button>
+                                        <button class="btn btn-danger mt-3" type="button" id="next1">ถัดไป</button>
+                                    </div>
+
+                                    <div id="step2" style="display: none;">
+                                        <h2>แบบประเมินสุขภาพ</h2>
                                         <table id="myTable" class="table table-hover my-0 ">
                                             <thead>
                                                 <tr>
@@ -119,46 +161,6 @@ $id = $_SESSION['id'];
 
                                             </tbody>
                                         </table>
-                                        <button class="btn btn-danger mt-3" type="button" id="prev0">ก่อนหน้า</button>
-                                        <button class="btn btn-danger mt-3" type="button" id="next1">ถัดไป</button>
-                                    </div>
-                                    <div id="step2" style="display: none;">
-                                        <h2>แบบคัดกรองสุขภาพ</h2>
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="pressure">ความดันโลหิต (มิลลิเมตรปรอท) :</label>
-                                                <input class="form-control" name="pressure" type="text" placeholder="ระบุความดันโลหิต (เช่น 120/80)" required>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="pulse">ชีพจร (ครั้งต่อนาที) :</label>
-                                                <input class="form-control" name="pulse" type="text" placeholder="ระบุชีพจรครั้งต่อนาที" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="hb">ระดับฮีโมโกลบิน (กรัมต่อเดซิลิตร) : </label>
-                                                <input class="form-control" name="hb" type="text" placeholder="ระบุระดับฮีโมโกลบิน" required>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="temperature">อุณหภูมิร่างกาย (องศาเซลเซียส) :</label>
-                                                <input class="form-control" name="temperature" type="text" placeholder="ระบุอุณหภูมิร่างกาย"required>
-                                            </div>
-                                        </div>
-
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="weight">น้ำหนัก (กิโลกรัม) :</label>
-                                                <input class="form-control" name="weight" type="text" placeholder="ระบุน้ำหนัก" required>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="height">ส่วนสูง (เซนติเมตร) :</label>
-                                                <input class="form-control" name="height" type="text" placeholder="ระบุส่วนสูง"required>
-                                            </div>
-                                        </div>
 
                                         <button class="btn btn-danger" type="button" id="prev1">ก่อนหน้า</button>
 
@@ -238,29 +240,120 @@ $id = $_SESSION['id'];
         const step0 = document.querySelector("#step0");
         const step1 = document.querySelector("#step1");
         const step2 = document.querySelector("#step2");
-        const step3 = document.querySelector("#step3");
         const next0Button = document.querySelector("#next0");
         const prev0Button = document.querySelector("#prev0");
         const next1Button = document.querySelector("#next1");
         const prev1Button = document.querySelector("#prev1");
         const next2Button = document.querySelector("#next2");
         const prev2Button = document.querySelector("#prev2");
-        const progressBar = document.querySelector(".progress-bar");
 
         next0Button.addEventListener("click", function() {
-            step0.style.display = "none";
-            step1.style.display = "block";
-            progressBar.style.width = "33%";
+            // ตรวจสอบว่าทุก input element ใน step0 ถูกป้อนค่าหรือไม่
+            const inputs = step0.querySelectorAll("input[required]");
+            let allInputsValid = true;
+
+            inputs.forEach(function(input) {
+                if (input.value.trim() === "") {
+                    allInputsValid = false;
+                }
+            });
+
+            if (allInputsValid) {
+                step0.style.display = "none";
+                step1.style.display = "block";
+                progressBar.style.width = "33%";
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'กรุณากรอกข้อมูลให้ครบทุกช่องก่อนดำเนินการถัดไป'
+                });
+            }
         });
+
+        next1Button.addEventListener("click", function() {
+            // ตรวจสอบค่า pressure
+            const pressureInput = document.querySelector("input[name='pressure']");
+            const pressureValue = pressureInput.value.trim();
+
+            // ตรวจสอบว่าค่า pressure อยู่ในรูปแบบ "ค่าบน/ค่าล่าง" และตัวเลขทั้งสองถูกต้อง
+            const pressurePattern = /^\d+\/\d+$/;
+            if (!pressurePattern.test(pressureValue)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'กรุณาระบุความดันโลหิตในรูปแบบ "ค่าบน/ค่าล่าง" (เช่น 120/80)'
+                });
+                return;
+            }
+
+            // แยกค่าบนและค่าล่าง
+            const pressureValues = pressureValue.split('/');
+            const systolicPressure = parseFloat(pressureValues[0]);
+            const diastolicPressure = parseFloat(pressureValues[1]);
+
+            if (isNaN(systolicPressure) || isNaN(diastolicPressure) ||
+                systolicPressure <= 100 || systolicPressure >= 160 ||
+                diastolicPressure <= 60 || diastolicPressure >= 100) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'ค่า ความดันโลหิต ต้องอยู่ระหว่าง 100 - 160 / 60 - 100'
+                });
+                return;
+            }
+
+            // ตรวจสอบค่า pulse
+            const pulseInput = document.querySelector("input[name='pulse']");
+            const pulseValue = parseInt(pulseInput.value);
+            if (isNaN(pulseValue) || pulseValue <= 50 || pulseValue >= 100) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'ค่า ชีพจร ต้องอยู่ระหว่าง 50-100 ครั้งต่อนาที'
+                });
+                return;
+            }
+
+            // ตรวจสอบค่า hb
+            const hbInput = document.querySelector("input[name='hb']");
+            const hbValue = parseFloat(hbInput.value);
+            if (isNaN(hbValue) || hbValue <= 13) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'ระดับฮีโมโกลบิน ต้องไม่ต่ำกว่า 13 กรัม/เดซิลิตร'
+                });
+                return;
+            }
+
+            // ตรวจสอบค่า temperature
+            const temperatureInput = document.querySelector("input[name='temperature']");
+            const temperatureValue = parseFloat(temperatureInput.value);
+            if (isNaN(temperatureValue) || temperatureValue >= 37.5) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'อุณหภูมิร่างกาย ต้องไม่เกิน 37.5 องศาเซลเซียส'
+                });
+                return;
+            }
+
+            step1.style.display = "none";
+            step2.style.display = "block";
+            progressBar.style.width = "66%";
+        });
+
         prev0Button.addEventListener("click", function() {
             step0.style.display = "block";
             step1.style.display = "none";
             progressBar.style.width = "0%";
         });
 
-        // สำหรับปุ่ม "Next" ในขั้นตอนที่ 1
-        next1Button.addEventListener("click", function() {
-            // ตรวจสอบ radiobutton ที่ถูกเลือกในตาราง
+        // เปลี่ยน next0Button เป็น submitButton
+        var submitButton = document.querySelector('button[name="screening_submit"]');
+        submitButton.addEventListener("click", function(event) {
+            // ตรวจสอบ radiobutton ที่ถูกเลือกในตารางแบบประเมินสุขภาพ
             var radios = document.querySelectorAll('input[name^="answer_1_"]');
             var checkedCount = 0;
 
@@ -270,39 +363,21 @@ $id = $_SESSION['id'];
                 }
             }
 
-            // ถ้าไม่มี radiobutton ถูกเลือกหรือไม่ครบ 37 ข้อให้แสดง SweetAlert
+            // ถ้าไม่มี radiobutton ถูกเลือกหรือไม่ครบ 37 ข้อให้แสดง SweetAlert และยกเลิกการส่งฟอร์ม
             if (checkedCount !== 37) {
                 Swal.fire({
                     icon: 'error',
                     title: 'ผิดพลาด',
                     text: 'กรุณาตอบคำถามทุกข้อในแบบประเมินสุขภาพ (ครบ 37 ข้อ)'
                 });
+                event.preventDefault(); // ยกเลิกการส่งฟอร์ม
             } else {
-                step1.style.display = "none";
-                step2.style.display = "block";
-                progressBar.style.width = "66%";
+                // หากคำตอบถูกต้องทั้งหมดให้ส่งฟอร์มต่อไปยัง oc_process.php
+                form.submit(); // ส่งฟอร์มต่อไปยัง oc_process.php
             }
         });
-
-
-        prev1Button.addEventListener("click", function() {
-            step1.style.display = "block";
-            step2.style.display = "none";
-            progressBar.style.width = "33%";
-        });
-
-        next2Button.addEventListener("click", function() {
-            step2.style.display = "none";
-            step3.style.display = "block";
-            progressBar.style.width = "100%";
-        });
-
-        prev2Button.addEventListener("click", function() {
-            step2.style.display = "block";
-            step3.style.display = "none";
-            progressBar.style.width = "66%";
-        });
     </script>
+
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
