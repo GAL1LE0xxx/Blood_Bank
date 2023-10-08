@@ -79,20 +79,35 @@ if ($position != '1') {
                                                 <form action="sdonate_add_db.php" method="post">
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="donorid">รหัสผู้่บริจาค</label>
-                                                            <input class="form-control" name="donorid" type="text" placeholder="กรุณากรอกรหัสผู้บริจาค">
+                                                            <label class="text mb-1" for="donorid">รหัสผู้บริจาค</label>
+                                                            <input class="form-control" name="donorid" type="text" placeholder="กรุณากรอกรหัสผู้บริจาค" onblur="fetchUserInfo()" required>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-6 ">
+                                                            <label class="text mb-1" for="user-info">ชื่อผู้บริจาค</label>
+                                                            <input class="form-control" name="user-info" id="user-info" readonly>
+                                                        </div>
+                                                        <div class="mt-3">
                                                             <label class="text mb-1" for="donateday">วันที่บริจาค</label>
-                                                            <input class="form-control" name="donateday" type="date">
+                                                            <input class="form-control" name="donateday" type="date" required>
                                                         </div>
                                                     </div>
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="amount">บริมาณโลหิต</label>
-                                                            <input class="form-control" name="amount" type="text" placeholder="กรุณากรอกบริมาณโลหิต">
+                                                            <label class="text mb-1" for="blood-type">ประเภทโลหิตเฉพาะส่วน</label>
+                                                            <select class="form-select" name="blood-type" id="blood-type" required>
+                                                                <option selected>โปรดเลือกโลหิตเฉพาะส่วน</option>
+                                                                <option value="1">เกล็ดเลือด</option>
+                                                                <option value="2">เม็ดเลือดแดง</option>
+                                                                <option value="3">พลาสม่า</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="text mb-1" for="amount">ปริมาณโลหิต (มิลลิลิตร):</label>
+                                                            <input class="form-control" name="amount" type="text" placeholder="กรุณากรอกบริมาณโลหิต" id="amount" disabled>
                                                         </div>
                                                     </div>
+
+
 
                                                     <button type="submit" class='btn btn-success' name="add_sdonate">ยืนยัน</button>
                                                     <td><a class='btn btn-danger' href='blooddonate.php'>ย้อนกลับ</a></td>
@@ -139,6 +154,42 @@ if ($position != '1') {
     </div>
 
     <script src="../js/app.js"></script>
+    <script>
+        function fetchUserInfo() {
+            // ดึงค่ารหัสผู้บริจาคที่ผู้ใช้ป้อน
+            var donorid = document.getElementsByName('donorid')[0].value;
+
+            // ส่งคำร้องขอ AJAX ไปยังไฟล์ PHP ที่จะดึงข้อมูลผู้ใช้
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_useroa_info.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // แสดงข้อมูลผู้ใช้ที่ได้รับจากเซิร์ฟเวอร์
+                    document.getElementById('user-info').value = xhr.responseText; // เปลี่ยน user-info.name เป็น xhr.responseText
+                }
+            };
+            xhr.send("donorid=" + donorid);
+        }
+    </script>
+    <script>
+        var bloodTypeSelect = document.getElementById('blood-type');
+        var amountInput = document.getElementById('amount');
+
+        bloodTypeSelect.addEventListener('change', function() {
+            // เมื่อผู้ใช้เลือกประเภทโลหิต
+            if (bloodTypeSelect.value !== 'โปรดเลือกโลหิตเฉพาะส่วน') {
+                // ถ้าไม่เท่ากับโปรดเลือกโลหิตเฉพาะส่วน
+                // เปิดใช้งานฟิลด์ให้ผู้ใช้กรอกค่า
+                amountInput.disabled = false;
+            } else {
+                // ถ้าเลือกโปรดเลือกโลหิตเฉพาะส่วน
+                // ปิดใช้งานฟิลด์และเคลียร์ค่า
+                amountInput.disabled = true;
+                amountInput.value = '';
+            }
+        });
+    </script>
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);

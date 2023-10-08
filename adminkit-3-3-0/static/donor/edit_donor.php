@@ -9,6 +9,31 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
 $user = $_SESSION['username'];
 $id = $_SESSION['id'];
 
+if (isset($_SESSION['id'])) {
+    $dn_id = $_SESSION['id']; // หรือจะใช้วิธีอื่น ๆ ในการรับรหัสผู้ใช้
+
+    // ทำคำสั่ง SQL เพื่อดึงข้อมูลของผู้ใช้จากฐานข้อมูล
+    $sql = "SELECT * FROM healthresults WHERE dn_id = '$dn_id' AND DATE(hr_date) = CURDATE() ";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        // ดึงข้อมูลเรียบร้อย
+        $row = mysqli_fetch_assoc($result);
+        $pressure = $row['hr_pressure'];
+        $pulse = $row['hr_pulse'];
+        $hb = $row['hr_hb'];
+        $weight = $row['hr_weight'];
+        $height = $row['hr_height'];
+        $temperature = $row['hr_temperature'];
+    } else {
+        // ไม่สามารถดึงข้อมูลได้
+        echo "เกิดข้อผิดพลาดในการดึงข้อมูล";
+    }
+} else {
+    // ไม่มีการเข้าสู่ระบบ
+    echo "กรุณาเข้าสู่ระบบก่อน";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +75,7 @@ $id = $_SESSION['id'];
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                            <span class="text-dark"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="donorprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
@@ -64,113 +89,80 @@ $id = $_SESSION['id'];
                 <div class="container">
                     <div class="container ">
                         <a class="btn btn-danger mb-3" href="donormenu.php">ย้อนกลับ</a>
-                        <div class="progress mb-3">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
                         <div class="card mb-4 ">
                             <div class="card-body">
-                                <form id="multi-step-form" action="process.php" method="POST">
-                                    <input type="hidden" name="dn_id" value="<?php echo $_SESSION['id']; ?>">
-                                    <div id="step0">
-                                        <h2 class="text-center mb-4">ข้อแนะนำเตรียมตัวก่อนบริจาคโลหิต</h2>
-                                        <p> 1. พักผ่อนให้เพียงพอไม่น้อยกว่า 5 ชั่วโมง หากอยู่ระหว่างรับประทานยารักษาโรค ให้แจ้งแพทย์/พยาบาล</p>
-                                        <p> 2. หลีกเลี่ยงการรับประทานอาหารที่มีไขมันสูง เช่น ข้าวขาหมู ข้าวมันไก่ ขนมหวาน ก่อนมาบริจาคโลหิต 6 ชั่วโมง</p>
-                                        <p> 3. ก่อนบริจาคเลือด และก่อนเจาะเลือดบริจาคให้ดื่มน้ำ 3-4 แก้ว จะช่วยทำให้โลหิตไหลเวียนดีขึ้น</p>
-                                        <p> 4. งดเครื่องดื่มแอลกอฮอล์ งดสูบบุหรี่ทั้งก่อนและหลังบริจาคโลหิต 1 ชั่วโมง</p>
-                                        <p> 5. หลังบริจาคเลือด ควรดื่มน้ำให้มากกว่าปกติและรับประทานยาเสริมธาตุเหล็ก วันละ 1 เม็ด หลังอาหารจนหมด เพื่อชดเชยธาตุเหล็กที่สูญเสียไป</p>
-                                        <button class="btn btn-danger" type="button" id="next0">ถัดไป</button>
-                                    </div>
+                                <form id="multi-step-form" action="edit_process_db.php" method="POST">
+                                    <input type="hidden" name="dn_id" value="<?php echo $id ?>">
+                                    <?php
+                                    function thaiMonthYear($date)
+                                    {
+                                        $monthNamesThai = [
+                                            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                                            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+                                        ];
 
-                                    <div id="step1" style="display: none;">
-                                        <h2>แบบประเมินสุขภาพ 1/2</h2>
-                                        <table id="myTable" class="table table-hover my-0 ">
-                                            <thead>
-                                                <tr>
-                                                    <th>ลำดับที่</th>
-                                                    <th>แบบประเมิน</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
+                                        $dateParts = explode(" ", $date);
+                                        $day = $dateParts[0];
+                                        $month = intval(date("m", strtotime($dateParts[1])));
+                                        $year = $dateParts[2];
 
-                                            <tbody>
-                                                <?php
-                                                $sql = "SELECT * FROM screening";
-                                                $result = mysqli_query($conn, $sql);
-                                                $tid = 1;
+                                        $thaiYear = $year + 543; // แปลงปีเป็นปีไทย
+                                        $thaiDate = "$day " . $monthNamesThai[$month - 1] . " $thaiYear";
+                                        return $thaiDate;
+                                    }
 
-                                                if (mysqli_num_rows($result) > 0) {
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $tid . "</td>";
-                                                        echo "<td>" . $row["s_question"] . "</td>";
-                                                        echo "<td><input type='radio' name='answer_1_" . $tid . "' value='1'> ใช่</td>";
-                                                        echo "<td><input type='radio' name='answer_1_" . $tid . "' value='0'> ไม่ใช่</td>";
-                                                        $tid++;
-                                                    }
-                                                } else {
-                                                    echo "0 results";
-                                                }
+                                    $date = date('d F Y', strtotime('today'));
+                                    $thaiDate = thaiMonthYear($date);
+                                    ?>
+
+                                    <h2>แก้ไขแบบคัดกรองสุขภาพ (<?php echo $thaiDate; ?>)</h2>
 
 
-                                                mysqli_close($conn);
 
-                                                ?>
-
-                                            </tbody>
-                                        </table>
-                                        <button class="btn btn-danger mt-3" type="button" id="prev0">ก่อนหน้า</button>
-                                        <button class="btn btn-danger mt-3" type="button" id="next1">ถัดไป</button>
-                                    </div>
-                                    <div id="step2" style="display: none;">
-                                        <h2>แบบคัดกรองสุขภาพ</h2>
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="pressure">ความดันโลหิต (มิลลิเมตรปรอท) :</label>
-                                                <input class="form-control" name="pressure" type="text" placeholder="ระบุความดันโลหิต (เช่น 120/80)" required>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="pulse">ชีพจร (ครั้งต่อนาที) :</label>
-                                                <input class="form-control" name="pulse" type="text" placeholder="ระบุชีพจรครั้งต่อนาที" required>
-                                            </div>
+                                    <div class="row gx-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="text mb-1" for="pressure">ความดันโลหิต (มิลลิเมตรปรอท) :</label>
+                                            <input class="form-control" name="pressure" type="text" value="<?php echo $pressure ?>" required>
                                         </div>
 
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="hb">ระดับฮีโมโกลบิน (กรัมต่อเดซิลิตร) : </label>
-                                                <input class="form-control" name="hb" type="text" placeholder="ระบุระดับฮีโมโกลบิน" required>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="temperature">อุณหภูมิร่างกาย (องศาเซลเซียส) :</label>
-                                                <input class="form-control" name="temperature" type="text" placeholder="ระบุอุณหภูมิร่างกาย"required>
-                                            </div>
+                                        <div class="col-md-6">
+                                            <label class="text mb-1" for="pulse">ชีพจร (ครั้งต่อนาที) :</label>
+                                            <input class="form-control" name="pulse" type="text" value="<?php echo $pulse ?>" required>
                                         </div>
-
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="weight">น้ำหนัก (กิโลกรัม) :</label>
-                                                <input class="form-control" name="weight" type="text" placeholder="ระบุน้ำหนัก" required>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label class="text mb-1" for="height">ส่วนสูง (เซนติเมตร) :</label>
-                                                <input class="form-control" name="height" type="text" placeholder="ระบุส่วนสูง"required>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn btn-danger" type="button" id="prev1">ก่อนหน้า</button>
-
-                                        <button class="btn btn-danger" type="submit" name="screening_submit" onclick="return validateForm()">ยืนยัน</button>
                                     </div>
-                                </form>
+
+                                    <div class="row gx-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="text mb-1" for="hb">ระดับฮีโมโกลบิน (กรัมต่อเดซิลิตร) : </label>
+                                            <input class="form-control" name="hb" type="text" value="<?php echo $hb ?>" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="text mb-1" for="temperature">อุณหภูมิร่างกาย (องศาเซลเซียส) :</label>
+                                            <input class="form-control" name="temperature" type="text" value="<?php echo $temperature ?>" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row gx-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="text mb-1" for="weight">น้ำหนัก (กิโลกรัม) :</label>
+                                            <input class="form-control" name="weight" type="text" value="<?php echo $weight ?>" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="text mb-1" for="height">ส่วนสูง (เซนติเมตร) :</label>
+                                            <input class="form-control" name="height" type="text" value="<?php echo $height ?>" required>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-danger" type="submit" name="screeningedit_submit" onclick="return validateForm()">ยืนยัน</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </main>
         </div>
+        </main>
+    </div>
     </div>
     <div class="footer">
         <footer class="footer bg-danger text-white">
@@ -319,7 +311,7 @@ $id = $_SESSION['id'];
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to order.php with success status and message
-                    const redirectURL = 'donor.php';
+                    const redirectURL = 'edit_donor.php';
                     window.location.href = redirectURL;
                 }
             });
@@ -332,7 +324,7 @@ $id = $_SESSION['id'];
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to order.php with success status and message
-                    const redirectURL = 'donor.php';
+                    const redirectURL = 'edit_donor.php';
                     window.location.href = redirectURL;
                 }
             });

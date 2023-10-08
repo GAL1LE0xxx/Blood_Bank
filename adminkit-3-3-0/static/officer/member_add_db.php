@@ -12,9 +12,11 @@ if (isset($_POST['add_member'])) {
 	$address = $_POST['address'];
 	$phonenumber = $_POST['phonenumber'];
 	$gender = $_POST['gender'];
+	$bloodtype = $_POST['bloodtype'];
 	$birthdate = $_POST['birthdate'];
 
-	$sql = "SELECT * FROM donor WHERE dn_username = '$username'";
+	$sql = "SELECT * FROM donor WHERE dn_username = '$username' OR dn_persernalid = '$persernalid' OR dn_email = '$email'";
+
 	$result = mysqli_query($conn, $sql);
 	$row = mysqli_fetch_assoc($result);
 
@@ -27,16 +29,25 @@ if (isset($_POST['add_member'])) {
 			$errorMessage = "มีชื่อผู้ใช้นี้ในระบบแล้ว";
 			header("Location: member_add.php?status=error&msg=" . urlencode($errorMessage));
 			exit();
+		}else if ($row['dn_persernalid'] === $persernalid) {
+			$errorMessage = "มีผู้ใช้นี้ในระบบแล้ว";
+			header("Location: member_add.php?status=error&msg=" . urlencode($errorMessage));
+			exit();
+		}else if ($row['dn_email'] === $email) {
+			$errorMessage = "มีอีเมลผู้ใช้นี้ในระบบแล้ว";
+			header("Location: member_add.php?status=error&msg=" . urlencode($errorMessage));
+			exit();
 		}
+
 	} else {
 		$encryptpassword = md5($password);
-		$sql = "INSERT INTO donor (dn_username,dn_password,dn_name,dn_persernalid,dn_gender,dn_email,dn_address,dn_phonenumber,dn_birthdate,dn_status) VALUES ('$username','$encryptpassword','$name','$persernalid','$gender','$email','$address','$phonenumber','$birthdate','1')";
+		$sql = "INSERT INTO donor (dn_username,dn_password,dn_name,dn_persernalid,dn_gender,wb_id,dn_email,dn_address,dn_phonenumber,dn_birthdate,dn_status) VALUES ('$username','$encryptpassword','$name','$persernalid','$gender','$bloodtype','$email','$address','$phonenumber','$birthdate','1')";
 		if (mysqli_query($conn, $sql)) {
-			$successMessage = "เพิ่มผู้ใช้สำเร็จ";
+			$successMessage = "ลงทะเบียนสำเร็จ";
 			header("Location: member_add.php?status=success&msg=" . urlencode($successMessage));
 			exit();
 		} else {
-			$errorMessage = "เพิ่มผู้ใช้ไม่สำเร็จ";
+			$errorMessage = "ลงทะเบียนไม่สำเร็จ";
 			header("Location: member_add.php?status=error&msg=" . urlencode($errorMessage));
 			exit();
 		}

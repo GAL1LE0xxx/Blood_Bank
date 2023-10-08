@@ -102,8 +102,7 @@ if (isset($_GET['id'])) {
                                             <div class="m-sm-4">
                                                 <form action="wdonate_edit_db.php" method="post">
                                                     <div class="mb-3">
-                                                        <h5 class="card-title mb-3">ลำดับ</h5>
-                                                        <input type="text" class="form-control " name="wd_id" value="<?php echo $id ?>" readonly>
+                                                        <input type="hidden" class="form-control " name="wd_id" value="<?php echo $id ?>" readonly>
                                                     </div>
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">

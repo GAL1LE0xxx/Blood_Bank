@@ -95,7 +95,13 @@ $user = $_SESSION['username'];
                                 <div class="col d-flex justify-content-center">
                                     <a href="donor.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-solid fa-droplet square-icon"></i>
-                                        <span class="mt-3" style="font-size: larger;">บริจาคโลหิต</span>
+                                        <span class="mt-3" style="font-size: larger;">แบบประเมินและแบบคัดกรองเบื้องต้น</span>
+                                    </a>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <a href="edit_donor.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
+                                        <i class="fas fa-solid fa-droplet square-icon"></i>
+                                        <span class="mt-3" style="font-size: larger;">แก้ไขแบบประเมินคัดกรองเบื้องต้น</span>
                                     </a>
                                 </div>
                                 <div class="col d-flex justify-content-center">
@@ -104,7 +110,7 @@ $user = $_SESSION['username'];
                                         <span class="mt-3" style="font-size: larger;">จองคิวบริจาคโลหิต</span>
                                     </a>
                                 </div>
-                                <div class="col d-flex justify-content-center">
+                                <div class="col d-flex justify-content-center mt-4">
                                     <a href="h_donate.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-history square-icon"></i>
                                         <span class="mt-3" style="font-size: larger;">ประวัติการบริจาค</span>

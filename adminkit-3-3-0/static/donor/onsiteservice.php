@@ -106,7 +106,7 @@ $searchKeyword = isset($_POST['on_date']) ? $_POST['on_date'] : '';
                                         <div class="row gx-3 mb-3">
                                             <div class="col-md-6">
                                                 <label class="form-label">วันที่ต้องการจอง :</label>
-                                                <input class="form-control form-control-lg" type="date" name="bookingdate" required>
+                                                <input class="form-control form-control-lg" type="date" name="bookingdate" required min="<?php echo date('Y-m-d', strtotime('+3 month')); ?>">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label" for="bookingtime">เวลา :</label>

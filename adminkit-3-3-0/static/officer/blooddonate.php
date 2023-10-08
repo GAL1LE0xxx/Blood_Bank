@@ -64,7 +64,7 @@ if ($position !== '1') {
                 </div>
             </nav>
             <main class="content">
-                
+
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="pills-wholedonation-tab" data-bs-toggle="pill" data-bs-target="#pills-wholedonation" type="button" role="tab" aria-controls="pills-wholedonation" aria-selected="true">โลหิตรวม</button>
@@ -161,12 +161,12 @@ if ($position !== '1') {
                                             <a href="sdonate_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
                                         </div>
                                         <div class="table-responsive">
-                                        <table id="myTable2" class="table table-hover my-0">
+                                            <table id="myTable2" class="table table-hover my-0">
                                                 <thead>
                                                     <tr>
                                                         <th>ลำดับที่</th>
                                                         <th>วันที่บริจาค</th>
-                                                        <th>ปริมาณโลหิตที่บริจาค (มิลลิลิตร)</th>   
+                                                        <th>ปริมาณโลหิตที่บริจาค (มิลลิลิตร)</th>
                                                         <th>ผู้บริจาค</th>
                                                         <th>สถานะ</th>
                                                         <th>แก้ไข</th>

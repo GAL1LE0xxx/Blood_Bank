@@ -79,22 +79,31 @@ if ($position != '1') {
                                                 <form action="wdonate_add_db.php" method="post">
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="donorid">รหัสผู้่บริจาค</label>
-                                                            <input class="form-control" name="donorid" type="text" placeholder="กรุณากรอกรหัสผู้บริจาค">
+                                                            <label class="text mb-1" for="donorid">รหัสผู้บริจาค</label>
+                                                            <input class="form-control" name="donorid" type="text" placeholder="กรุณากรอกรหัสผู้บริจาค" onblur="fetchUserInfo()" required>
                                                         </div>
                                                         <div class="col-md-6">
+                                                            <label class="text mb-1" for="user-info">ชื่อผู้บริจาค</label>
+                                                            <input class="form-control" name="user-info" id="user-info" readonly>
+                                                        </div>
+
+                                                        <div class="col-md-6 mt-3">
                                                             <label class="text mb-1" for="donateday">วันที่บริจาค</label>
-                                                            <input class="form-control" name="donateday" type="date">
+                                                            <input class="form-control" name="donateday" type="date" required >
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="text mb-1" for="amount">บริมาณโลหิต</label>
-                                                            <input class="form-control" name="amount" type="text" placeholder="กรุณากรอกบริมาณโลหิต">
+                                                        <div class="col-md-6 mt-3">
+                                                            <label class="text mb-1" for="amount">ปริมาณโลหิต (มิลลิลิตร) :</label>
+                                                            <input class="form-control" name="amount" type="text" placeholder="กรุณากรอกบริมาณโลหิต" required>
                                                         </div>
                                                     </div>
 
                                                     <button type="submit" class='btn btn-success' name="add_wdonate">ยืนยัน</button>
                                                     <td><a class='btn btn-danger' href='blooddonate.php'>ย้อนกลับ</a></td>
                                                 </form>
+
+                                                <div id="user-info">
+                                                    <!-- ข้อมูลผู้ใช้จะถูกแสดงที่นี่ -->
+                                                </div>
                                             </div>
                                         </div>
                                     </tbody>
@@ -135,7 +144,24 @@ if ($position != '1') {
             </footer>
         </div>
     </div>
+    <script>
+        function fetchUserInfo() {
+            // ดึงค่ารหัสผู้บริจาคที่ผู้ใช้ป้อน
+            var donorid = document.getElementsByName('donorid')[0].value;
 
+            // ส่งคำร้องขอ AJAX ไปยังไฟล์ PHP ที่จะดึงข้อมูลผู้ใช้
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_user_info.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // แสดงข้อมูลผู้ใช้ที่ได้รับจากเซิร์ฟเวอร์
+                    document.getElementById('user-info').value = xhr.responseText; // เปลี่ยน user-info.name เป็น xhr.responseText
+                }
+            };
+            xhr.send("donorid=" + donorid);
+        }
+    </script>
     <script src="../js/app.js"></script>
     <script>
         // Get the URL query parameters

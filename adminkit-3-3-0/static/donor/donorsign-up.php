@@ -19,7 +19,7 @@
 	<link href="../css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 </head>
 
 
@@ -106,16 +106,16 @@
 												</select>
 											</div>
 											<div class="col-md-6">
-											<label class="form-label">วัน/เดือน/ปี เกิด</label>
-											<input class="form-control form-control-lg" type="date" name="birthdate" placeholder="" />
-										</div>
+												<label class="form-label">วัน/เดือน/ปี เกิด</label>
+												<input class="form-control form-control-lg" type="date" name="birthdate" placeholder="" />
+											</div>
 										</div>
 
-										
+
 
 										<div class="text-center mt-3">
 											<button type="submit" name="singupuser" class="btn btn-lg btn-success">สมัครสมาชิก</button>
-                                            <td><a class='btn btn-lg btn-danger' href='donorsign-in.php'>ย้อนกลับ</a></td>
+											<td><a class='btn btn-lg btn-danger' href='donorsign-in.php'>ย้อนกลับ</a></td>
 										</div>
 									</form>
 								</div>
