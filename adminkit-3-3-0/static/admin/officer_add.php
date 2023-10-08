@@ -40,10 +40,10 @@ if ($position != '0') {
 
 <body>
     <div class="wrapper">
-        <?php include "adminnav.php";?>
+        <?php include "adminnav.php"; ?>
 
         <div class="main">
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
                 </a>
@@ -80,7 +80,7 @@ if ($position != '0') {
                                 <div class="table-responsive">
                                     <tbody>
                                         <div class="contentdata ">
-                                            <h1 class="h3 mb-3 text"><strong>เพิ่มข้อมูลเจ้าหน้าที่</strong> </h1>
+                                            <h1 class="h3 mx-3 mt-3 mb-3 text"><strong>เพิ่มข้อมูลผู้ใช้</strong> </h1>
                                             <form action="officer_add_db.php" method="post">
                                                 <div class="card-body ">
                                                     <div class="mb-3">
@@ -118,13 +118,13 @@ if ($position != '0') {
                                                         <label class="form-check">
                                                             <input class="form-check-input" type="radio" id="admin" name="oc_position" value="0" required>
                                                             <span class="form-check-label">
-                                                            ผู้ดูแลระบบ
+                                                                ผู้ดูแลระบบ
                                                             </span>
                                                         </label>
 
                                                         <label class="form-check">
                                                             <input class="form-check-input" type="radio" id="mt" name="oc_position" value="1"> <span class="form-check-label">
-                                                                นักเทคนิคการแพทย์
+                                                                เจ้าหน้าที่
                                                             </span>
                                                         </label>
 
@@ -218,11 +218,11 @@ if ($position != '0') {
             });
         }
     </script>
-    
-    
-    
-    
-   
+
+
+
+
+
 </body>
 
 </html>

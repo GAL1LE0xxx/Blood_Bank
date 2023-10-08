@@ -30,7 +30,7 @@ if ($position != '0') {
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    <title>จัดการข้อมูลเจ้าหน้าที่</title>
+    <title>จัดการข้อมูลผู้ใช้</title>
 
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@ if ($position != '0') {
                 <!-- จัดการข้อมูลเจ้าหน้าที่ -->
                 <div class="container-fluid p-0">
 
-                    <h1 class="h3 mb-3"><strong>จัดการข้อมูลเจ้าหน้าที่</strong> </h1>
+                    <h1 class="h3 mb-3"><strong>จัดการข้อมูลผู้ใช้</strong> </h1>
 
                     <div class="row">
                         <div class="col-12 col-lg-15 col-xxl- d-flex">
@@ -119,7 +119,7 @@ if ($position != '0') {
                                                     if ($row["oc_position"] == "0") {
                                                         echo "<td>ผู้ดูแลระบบ</td>";
                                                     } elseif ($row["oc_position"] == "1") {
-                                                        echo "<td>นักเทคนิคการแพทย์</td>";
+                                                        echo "<td>เจ้าหน้าที่</td>";
                                                     } else {
                                                         echo "<td>Unknown</td>";
                                                     }

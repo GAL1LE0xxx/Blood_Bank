@@ -92,6 +92,7 @@ $id = $_SESSION['id'];
                                                 <input class="form-control" name="pressure" type="text" placeholder="ระบุความดันโลหิต (เช่น 120/80)" required>
                                             </div>
 
+
                                             <div class="col-md-6">
                                                 <label class="text mb-1" for="pulse">ชีพจร (ครั้งต่อนาที) :</label>
                                                 <input class="form-control" name="pulse" type="text" placeholder="ระบุชีพจรครั้งต่อนาที" required>
@@ -259,6 +260,73 @@ $id = $_SESSION['id'];
         const next1Button = document.querySelector("#next1");
 
         next0Button.addEventListener("click", function() {
+            // ตรวจสอบค่า pressure
+            const pressureInput = document.querySelector("input[name='pressure']");
+            const pressureValue = pressureInput.value.trim();
+
+            // ตรวจสอบว่าค่า pressure อยู่ในรูปแบบ "ค่าบน/ค่าล่าง" และตัวเลขทั้งสองถูกต้อง
+            const pressurePattern = /^\d+\/\d+$/;
+            if (!pressurePattern.test(pressureValue)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'กรุณาระบุความดันโลหิตในรูปแบบ "ค่าบน/ค่าล่าง" (เช่น 120/80)'
+                });
+                return;
+            }
+
+            // แยกค่าบนและค่าล่าง
+            const pressureValues = pressureValue.split('/');
+            const systolicPressure = parseFloat(pressureValues[0]);
+            const diastolicPressure = parseFloat(pressureValues[1]);
+
+            if (isNaN(systolicPressure) || isNaN(diastolicPressure) ||
+                systolicPressure <= 100 || systolicPressure >= 160 ||
+                diastolicPressure <= 60 || diastolicPressure >= 100) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'ค่า ความดันโลหิต ต้องอยู่ระหว่าง 100 - 160 / 60 - 100'
+                });
+                return;
+            }
+
+            // ตรวจสอบค่า pulse
+            const pulseInput = document.querySelector("input[name='pulse']");
+            const pulseValue = parseInt(pulseInput.value);
+            if (isNaN(pulseValue) || pulseValue <= 50 || pulseValue >= 100) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'ค่า ชีพจร ต้องอยู่ระหว่าง 50-100 ครั้งต่อนาที'
+                });
+                return;
+            }
+
+            // ตรวจสอบค่า hb
+            const hbInput = document.querySelector("input[name='hb']");
+            const hbValue = parseFloat(hbInput.value);
+            if (isNaN(hbValue) || hbValue <= 13) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'ระดับฮีโมโกลบิน ต้องไม่ต่ำกว่า 13 กรัม/เดซิลิตร'
+                });
+                return;
+            }
+
+            // ตรวจสอบค่า temperature
+            const temperatureInput = document.querySelector("input[name='temperature']");
+            const temperatureValue = parseFloat(temperatureInput.value);
+            if (isNaN(temperatureValue) || temperatureValue >= 37.5) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'อุณหภูมิร่างกาย ต้องไม่เกิน 37.5 องศาเซลเซียส'
+                });
+                return;
+            }
+
             // ตรวจสอบว่าทุก input element ใน step0 ถูกป้อนค่าหรือไม่
             const inputs = step0.querySelectorAll("input[required]");
             let allInputsValid = true;
@@ -281,6 +349,8 @@ $id = $_SESSION['id'];
                 });
             }
         });
+
+
         prev0Button.addEventListener("click", function() {
             step0.style.display = "block";
             step1.style.display = "none";

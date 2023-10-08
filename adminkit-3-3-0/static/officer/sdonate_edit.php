@@ -107,19 +107,23 @@ if (isset($_GET['id'])) {
                                                     </div>
                                                     <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
-                                                            <label class="text mb-1" for="donorid">รหัสผู้ใช้</label>
-                                                            <input class="form-control" name="donorid" type="text" value="<?php echo $donorid ?>" required>
+                                                            <label class="text mb-1" for="donorid">รหัสผู้บริจาค</label>
+                                                            <input class="form-control" name="donorid" type="text" value="<?php echo $donorid ?>" onblur="fetchUserInfo()" required>
                                                         </div>
                                                         <div class="col-md-6">
+                                                            <label class="text mb-1" for="user-info">ชื่อผู้บริจาค</label>
+                                                            <input class="form-control" name="user-info" id="user-info" readonly>
+                                                        </div>
+                                                        <div class="col-md-6 mt-3">
                                                             <label class="text mb-1" for="amount">ปริมาณเลือดที่บริจาค</label>
                                                             <input class="form-control" name="amount" type="text" value="<?php echo $amount ?>" required>
                                                         </div>
-                                                    </div>
-                                                    <div class="row gx-3 mb-3">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-6 mt-3">
                                                             <label class="text mb-1" for="donateday">วันที่บริจาค</label>
                                                             <input class="form-control" name="donateday" type="date" value="<?php echo $donateday ?>" required>
                                                         </div>
+                                                    </div>
+                                                    <div class="row gx-3 mb-3">
                                                         <div class="col-md-6">
                                                             <div class="col-md-6">
                                                                 <label class="text mb-1" for="status">สถานะของโลหิต</label>
@@ -187,6 +191,24 @@ if (isset($_GET['id'])) {
             </footer>
         </div>
     </div>
+    <script>
+        function fetchUserInfo() {
+            // ดึงค่ารหัสผู้บริจาคที่ผู้ใช้ป้อน
+            var donorid = document.getElementsByName('donorid')[0].value;
+
+            // ส่งคำร้องขอ AJAX ไปยังไฟล์ PHP ที่จะดึงข้อมูลผู้ใช้
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_user_info.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // แสดงข้อมูลผู้ใช้ที่ได้รับจากเซิร์ฟเวอร์
+                    document.getElementById('user-info').value = xhr.responseText; // เปลี่ยน user-info.name เป็น xhr.responseText
+                }
+            };
+            xhr.send("donorid=" + donorid);
+        }
+    </script>
 
     <script>
         // Get the URL query parameters

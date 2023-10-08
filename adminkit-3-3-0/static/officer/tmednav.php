@@ -56,11 +56,11 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item ">
+                <!-- <li class="sidebar-item ">
                     <a class="sidebar-link" href="ocedit_donor.php">
                         <i class="align-middle" data-feather="droplet"></i> <span class="align-middle">แก้ไขแบบคัดกรองเบื้องต้น</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="sidebar-header">
                     รายงาน
@@ -94,6 +94,8 @@
             </ul>
         </div>
     </nav>
+    <script src="js/app.js"></script>
+
 </body>
 
 </html>
