@@ -122,7 +122,7 @@
                     <div class="collapse" id="am-dropdown">
                         <ul class="sidebar-sub">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="wbbooking_report.php">
+                                <a class="sidebar-link" href="wbamout_report.php">
                                     <span class="align-middle">ประเภทของโลหิตรวม</span>
                                 </a>
                             </li>
@@ -160,7 +160,6 @@
             </ul>
         </div>
     </nav>
-    <script src="../js/app.js"></script>
 
 </body>
 

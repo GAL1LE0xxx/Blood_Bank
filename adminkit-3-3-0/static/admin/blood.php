@@ -237,6 +237,7 @@ if (isset($_GET['logout'])) {
             </div>
         </footer>
     </div>
+    <script src="../js/app.js"></script>
 
     <script>
         $(document).ready(function() {

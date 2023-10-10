@@ -64,6 +64,47 @@ if ($position != '0') {
                 <div class="container-fluid p-0">
                     <!-- แสดงปริมาณเลือดทั้งหมด -->
                     <h1 class="h3 mb-3"><strong>รายงานข้อมูลปริมาณโลหิตเฉพาะส่วน</strong></h1>
+                    <form method="GET" action="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="month">เลือกเดือน:</label>
+                                    <select name="month" id="month" class="form-control">
+                                        <!-- สร้างตัวเลือกเดือนที่คุณต้องการให้ผู้ใช้เลือก -->
+                                        <option selected disabled>กรุณาเลือกเดือน</option>
+                                        <option value="1">มกราคม</option>
+                                        <option value="2">กุมภาพันธ์</option>
+                                        <option value="3">มีนาคม</option>
+                                        <option value="4">เมษายน</option>
+                                        <option value="5">พฤษภาคม</option>
+                                        <option value="6">มิถุนายน</option>
+                                        <option value="7">กรกฎาคม</option>
+                                        <option value="8">สิงหาคม</option>
+                                        <option value="9">กันยายน</option>
+                                        <option value="10">ตุลาคม</option>
+                                        <option value="11">พฤศจิกายน</option>
+                                        <option value="12">ธันวาคม</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="year">เลือกปี:</label>
+                                    <select name="year" id="year" class="form-control">
+                                        <option selected disabled>กรุณาเลือกปี</option>
+                                        <?php
+                                        // สร้างตัวเลือกปีจากปีปัจจุบันถึง 10 ปีถัดไป
+                                        $currentYear = date("Y");
+                                        for ($i = $currentYear; $i <= $currentYear + 10; $i++) {
+                                            echo "<option value='$i'>$i</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary mt-3 mb-3">ค้นหา</button>
+                    </form>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="card">
@@ -72,10 +113,40 @@ if ($position != '0') {
                                         <?php
                                         include('../connect.php');
 
-                                        $query = "SELECT sd.sb_id, SUM(sd.sd_amount) AS total_sd_amount 
-                                        FROM specificdonation sd 
-                                        INNER JOIN specificblood sb 
-                                        ON sd.sb_id = sb.sb_id GROUP BY sd.sb_id";
+                                        // ดึงค่าเดือนและปีที่ผู้ใช้เลือก (หากมี)
+                                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                                            // ถ้าผู้ใช้เลือกเดือนและปี
+                                            $month = $_GET['month'];
+                                            $year = $_GET['year'];
+
+                                            // เชื่อมต่อฐานข้อมูลและดึงข้อมูลปริมาณเลือดตามเดือนและปีที่เลือก
+                                            $query = "SELECT SUM(sd.sd_amount) AS total_sd_amount
+                                             FROM specificdonation sd 
+                                             WHERE YEAR(sd.sd_date) = $year AND MONTH(sd.sd_date) = $month";
+
+                                            $result = mysqli_query($conn, $query);
+
+                                            if ($result === false) {
+                                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                                            }
+
+                                            // เริ่มต้นค่า total_sd_amount เป็น 0
+                                            $total_sd_amount = 0;
+                                            $count = 0;
+
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $total_sd_amount += $row['total_sd_amount'];
+                                                $count++;
+                                            }
+                                        }
+                                        // คำสั่ง SQL เริ่มต้น
+
+                                        else {
+                                            // ถ้าไม่มีการเลือกเดือนหรือปี
+                                            // คำสั่ง SQL เริ่มต้น
+                                            $query = "SELECT SUM(sd.sd_amount) AS total_sd_amount 
+                                            FROM specificdonation sd";
+                                        }
 
                                         $result = mysqli_query($conn, $query);
 
@@ -83,7 +154,7 @@ if ($position != '0') {
                                             die("การสอบถามผิดพลาด: " . mysqli_error($conn));
                                         }
 
-                                        $total_sd_amount = 0; // เริ่มต้นค่า total_wd_amount เป็น 0
+                                        $total_sd_amount = 0; // เริ่มต้นค่า total_sd_amount เป็น 0
                                         $count = 0; // เริ่มต้นค่า count เป็น 0
 
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -91,7 +162,6 @@ if ($position != '0') {
                                             $count++;
                                         }
                                         ?>
-
                                         <div class="col mt-0">
                                             <h5 class="card-title">ปริมาณโลหิตเฉพาะส่วนทั้งหมด</h5>
                                         </div>
@@ -109,25 +179,55 @@ if ($position != '0') {
                         </div>
                         <!-- แสดงปริมาณเลือดทั้งหมด -->
 
-                        <!-- แสดงปริมาณเลือดหมู่ A -->
+                        <!-- แสดงปริมาณพล่าสม่า-->
                         <?php
-                        $query = "SELECT sd.sb_id, SUM(sd.sd_amount) AS total_sd1_amount 
-                        FROM specificdonation sd 
-                        INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id 
-                        WHERE sb.sb_id = 1
-                        GROUP BY sd.sb_id";
+                        include('../connect.php');
 
-                        $result = mysqli_query($conn, $query);
-                        if ($result === false) {
-                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-                        }
+                        $month = isset($_GET['month']) ? $_GET['month'] : null;
+                        $year = isset($_GET['year']) ? $_GET['year'] : null;
 
-                        $total_sd1_amount = 0; // เริ่มต้นค่า total_wd_amount เป็น 0
-                        $count = 0; // เริ่มต้นค่า count เป็น 0
+                        if (!$month && !$year) {
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd1_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 1";
 
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $total_sd1_amount += $row['total_sd1_amount'];
-                            $count++;
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd1_amount = 0; // เริ่มต้นค่า total_sd1_amount เป็น 0
+                            $count = 0; // เริ่มต้นค่า count เป็น 0
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd1_amount += $row['total_sd1_amount'];
+                            }
+                        } else {
+                            // ถ้าผู้ใช้เลือกเดือนและ/หรือปี
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd1_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 1";
+
+                            if ($month) {
+                                $query .= " AND MONTH(sd.sd_date) = $month";
+                            }
+
+                            if ($year) {
+                                $query .= " AND YEAR(sd.sd_date) = $year";
+                            }
+
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd1_amount = 0;
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd1_amount += $row['total_sd1_amount'];
+                            }
                         }
                         ?>
 
@@ -148,29 +248,60 @@ if ($position != '0') {
                                     <h1 class="mt-1 mb-3"><?php echo $total_sd1_amount ?> มิลลิลิตร </h1>
                                 </div>
                             </div>
-
                         </div>
-                        <!-- แสดงปริมาณเลือดหมู่ A -->
 
-                        <!-- แสดงปริมาณเลือดหมู่ B -->
+                        <!-- แสดงปริมาณพล่าสม่า-->
+
+
+                        <!-- แสดงปริมาณเม็ดเลือดแดง -->
                         <?php
-                        $query = "SELECT sd.sb_id, SUM(sd.sd_amount) AS total_sd2_amount 
-                        FROM specificdonation sd 
-                        INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id 
-                        WHERE sb.sb_id = 2 
-                        GROUP BY sd.sb_id";
+                        include('../connect.php');
 
-                        $result = mysqli_query($conn, $query);
-                        if ($result === false) {
-                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-                        }
+                        $month = isset($_GET['month']) ? $_GET['month'] : null;
+                        $year = isset($_GET['year']) ? $_GET['year'] : null;
 
-                        $total_sd2_amount = 0; // เริ่มต้นค่า total_wd_amount เป็น 0
-                        $count = 0; // เริ่มต้นค่า count เป็น 0
+                        if (!$month && !$year) {
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd2_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
 
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $total_sd2_amount += $row['total_sd2_amount'];
-                            $count++;
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd2_amount = 0; // เริ่มต้นค่า total_sd3_amount เป็น 0
+                            $count = 0; // เริ่มต้นค่า count เป็น 0
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd2_amount += $row['total_sd2_amount'];
+                            }
+                        } else {
+                            // ถ้าผู้ใช้เลือกเดือนและ/หรือปี
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd2_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
+
+                            if ($month) {
+                                $query .= " AND MONTH(sd.sd_date) = $month";
+                            }
+
+                            if ($year) {
+                                $query .= " AND YEAR(sd.sd_date) = $year";
+                            }
+
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd2_amount = 0;
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd2_amount += $row['total_sd2_amount'];
+                            }
                         }
                         ?>
 
@@ -192,29 +323,61 @@ if ($position != '0') {
                                 </div>
                             </div>
                         </div>
-                        <!-- แสดงปริมาณเลือดหมู่ B -->
+                        <!-- แสดงปริมาณเม็ดเลือดแดง -->
 
-                        <!-- แสดงปริมาณเลือดหมู่ O -->
+
+                        <!-- แสดงปริมาณเกล็ดเลือด -->
                         <?php
-                        $query = "SELECT sd.sb_id, SUM(sd.sd_amount) AS total_sd3_amount 
-                        FROM specificdonation sd 
-                        INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id 
-                        WHERE sb.sb_id = 3
-                        GROUP BY sd.sb_id";
+                        include('../connect.php');
 
-                        $result = mysqli_query($conn, $query);
-                        if ($result === false) {
-                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-                        }
+                        $month = isset($_GET['month']) ? $_GET['month'] : null;
+                        $year = isset($_GET['year']) ? $_GET['year'] : null;
 
-                        $total_sd3_amount = 0; // เริ่มต้นค่า total_wd_amount เป็น 0
-                        $count = 0; // เริ่มต้นค่า count เป็น 0
+                        if (!$month && !$year) {
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd3_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
 
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $total_sd3_amount += $row['total_sd3_amount'];
-                            $count++;
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd3_amount = 0; // เริ่มต้นค่า total_sd3_amount เป็น 0
+                            $count = 0; // เริ่มต้นค่า count เป็น 0
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd3_amount += $row['total_sd3_amount'];
+                            }
+                        } else {
+                            // ถ้าผู้ใช้เลือกเดือนและ/หรือปี
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd3_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
+
+                            if ($month) {
+                                $query .= " AND MONTH(sd.sd_date) = $month";
+                            }
+
+                            if ($year) {
+                                $query .= " AND YEAR(sd.sd_date) = $year";
+                            }
+
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd3_amount = 0;
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd3_amount += $row['total_sd3_amount'];
+                            }
                         }
                         ?>
+
 
                         <div class="col-sm-4">
                             <div class="card">
@@ -234,7 +397,7 @@ if ($position != '0') {
                                 </div>
                             </div>
                         </div>
-                        <!-- แสดงปริมาณเลือดหมู่ O -->
+                        <!-- แสดงปริมาณเกล็ดเลือด-->
 
 
 
@@ -243,11 +406,39 @@ if ($position != '0') {
                                 <div class="card-header">
 
                                     <h5 class="card-title mb-0">แผนภูมิแท่งแสดงปริมาณโลหิตเฉพาะส่วนแยกตามประเภท
+                                        <?php
+                                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                                            $selectedMonth = $_GET['month'];
+                                            $selectedYear = $_GET['year'];
+
+                                            // แปลงเดือนเป็นเดือนไทย
+                                            $thaiMonths = array(
+                                                '1' => 'มกราคม',
+                                                '2' => 'กุมภาพันธ์',
+                                                '3' => 'มีนาคม',
+                                                '4' => 'เมษายน',
+                                                '5' => 'พฤษภาคม',
+                                                '6' => 'มิถุนายน',
+                                                '7' => 'กรกฎาคม',
+                                                '8' => 'สิงหาคม',
+                                                '9' => 'กันยายน',
+                                                '10' => 'ตุลาคม',
+                                                '11' => 'พฤศจิกายน',
+                                                '12' => 'ธันวาคม'
+                                            );
+                                            $thaiMonth = $thaiMonths[$selectedMonth];
+
+                                            // แปลงปีเป็นปีไทย
+                                            $thaiYear = $selectedYear + 543;
+
+                                            echo " เดือน $thaiMonth ปี $thaiYear";
+                                        }
+                                        ?>
                                     </h5>
                                 </div>
                                 <div class="card-body py-3">
                                     <div class="chart chart-sm">
-                                        <canvas id="chartjs-dashboard-bar"></canvas>
+                                        <canvas id="chartjs-dashboard-line"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -308,34 +499,17 @@ if ($position != '0') {
             var sd3 = jsonData.sd3;
 
             // Bar chart
-            new Chart(document.getElementById("chartjs-dashboard-bar"), {
-                type: "bar",
+            new Chart(document.getElementById("chartjs-dashboard-line"), {
+                type: "line",
                 data: {
-                    labels: ['ปริมาณโลหิตเฉพาะส่วน'],
+                    labels: ['พลาสม่า', 'เม็ดเลือดแดง', 'เกล็ดเลือด'],
                     datasets: [{
-                            label: 'พลาสม่า',
-                            data: [sd1],
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)', // สีพื้นหลัง
-                            borderColor: 'rgba(75, 192, 192, 1)', // สีเส้นขอบ
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'เม็ดเลือดแดง',
-                            data: [sd2],
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'เกล็ดเลือด',
-                            data: [sd3],
-                            backgroundColor: 'rgba(255, 205, 86, 0.2)', // สีพื้นหลัง
-                            borderColor: 'rgba(255, 205, 86, 1)', // สีเส้นขอบ
-                            borderWidth: 1
-                        }
-                        
-                    ]
-
+                        label: 'ปริมาณโลหิตรวม',
+                        data: [sd1, sd2, sd3],
+                        borderColor: 'rgba(75, 192, 192, 1)', // สีเส้นขอบ
+                        borderWidth: 1,
+                        fill: false // ปิดการเติมพื้นหลัง
+                    }]
                 },
                 options: {
                     maintainAspectRatio: false,
