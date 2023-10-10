@@ -60,9 +60,10 @@ if ($position != '1') {
                 </div>
             </nav>
             <main class="content">
+
                 <div class="container-fluid p-0">
                     <!-- แสดงปริมาณเลือดทั้งหมด -->
-                    <h1 class="h3 mb-3"><strong>รายงานข้อมูลปริมาณโลหิตรวม</strong></h1>
+                    <h1 class="h3 mb-3"><strong>รายงานข้อมูลปริมาณโลหิตเฉพาะส่วน</strong></h1>
                     <form method="GET" action="">
                         <div class="row">
                             <div class="col-md-6">
@@ -104,26 +105,24 @@ if ($position != '1') {
                         </div>
                         <button type="submit" name="submit" class="btn btn-primary mt-3 mb-3">ค้นหา</button>
                     </form>
-
-
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <!-- แสดงปริมาณเลือดทั้งหมด -->
                                         <?php
                                         include('../connect.php');
 
+                                        // ดึงค่าเดือนและปีที่ผู้ใช้เลือก (หากมี)
                                         if (isset($_GET['month']) && isset($_GET['year'])) {
                                             // ถ้าผู้ใช้เลือกเดือนและปี
                                             $month = $_GET['month'];
                                             $year = $_GET['year'];
 
                                             // เชื่อมต่อฐานข้อมูลและดึงข้อมูลปริมาณเลือดตามเดือนและปีที่เลือก
-                                            $query = "SELECT SUM(wh.wd_amount) AS total_wd_amount
-              FROM wholedonation wh
-              WHERE YEAR(wh.wd_date) = $year AND MONTH(wh.wd_date) = $month";
+                                            $query = "SELECT SUM(sd.sd_amount) AS total_sd_amount
+                                             FROM specificdonation sd 
+                                             WHERE YEAR(sd.sd_date) = $year AND MONTH(sd.sd_date) = $month";
 
                                             $result = mysqli_query($conn, $query);
 
@@ -131,38 +130,40 @@ if ($position != '1') {
                                                 die("การสอบถามผิดพลาด: " . mysqli_error($conn));
                                             }
 
-                                            // เริ่มต้นค่า total_wd_amount เป็น 0
-                                            $total_wd_amount = 0;
+                                            // เริ่มต้นค่า total_sd_amount เป็น 0
+                                            $total_sd_amount = 0;
                                             $count = 0;
 
                                             while ($row = mysqli_fetch_assoc($result)) {
-                                                $total_wd_amount += $row['total_wd_amount'];
-                                                $count++;
-                                            }
-                                        } else {
-                                            // ถ้าไม่มีการเลือกเดือนหรือปี
-                                            // ดึงข้อมูลปริมาณเลือดทั้งหมด
-                                            $query = "SELECT SUM(wh.wd_amount) AS total_wd_amount
-              FROM wholedonation wh";
-
-                                            $result = mysqli_query($conn, $query);
-
-                                            if ($result === false) {
-                                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-                                            }
-
-                                            // เริ่มต้นค่า total_wd_amount เป็น 0
-                                            $total_wd_amount = 0;
-                                            $count = 0;
-
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                $total_wd_amount += $row['total_wd_amount'];
+                                                $total_sd_amount += $row['total_sd_amount'];
                                                 $count++;
                                             }
                                         }
+                                        // คำสั่ง SQL เริ่มต้น
+
+                                        else {
+                                            // ถ้าไม่มีการเลือกเดือนหรือปี
+                                            // คำสั่ง SQL เริ่มต้น
+                                            $query = "SELECT SUM(sd.sd_amount) AS total_sd_amount 
+                                            FROM specificdonation sd";
+                                        }
+
+                                        $result = mysqli_query($conn, $query);
+
+                                        if ($result === false) {
+                                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                                        }
+
+                                        $total_sd_amount = 0; // เริ่มต้นค่า total_sd_amount เป็น 0
+                                        $count = 0; // เริ่มต้นค่า count เป็น 0
+
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $total_sd_amount += $row['total_sd_amount'];
+                                            $count++;
+                                        }
                                         ?>
                                         <div class="col mt-0">
-                                            <h5 class="card-title">ปริมาณโลหิตรวมทั้งหมด</h5>
+                                            <h5 class="card-title">ปริมาณโลหิตเฉพาะส่วนทั้งหมด</h5>
                                         </div>
 
                                         <div class="col-auto ">
@@ -172,53 +173,49 @@ if ($position != '1') {
                                         </div>
 
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $total_wd_amount ?> มิลลิลิตร </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $total_sd_amount ?> มิลลิลิตร </h1>
                                 </div>
                             </div>
                         </div>
                         <!-- แสดงปริมาณเลือดทั้งหมด -->
 
-
-                        <!-- แสดงปริมาณเลือดหมู่ A -->
+                        <!-- แสดงปริมาณพล่าสม่า-->
                         <?php
-
                         include('../connect.php');
 
                         $month = isset($_GET['month']) ? $_GET['month'] : null;
                         $year = isset($_GET['year']) ? $_GET['year'] : null;
 
-                        // ถ้าผู้ใช้ไม่ได้เลือกเดือนหรือปี หรือทั้งคู่
                         if (!$month && !$year) {
-                            $query = "SELECT SUM(wh.wd_amount) AS total_wd_A_amount
-              FROM wholedonation wh
-              INNER JOIN donor d ON wh.dn_id = d.dn_id
-              INNER JOIN wholeblood wb ON d.wb_id = wb.wb_id
-              WHERE wb.wb_id = 1";
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd1_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 1";
 
                             $result = mysqli_query($conn, $query);
                             if ($result === false) {
                                 die("การสอบถามผิดพลาด: " . mysqli_error($conn));
                             }
 
-                            $total_wd_A_amount = 0;
+                            $total_sd1_amount = 0; // เริ่มต้นค่า total_sd1_amount เป็น 0
+                            $count = 0; // เริ่มต้นค่า count เป็น 0
 
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $total_wd_A_amount += $row['total_wd_A_amount'];
+                                $total_sd1_amount += $row['total_sd1_amount'];
                             }
                         } else {
                             // ถ้าผู้ใช้เลือกเดือนและ/หรือปี
-                            $query = "SELECT SUM(wh.wd_amount) AS total_wd_A_amount
-              FROM wholedonation wh
-              INNER JOIN donor d ON wh.dn_id = d.dn_id
-              INNER JOIN wholeblood wb ON d.wb_id = wb.wb_id
-              WHERE wb.wb_id = 1";
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd1_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 1";
 
                             if ($month) {
-                                $query .= " AND MONTH(wh.wd_date) = $month";
+                                $query .= " AND MONTH(sd.sd_date) = $month";
                             }
 
                             if ($year) {
-                                $query .= " AND YEAR(wh.wd_date) = $year";
+                                $query .= " AND YEAR(sd.sd_date) = $year";
                             }
 
                             $result = mysqli_query($conn, $query);
@@ -226,13 +223,12 @@ if ($position != '1') {
                                 die("การสอบถามผิดพลาด: " . mysqli_error($conn));
                             }
 
-                            $total_wd_A_amount = 0;
+                            $total_sd1_amount = 0;
 
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $total_wd_A_amount += $row['total_wd_A_amount'];
+                                $total_sd1_amount += $row['total_sd1_amount'];
                             }
                         }
-
                         ?>
 
                         <div class="col-sm-4">
@@ -240,61 +236,60 @@ if ($position != '1') {
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">ปริมาณโลหิตหมู่เลือด A</h5>
+                                            <h5 class="card-title">ปริมาณพลาสม่า</h5>
                                         </div>
 
                                         <div class="col-auto">
                                             <div class="stat text-danger">
-                                                A<i class="bi bi-droplet-fill"></i>
+                                                <i class="bi bi-droplet-fill"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $total_wd_A_amount ?> มิลลิลิตร </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $total_sd1_amount ?> มิลลิลิตร </h1>
                                 </div>
                             </div>
                         </div>
-                        <!-- แสดงปริมาณเลือดหมู่ A -->
 
-                        <!-- แสดงปริมาณเลือดหมู่ B -->
+                        <!-- แสดงปริมาณพล่าสม่า-->
+
+
+                        <!-- แสดงปริมาณเม็ดเลือดแดง -->
                         <?php
-
                         include('../connect.php');
 
                         $month = isset($_GET['month']) ? $_GET['month'] : null;
                         $year = isset($_GET['year']) ? $_GET['year'] : null;
 
-                        // ถ้าผู้ใช้ไม่ได้เลือกเดือนหรือปี หรือทั้งคู่
                         if (!$month && !$year) {
-                            $query = "SELECT wb.wb_id, SUM(wh.wd_amount) AS total_wd_B_amount
-              FROM wholedonation wh
-              INNER JOIN donor d ON wh.dn_id = d.dn_id
-              INNER JOIN wholeblood wb ON d.wb_id = wb.wb_id
-              WHERE wb.wb_id = 2";
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd2_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
 
                             $result = mysqli_query($conn, $query);
                             if ($result === false) {
                                 die("การสอบถามผิดพลาด: " . mysqli_error($conn));
                             }
 
-                            $total_wd_B_amount = 0;
+                            $total_sd2_amount = 0; // เริ่มต้นค่า total_sd3_amount เป็น 0
+                            $count = 0; // เริ่มต้นค่า count เป็น 0
 
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $total_wd_B_amount += $row['total_wd_B_amount'];
+                                $total_sd2_amount += $row['total_sd2_amount'];
                             }
                         } else {
                             // ถ้าผู้ใช้เลือกเดือนและ/หรือปี
-                            $query = "SELECT wb.wb_id, SUM(wh.wd_amount) AS total_wd_B_amount
-              FROM wholedonation wh
-              INNER JOIN donor d ON wh.dn_id = d.dn_id
-              INNER JOIN wholeblood wb ON d.wb_id = wb.wb_id
-              WHERE wb.wb_id = 2";
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd2_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
 
                             if ($month) {
-                                $query .= " AND MONTH(wh.wd_date) = $month";
+                                $query .= " AND MONTH(sd.sd_date) = $month";
                             }
 
                             if ($year) {
-                                $query .= " AND YEAR(wh.wd_date) = $year";
+                                $query .= " AND YEAR(sd.sd_date) = $year";
                             }
 
                             $result = mysqli_query($conn, $query);
@@ -302,13 +297,12 @@ if ($position != '1') {
                                 die("การสอบถามผิดพลาด: " . mysqli_error($conn));
                             }
 
-                            $total_wd_B_amount = 0;
+                            $total_sd2_amount = 0;
 
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $total_wd_B_amount += $row['total_wd_B_amount'];
+                                $total_sd2_amount += $row['total_sd2_amount'];
                             }
                         }
-
                         ?>
 
                         <div class="col-sm-4">
@@ -316,133 +310,102 @@ if ($position != '1') {
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">ปริมาณโลหิตหมู่เลือด B</h5>
+                                            <h5 class="card-title">ปริมาณเม็ดเลือดแดง</h5>
                                         </div>
 
                                         <div class="col-auto">
                                             <div class="stat text-danger">
-                                                B<i class="bi bi-droplet-fill"></i>
+                                                <i class="bi bi-droplet-fill"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $total_wd_B_amount ?> มิลลิลิตร </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $total_sd2_amount ?> มิลลิลิตร </h1>
                                 </div>
                             </div>
                         </div>
+                        <!-- แสดงปริมาณเม็ดเลือดแดง -->
 
-                        <!-- แสดงปริมาณเลือดหมู่ B -->
 
-                        <!-- แสดงปริมาณเลือดหมู่ O -->
+                        <!-- แสดงปริมาณเกล็ดเลือด -->
                         <?php
+                        include('../connect.php');
 
-                        $query = "SELECT wb.wb_id, SUM(wh.wd_amount) AS total_wd_O_amount
-          FROM wholedonation wh
-          INNER JOIN donor d ON wh.dn_id = d.dn_id
-          INNER JOIN wholeblood wb ON d.wb_id = wb.wb_id
-          WHERE wb.wb_id = 3";
+                        $month = isset($_GET['month']) ? $_GET['month'] : null;
+                        $year = isset($_GET['year']) ? $_GET['year'] : null;
 
-                        if ($month) {
-                            $query .= " AND MONTH(wh.wd_date) = $month";
+                        if (!$month && !$year) {
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd3_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
+
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd3_amount = 0; // เริ่มต้นค่า total_sd3_amount เป็น 0
+                            $count = 0; // เริ่มต้นค่า count เป็น 0
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd3_amount += $row['total_sd3_amount'];
+                            }
+                        } else {
+                            // ถ้าผู้ใช้เลือกเดือนและ/หรือปี
+                            $query = "SELECT SUM(sd.sd_amount) AS total_sd3_amount
+              FROM specificdonation sd 
+              INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+              WHERE sb.sb_id = 2";
+
+                            if ($month) {
+                                $query .= " AND MONTH(sd.sd_date) = $month";
+                            }
+
+                            if ($year) {
+                                $query .= " AND YEAR(sd.sd_date) = $year";
+                            }
+
+                            $result = mysqli_query($conn, $query);
+                            if ($result === false) {
+                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                            }
+
+                            $total_sd3_amount = 0;
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $total_sd3_amount += $row['total_sd3_amount'];
+                            }
                         }
-
-                        if ($year) {
-                            $query .= " AND YEAR(wh.wd_date) = $year";
-                        }
-
-                        $query .= " GROUP BY wb.wb_id";
-
-                        $result = mysqli_query($conn, $query);
-                        if ($result === false) {
-                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-                        }
-
-                        $total_wd_O_amount = 0;
-
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $total_wd_O_amount += $row['total_wd_O_amount'];
-                        }
-
                         ?>
+
 
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">ปริมาณโลหิตหมู่เลือด O</h5>
+                                            <h5 class="card-title">ปริมาณเกล็ดเลือด</h5>
                                         </div>
 
                                         <div class="col-auto">
                                             <div class="stat text-danger">
-                                                O<i class="bi bi-droplet-fill"></i>
+                                                <i class="bi bi-droplet-fill"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $total_wd_O_amount ?> มิลลิลิตร </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $total_sd3_amount ?> มิลลิลิตร </h1>
                                 </div>
                             </div>
                         </div>
-                        <!-- แสดงปริมาณเลือดหมู่ O -->
-
-                        <!-- แสดงปริมาณเลือดหมู่ AB -->
-                        <?php
-
-                        $query = "SELECT wb.wb_id, SUM(wh.wd_amount) AS total_wd_AB_amount
-          FROM wholedonation wh
-          INNER JOIN donor d ON wh.dn_id = d.dn_id
-          INNER JOIN wholeblood wb ON d.wb_id = wb.wb_id
-          WHERE wb.wb_id = 4";
-
-                        if ($month) {
-                            $query .= " AND MONTH(wh.wd_date) = $month";
-                        }
-
-                        if ($year) {
-                            $query .= " AND YEAR(wh.wd_date) = $year";
-                        }
-
-                        $query .= " GROUP BY wb.wb_id";
-
-                        $result = mysqli_query($conn, $query);
-                        if ($result === false) {
-                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-                        }
-
-                        $total_wd_AB_amount = 0;
-
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $total_wd_AB_amount += $row['total_wd_AB_amount'];
-                        }
-
-                        ?>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">ปริมาณโลหิตหมู่เลือด AB</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-danger">
-                                                AB<i class="bi bi-droplet-fill  "></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $total_wd_AB_amount ?> มิลลิลิตร </h1>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- แสดงปริมาณเลือดหมู่ AB -->
-
+                        <!-- แสดงปริมาณเกล็ดเลือด-->
 
 
 
                         <div class="col-xl-6 col-xxl-12">
                             <div class="card flex-fill w-150">
                                 <div class="card-header">
-                                    <h5 class="card-title mb-0">
-                                        แผนภูมิแท่งแสดงปริมาณโลหิตรวมแยกตามประเภท
+
+                                    <h5 class="card-title mb-0">แผนภูมิแท่งแสดงปริมาณโลหิตเฉพาะส่วนแยกตามประเภท
                                         <?php
                                         if (isset($_GET['month']) && isset($_GET['year'])) {
                                             $selectedMonth = $_GET['month'];
@@ -472,7 +435,6 @@ if ($position != '1') {
                                         }
                                         ?>
                                     </h5>
-
                                 </div>
                                 <div class="card-body py-3">
                                     <div class="chart chart-sm">
@@ -481,7 +443,6 @@ if ($position != '1') {
                                 </div>
                             </div>
                         </div>
-
                     </div>
             </main>
 
@@ -520,10 +481,9 @@ if ($position != '1') {
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <?php
     $data = array(
-        "wd_a" => $total_wd_A_amount,
-        "wd_b" => $total_wd_B_amount,
-        "wd_o" => $total_wd_O_amount,
-        "wd_ab" => $total_wd_AB_amount
+        "sd1" => $total_sd1_amount,
+        "sd2" => $total_sd2_amount,
+        "sd3" => $total_sd3_amount,
     );
 
     $jsonData = json_encode($data);
@@ -534,19 +494,18 @@ if ($position != '1') {
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var wd_a = jsonData.wd_a;
-            var wd_b = jsonData.wd_b;
-            var wd_o = jsonData.wd_o;
-            var wd_ab = jsonData.wd_ab;
+            var sd1 = jsonData.sd1;
+            var sd2 = jsonData.sd2;
+            var sd3 = jsonData.sd3;
 
-            // Line chart
+            // Bar chart
             new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
-                    labels: ['หมู่เหลือด A', 'หมู่เลือด B', 'หมู่เลือด O', 'หมู่เลือด AB'],
+                    labels: ['พลาสม่า', 'เม็ดเลือดแดง', 'เกล็ดเลือด'],
                     datasets: [{
                         label: 'ปริมาณโลหิตรวม',
-                        data: [wd_a, wd_b, wd_o, wd_ab],
+                        data: [sd1, sd2, sd3],
                         borderColor: 'rgba(75, 192, 192, 1)', // สีเส้นขอบ
                         borderWidth: 1,
                         fill: false // ปิดการเติมพื้นหลัง
@@ -577,7 +536,6 @@ if ($position != '1') {
             });
         });
     </script>
-
 
 </body>
 

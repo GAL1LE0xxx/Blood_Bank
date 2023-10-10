@@ -25,7 +25,7 @@
             </a>
 
             <ul class="sidebar-nav">
-                <li class="sidebar-header">
+                <li class="sidebar-header"></li>
                     จัดการข้อมูล
                 </li>
 
@@ -127,7 +127,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="sub_page2.php">
+                                <a class="sidebar-link" href="sbamout_report.php">
                                     <span class="align-middle">ประเภทของโลหิตเฉพาะส่วน</span>
                                 </a>
                             </li>

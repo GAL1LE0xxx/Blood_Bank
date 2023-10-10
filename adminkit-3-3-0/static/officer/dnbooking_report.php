@@ -64,6 +64,47 @@ if ($position != '1') {
 
                 <div class="container-fluid p-0">
                     <h1 class="h3 mb-3"><strong>รายงานการจองคิวของผู้บริจาค</strong></h1>
+                    <form method="GET" action="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="month">เลือกเดือน:</label>
+                                    <select name="month" id="month" class="form-control">
+                                        <!-- สร้างตัวเลือกเดือนที่คุณต้องการให้ผู้ใช้เลือก -->
+                                        <option selected disabled>กรุณาเลือกเดือน</option>
+                                        <option value="1">มกราคม</option>
+                                        <option value="2">กุมภาพันธ์</option>
+                                        <option value="3">มีนาคม</option>
+                                        <option value="4">เมษายน</option>
+                                        <option value="5">พฤษภาคม</option>
+                                        <option value="6">มิถุนายน</option>
+                                        <option value="7">กรกฎาคม</option>
+                                        <option value="8">สิงหาคม</option>
+                                        <option value="9">กันยายน</option>
+                                        <option value="10">ตุลาคม</option>
+                                        <option value="11">พฤศจิกายน</option>
+                                        <option value="12">ธันวาคม</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="year">เลือกปี:</label>
+                                    <select name="year" id="year" class="form-control">
+                                        <option selected disabled>กรุณาเลือกปี</option>
+                                        <?php
+                                        // สร้างตัวเลือกปีจากปีปัจจุบันถึง 10 ปีถัดไป
+                                        $currentYear = date("Y");
+                                        for ($i = $currentYear; $i <= $currentYear + 10; $i++) {
+                                            echo "<option value='$i'>$i</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary mt-3 mb-3">ค้นหา</button>
+                    </form>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="card">
@@ -71,34 +112,71 @@ if ($position != '1') {
                                     <div class="row">
                                         <?php
                                         include('../connect.php');
-                                        $query = "SELECT COUNT(*) FROM onsiteservice";
-                                        $result = mysqli_query($conn, $query);
 
-                                        if (!$result) {
-                                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                                        // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
+                                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                                            $selectedMonth = $_GET['month'];
+                                            $selectedYear = $_GET['year'];
+
+                                            // คำสั่ง SQL เริ่มต้น
+                                            $query = "SELECT COUNT(*) as total FROM onsiteservice 
+                      WHERE MONTH(on_date) = $selectedMonth 
+                      AND YEAR(on_date) = $selectedYear";
+
+                                            $result = mysqli_query($conn, $query);
+
+                                            if (!$result) {
+                                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                                            }
+
+                                            $row = mysqli_fetch_assoc($result);
+                                            $count = $row['total'];
+                                        } else {
+                                            // ถ้าไม่มีการเลือกเดือนหรือปี
+                                            // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
+                                            $query = "SELECT COUNT(*) as total FROM onsiteservice";
+
+                                            $result = mysqli_query($conn, $query);
+
+                                            if (!$result) {
+                                                die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                                            }
+
+                                            $row = mysqli_fetch_assoc($result);
+                                            $count = $row['total'];
                                         }
-
-                                        $row = mysqli_fetch_array($result);
-                                        $count = $row[0];
                                         ?>
                                         <div class="col mt-0">
                                             <h5 class="card-title">จำนวนผู้จองคิวทั้งหมด</h5>
                                         </div>
 
                                         <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="feather feather-activity"></i>
+                                            <div class="stat text-danger">
+                                                <i class="bi bi-person-fill"></i>
                                             </div>
                                         </div>
-
                                     </div>
                                     <h1 class="mt-1 mb-3"><?php echo $count ?> คน </h1>
                                 </div>
+
                             </div>
                         </div>
 
                         <?php
-                        $query = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงเช้า'";
+                        // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
+                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                            $selectedMonth = $_GET['month'];
+                            $selectedYear = $_GET['year'];
+
+                            // คำสั่ง SQL เริ่มต้น
+                            $query = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงเช้า' 
+              AND MONTH(on_date) = $selectedMonth 
+              AND YEAR(on_date) = $selectedYear";
+                        } else {
+                            // ถ้าไม่มีการเลือกเดือนหรือปี
+                            // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
+                            $query = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงเช้า'";
+                        }
 
                         $result = mysqli_query($conn, $query);
 
@@ -118,18 +196,30 @@ if ($position != '1') {
                                         </div>
 
                                         <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="dollar-sign"></i>
+                                            <div class="stat text-danger">
+                                                <i class="bi bi-person-fill"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3"><?php echo $morning ?> คน </h1>
                                 </div>
                             </div>
-
                         </div>
                         <?php
-                        $query = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงบ่าย'";
+                        // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
+                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                            $selectedMonth = $_GET['month'];
+                            $selectedYear = $_GET['year'];
+
+                            // คำสั่ง SQL เริ่มต้น
+                            $query = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงบ่าย' 
+              AND MONTH(on_date) = $selectedMonth 
+              AND YEAR(on_date) = $selectedYear";
+                        } else {
+                            // ถ้าไม่มีการเลือกเดือนหรือปี
+                            // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
+                            $query = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงบ่าย'";
+                        }
 
                         $result = mysqli_query($conn, $query);
 
@@ -149,8 +239,8 @@ if ($position != '1') {
                                         </div>
 
                                         <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="dollar-sign"></i>
+                                            <div class="stat text-danger">
+                                                <i class="bi bi-person-fill"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -167,8 +257,36 @@ if ($position != '1') {
                     <div class="col-xl-6 col-xxl-12">
                         <div class="card flex-fill w-150">
                             <div class="card-header">
+                                <h5 class="card-title mb-0">แผนภูมิแท่งแสดงจำนวนการจองคิวของผู้บริจาคในแต่ละช่วงเวลา
+                                    <?php
+                                    if (isset($_GET['month']) && isset($_GET['year'])) {
+                                        $selectedMonth = $_GET['month'];
+                                        $selectedYear = $_GET['year'];
 
-                                <h5 class="card-title mb-0">แผนภูมิแท่งแสดงจำนวนการจองคิวของผู้บริจาคในแต่ละช่วงเวลา</h5>
+                                        // แปลงเดือนเป็นเดือนไทย
+                                        $thaiMonths = array(
+                                            '1' => 'มกราคม',
+                                            '2' => 'กุมภาพันธ์',
+                                            '3' => 'มีนาคม',
+                                            '4' => 'เมษายน',
+                                            '5' => 'พฤษภาคม',
+                                            '6' => 'มิถุนายน',
+                                            '7' => 'กรกฎาคม',
+                                            '8' => 'สิงหาคม',
+                                            '9' => 'กันยายน',
+                                            '10' => 'ตุลาคม',
+                                            '11' => 'พฤศจิกายน',
+                                            '12' => 'ธันวาคม'
+                                        );
+                                        $thaiMonth = $thaiMonths[$selectedMonth];
+
+                                        // แปลงปีเป็นปีไทย
+                                        $thaiYear = $selectedYear + 543;
+
+                                        echo " เดือน $thaiMonth ปี $thaiYear";
+                                    }
+                                    ?>
+                                </h5>
                             </div>
                             <div class="card-body py-3">
                                 <div class="chart chart-sm">
@@ -211,27 +329,13 @@ if ($position != '1') {
             </footer>
         </div>
     </div>
+    <script src="../js/app.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <?php
-    $queryMorning = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงเช้า'";
-    $resultMorning = mysqli_query($conn, $queryMorning);
-    if (!$resultMorning) {
-        die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-    }
-    $rowMorning = mysqli_fetch_array($resultMorning);
-    $morningData = $rowMorning[0];
-
-    $queryAfternoon = "SELECT COUNT(*) FROM onsiteservice WHERE on_time = 'ช่วงบ่าย'";
-    $resultAfternoon = mysqli_query($conn, $queryAfternoon);
-    if (!$resultAfternoon) {
-        die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-    }
-    $rowAfternoon = mysqli_fetch_array($resultAfternoon);
-    $afternoonData = $rowAfternoon[0];
-
     $data = array(
-        "morning" => $morningData,
-        "afternoon" => $afternoonData
+        "morning" => $morning,
+        "afternoon" => $affternoon
     );
 
     $jsonData = json_encode($data);
