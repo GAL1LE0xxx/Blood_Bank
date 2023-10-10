@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </head>
 
 <body>
@@ -23,17 +26,11 @@
             </a>
 
             <ul class="sidebar-nav">
-                <li class="sidebar-item ">
-                    <a class="sidebar-link" href="../home.php">
-                        <i class="align-middle" data-feather="home"></i> <span class="align-middle">หน้าหลัก</span>
-                    </a>
-                </li>
-
                 <li class="sidebar-header">
                     จัดการข้อมูล
                 </li>
 
-                <li class="sidebar-item ">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="officer.php">
                         <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">จัดการข้อมูลเจ้าหน้าที่</span>
                     </a>
@@ -50,38 +47,99 @@
                         <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">จัดการข้อมูลประชาสัมพันธ์</span>
                     </a>
                 </li>
-                <li class="sidebar-item ">
+
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="member_ap.php">
                         <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">อนุมัติข้อมูลการสมัครสมาชิก</span>
                     </a>
                 </li>
-                <li class="sidebar-item ">
+
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="screening.php">
                         <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">แก้ไขแบบประเมินเบื้องต้น</span>
                     </a>
                 </li>
-
 
                 <li class="sidebar-header">
                     รายงาน
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="report/dn_report.php">
-                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">ข้อมูลผู้บริจาคโลหิต</span>
+                    <a class="sidebar-link" data-toggle="collapse" data-target="#donor-dropdown">
+                        <i class="align-middle" data-feather="square"></i>
+                        <span class="align-middle">ข้อมูลและจำนวนผู้บริจาค</span>
                     </a>
+                    <div class="collapse" id="donor-dropdown">
+                        <ul class="sidebar-sub">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="report/wbblood_report.php">
+                                    <span class="align-middle">ประเภทของโลหิตรวม</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="sub_page2.php">
+                                    <span class="align-middle">ประเภทของโลหิตเฉพาะส่วน</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="sub_page2.php">
+                                    <span class="align-middle">ข้อมูลตามช่วงเวลา</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="sub_page2.php">
+                                    <span class="align-middle">ข้อมูลตามช่วงอายุ</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="sub_page2.php">
+                                    <span class="align-middle">ข้อมูลจํานวนครั้งของการบริจาค</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
-                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">การจองคิว</span>
+                    <a class="sidebar-link" data-toggle="collapse" data-target="#book-dropdown">
+                        <i class="align-middle" data-feather="bar-chart-2"></i>
+                        <span class="align-middle">ข้อมูลการจองคิว</span>
                     </a>
+                    <div class="collapse" id="book-dropdown">
+                        <ul class="sidebar-sub">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="dnbooking_report.php">
+                                    <span class="align-middle">ผู้บริจาค</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="oabooking_report.php">
+                                    <span class="align-middle">หน่วยงานภายนอก</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-cards.html">
-                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">ข้อมูลปริมาณโลหิต</span>
+                    <a class="sidebar-link" data-toggle="collapse" data-target="#am-dropdown">
+                        <i class="align-middle" data-feather="square"></i>
+                        <span class="align-middle">ข้อมูลปริมาณโลหิต</span>
                     </a>
+                    <div class="collapse" id="am-dropdown">
+                        <ul class="sidebar-sub">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="wbamout_report.php">
+                                    <span class="align-middle">ปริมาณโลหิตรวม</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="sbamout_report.php">
+                                    <span class="align-middle">ปริมาณโลหิตเฉพาะส่วน</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="sidebar-item">
@@ -92,14 +150,23 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle"></span>
+                        <i class="align-middle" data-feather=""></i> <span class="align-middle"></span>
+                    </a>
+                </li>
+
+                <li class="sidebar-header">
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="charts-chartjs.html">
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="maps-google.html">
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
-
-    <script src="../js/app.js"></script>
 </body>
 
 </html>

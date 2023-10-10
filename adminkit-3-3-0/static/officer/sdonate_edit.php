@@ -115,7 +115,7 @@ if (isset($_GET['id'])) {
                                                             <input class="form-control" name="user-info" id="user-info" readonly>
                                                         </div>
                                                         <div class="col-md-6 mt-3">
-                                                            <label class="text mb-1" for="amount">ปริมาณเลือดที่บริจาค</label>
+                                                            <label class="text mb-1" for="amount">ปริมาณโลหิตเฉพาะส่วนที่บริจาค (มิลลิลิตร)</label>
                                                             <input class="form-control" name="amount" type="text" value="<?php echo $amount ?>" required>
                                                         </div>
                                                         <div class="col-md-6 mt-3">

@@ -166,6 +166,7 @@ if ($position !== '1') {
                                                     <tr>
                                                         <th>ลำดับที่</th>
                                                         <th>วันที่บริจาค</th>
+                                                        <th>โลหิตเฉพาะส่วน</th>
                                                         <th>ปริมาณโลหิตที่บริจาค (มิลลิลิตร)</th>
                                                         <th>ผู้บริจาค</th>
                                                         <th>สถานะ</th>
@@ -190,6 +191,16 @@ if ($position !== '1') {
                                                             echo "<tr>";
                                                             echo "<td>" . $tid . "</td>";
                                                             echo "<td>" . date("d/m/Y", strtotime($row["sd_date"])) . "</td>";
+
+                                                            if ($row["sb_id"] === "1") {
+                                                                echo "<td>พลาสม่า</td>";
+                                                            } elseif ($row["sb_id"] === "2") {
+                                                                echo "<td>เม็ดเลือดแดง</td>";
+                                                            } elseif ($row["sb_id"] === "3") {
+                                                                echo "<td>เกล็ดเลือด</td>";
+                                                            } else {
+                                                                echo "<td>Unknown</td>";
+                                                            }
                                                             echo "<td>" . $row["sd_amount"] . "</td>";
                                                             echo "<td>" . $row["dn_name"] . "</td>";
 
@@ -266,7 +277,6 @@ if ($position !== '1') {
             });
         }
     </script>
-    <script src="../js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>

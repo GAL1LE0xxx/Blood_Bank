@@ -15,6 +15,8 @@ if (isset($_POST['login_user'])) {
         $_SESSION['id'] = $id;
         $position = $row['oc_position'];
         $_SESSION['position'] = $position;
+        $name = $row['oc_firstname'];
+        $_SESSION['name'] = $name ;
     }
 
     if (mysqli_num_rows($result) == 1) {
@@ -36,8 +38,7 @@ if (isset($_POST['login_user'])) {
         }
     } else {
         $errorMessage = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
-            header("location: login.php?status=error&msg=" . urlencode($errorMessage));
-
+        header("location: login.php?status=error&msg=" . urlencode($errorMessage));
     }
 }
 

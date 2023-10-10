@@ -108,9 +108,14 @@ $searchKeyword = isset($_POST['on_date']) ? $_POST['on_date'] : '';
                                                 <label class="form-label">วันที่ต้องการจอง :</label>
                                                 <input class="form-control form-control-lg" type="date" name="bookingdate" required min="<?php echo date('Y-m-d', strtotime('+3 month')); ?>">
                                             </div>
+                                            
                                             <div class="col-md-6">
-                                                <label class="form-label" for="bookingtime">เวลา :</label>
-                                                <input class="form-control form-control-lg" type="time" name="bookingtime" required>
+                                                <label class="form-label" or="bookingtime">ช่วงเวลา :</label>
+                                                <select class="form-select  form-control-lg" aria-label="Default select example" name="bookingtime" required>
+                                                    <option disabled seleced>กรุณาเลือกช่วงเวลา</option>
+                                                    <option value="ช่วงเช้า">ช่วงเช้า</option>
+                                                    <option value="ช่วงบ่าย">ช่วงบ่าย</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -192,7 +197,7 @@ $searchKeyword = isset($_POST['on_date']) ? $_POST['on_date'] : '';
                                     </div>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                     <!-- ตรวจสอบคิว -->
 
