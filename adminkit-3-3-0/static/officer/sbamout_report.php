@@ -64,47 +64,55 @@ if ($position != '1') {
                 <div class="container-fluid p-0">
                     <!-- แสดงปริมาณเลือดทั้งหมด -->
                     <h1 class="h3 mb-3"><strong>รายงานข้อมูลปริมาณโลหิตเฉพาะส่วน</strong></h1>
-                    <form method="GET" action="">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="month">เลือกเดือน:</label>
-                                    <select name="month" id="month" class="form-control">
-                                        <!-- สร้างตัวเลือกเดือนที่คุณต้องการให้ผู้ใช้เลือก -->
-                                        <option selected disabled>กรุณาเลือกเดือน</option>
-                                        <option value="1">มกราคม</option>
-                                        <option value="2">กุมภาพันธ์</option>
-                                        <option value="3">มีนาคม</option>
-                                        <option value="4">เมษายน</option>
-                                        <option value="5">พฤษภาคม</option>
-                                        <option value="6">มิถุนายน</option>
-                                        <option value="7">กรกฎาคม</option>
-                                        <option value="8">สิงหาคม</option>
-                                        <option value="9">กันยายน</option>
-                                        <option value="10">ตุลาคม</option>
-                                        <option value="11">พฤศจิกายน</option>
-                                        <option value="12">ธันวาคม</option>
-                                    </select>
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="GET" action="">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="month">เดือน:</label>
+                                            <select name="month" id="month" class="form-control">
+                                                <!-- สร้างตัวเลือกเดือนที่คุณต้องการให้ผู้ใช้เลือก -->
+                                                <option selected disabled>กรุณาเลือกเดือน</option>
+                                                <option value="1">มกราคม</option>
+                                                <option value="2">กุมภาพันธ์</option>
+                                                <option value="3">มีนาคม</option>
+                                                <option value="4">เมษายน</option>
+                                                <option value="5">พฤษภาคม</option>
+                                                <option value="6">มิถุนายน</option>
+                                                <option value="7">กรกฎาคม</option>
+                                                <option value="8">สิงหาคม</option>
+                                                <option value="9">กันยายน</option>
+                                                <option value="10">ตุลาคม</option>
+                                                <option value="11">พฤศจิกายน</option>
+                                                <option value="12">ธันวาคม</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="year">ปี:</label>
+                                            <select name="year" id="year" class="form-control">
+                                                <option selected disabled>กรุณาเลือกปี</option>
+                                                <?php
+                                                // สร้างตัวเลือกปีจากปีปัจจุบันถึง 10 ปีถัดไป
+                                                $currentYear = date("Y");
+                                                for ($i = $currentYear; $i <= $currentYear + 10; $i++) {
+                                                    echo "<option value='$i'>$i</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end">
+                                        <div class="form-group">
+                                            <button type="submit" name="submit" class="btn btn-primary">ค้นหา</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="year">เลือกปี:</label>
-                                    <select name="year" id="year" class="form-control">
-                                        <option selected disabled>กรุณาเลือกปี</option>
-                                        <?php
-                                        // สร้างตัวเลือกปีจากปีปัจจุบันถึง 10 ปีถัดไป
-                                        $currentYear = date("Y");
-                                        for ($i = $currentYear; $i <= $currentYear + 10; $i++) {
-                                            echo "<option value='$i'>$i</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary mt-3 mb-3">ค้นหา</button>
-                    </form>
+                    </div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="card">

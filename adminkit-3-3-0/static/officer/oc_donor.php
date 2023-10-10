@@ -122,7 +122,7 @@ $id = $_SESSION['id'];
                                                 <input class="form-control" name="height" type="text" placeholder="ระบุส่วนสูง" required>
                                             </div>
                                         </div>
-                                        <button class="btn btn-danger" type="button" id="next0">ถัดไป</button>
+                                        <button class="btn btn-primary" type="button" id="next0">ถัดไป</button>
                                     </div>
 
                                     <div id="step1" style="display: none;">
@@ -163,8 +163,8 @@ $id = $_SESSION['id'];
 
                                             </tbody>
                                         </table>
-                                        <button class="btn btn-danger mt-3" type="button" id="prev0">ก่อนหน้า</button>
-                                        <button class="btn btn-danger mt-3" type="submit" name="screening_submit" onclick="return validateForm()">ยืนยัน</button>
+                                        <button class="btn btn-primary mt-3" type="button" id="prev0">ก่อนหน้า</button>
+                                        <button class="btn btn-primary mt-3" type="submit" name="screening_submit" onclick="return validateForm()">ยืนยัน</button>
                                     </div>
 
                                 </form>
@@ -202,8 +202,6 @@ $id = $_SESSION['id'];
             </footer>
         </div>
     </div>
-    <script src="js/app.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- <script>
                         document.addEventListener('DOMContentLoaded', function() {

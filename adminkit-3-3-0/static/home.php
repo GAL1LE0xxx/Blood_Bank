@@ -147,20 +147,14 @@ session_destroy();
                     <!-- ปริมาณเลือด -->
                     <div class="mt-4 d-flex justify-content-center align-items-center">
                         <div class="container">
-                            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">ปริมาณเลือดในคลัง</div>
+                            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">ปริมาณโลหิต</div>
                             <div class="row row-cols-1 row-cols-md-4 g-4 mt-3">
-                                <div class="col">
-                                    <div class="card h-60">
-                                        <img width="696" height="1024" src="img\blood\a.png" class="card-img-top" alt="bloodA">
+                            <div class="col">
+                                    <div class="card h-100">
+                                        <img src="img\blood\a.png" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">ปริมาณโลหิตหมู่ A</h5>
 
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="img\blood\b.png" class="card-img-top" alt="news3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
                                         </div>
                                         <div class="card-footer">
                                             <small class="text-muted">Last updated 3 mins ago</small>
@@ -169,10 +163,10 @@ session_destroy();
                                 </div>
                                 <div class="col">
                                     <div class="card h-100">
-                                        <img src="img\blood\o.png" class="card-img-top" alt="news4">
+                                        <img src="img\blood\b.png" class="card-img-top">
                                         <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                                            <h5 class="card-title text-center">ปริมาณโลหิตหมู่ B</h5>
+
                                         </div>
                                         <div class="card-footer">
                                             <small class="text-muted">Last updated 3 mins ago</small>
@@ -181,10 +175,22 @@ session_destroy();
                                 </div>
                                 <div class="col">
                                     <div class="card h-100">
-                                        <img src="img\blood\ab.png" class="card-img-top" alt="news1">
+                                        <img src="img\blood\o.png" class="card-img-top">
                                         <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                            <h5 class="card-title text-center">ปริมาณโลหิตหมู่ O</h5>
+
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <img src="img\blood\ab.png" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">ปริมาณโลหิตหมู่ AB</h5>
+
                                         </div>
                                         <div class="card-footer">
                                             <small class="text-muted">Last updated 3 mins ago</small>

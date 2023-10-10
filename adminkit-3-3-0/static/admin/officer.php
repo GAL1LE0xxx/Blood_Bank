@@ -60,9 +60,9 @@ if ($position != '0') {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="adminprofile.php"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                                <a class="dropdown-item" href="adminprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../logout.php">Log out</a>
+                                <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                             </div>
                         </li>
                     </ul>
@@ -178,15 +178,15 @@ if ($position != '0') {
             </footer>
         </div>
     </div>
-
+    <script src="../js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#myTable').DataTable();
         });
     </script>
-    
+
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);

@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
 </head>
 
 <body>
@@ -30,7 +30,7 @@
                     จัดการข้อมูล
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item ">
                     <a class="sidebar-link" href="officer.php">
                         <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">จัดการข้อมูลเจ้าหน้าที่</span>
                     </a>
@@ -65,7 +65,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" data-toggle="collapse" data-target="#donor-dropdown">
+                    <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#donor-dropdown">
                         <i class="align-middle" data-feather="square"></i>
                         <span class="align-middle">ข้อมูลและจำนวนผู้บริจาค</span>
                     </a>
@@ -101,7 +101,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" data-toggle="collapse" data-target="#book-dropdown">
+                    <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#book-dropdown">
                         <i class="align-middle" data-feather="bar-chart-2"></i>
                         <span class="align-middle">ข้อมูลการจองคิว</span>
                     </a>
@@ -122,7 +122,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" data-toggle="collapse" data-target="#am-dropdown">
+                    <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#am-dropdown">
                         <i class="align-middle" data-feather="square"></i>
                         <span class="align-middle">ข้อมูลปริมาณโลหิต</span>
                     </a>
@@ -143,9 +143,24 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-typography.html">
-                        <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">ข้อมูลสถานะโลหิต</span>
+                    <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#bloodstatus-dropdown">
+                        <i class="align-middle" data-feather="square"></i>
+                        <span class="align-middle">ข้อมูลสถานะโลหิต</span>
                     </a>
+                    <div class="collapse" id="bloodstatus-dropdown">
+                        <ul class="sidebar-sub">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link " href="wbbloodstatus_report.php">
+                                    <span class="align-middle">ข้อมูลสถานะโลหิตรวม</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="sbbloodstatus_report.php">
+                                    <span class="align-middle">ข้อมูลสถานะโลหิตเฉพาะส่วน</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="sidebar-item">
@@ -167,6 +182,38 @@
             </ul>
         </div>
     </nav>
+    <script>
+        $(document).ready(function() {
+            // ค้นหา URL ปัจจุบันของหน้า
+            var currentUrl = window.location.pathname;
+
+            // อ่านค่า 'activeMenu' จาก Local Storage (หากมี)
+            var activeMenu = localStorage.getItem('activeMenu');
+
+            // หาคลาส 'active' และลบออกจาก <li> ทั้งหมดในเมนู
+            $(".sidebar-item").removeClass("active");
+
+            // ถ้ามีค่า 'activeMenu' ใน Local Storage ใช้ค่านี้เป็น URL ปัจจุบัน
+            if (activeMenu) {
+                currentUrl = activeMenu;
+            }
+
+            // หา <a> ที่มี href ตรงกับ URL ปัจจุบันและเพิ่มคลาส 'active' ให้กับ <li> ที่ครอบอยู่
+            $(".sidebar-link[href='" + currentUrl + "']").parent().addClass("active");
+
+            // เมื่อคลิกที่เมนู
+            $(".sidebar-link").click(function() {
+                // ลบคลาส 'active' จากทุก <li> ในเมนู
+                $(".sidebar-item").removeClass("active");
+
+                // เพิ่มคลาส 'active' ไปยัง <li> ที่คลิก
+                $(this).parent().addClass("active");
+
+                // บันทึกสถานะเมนูที่เลือกลงใน Local Storage
+                localStorage.setItem('activeMenu', $(this).attr('href'));
+            });
+        });
+    </script>
 </body>
 
 </html>

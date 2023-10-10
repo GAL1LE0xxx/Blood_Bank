@@ -91,7 +91,6 @@ if (isset($_GET['logout'])) {
                                                                 <th>ลำดับ</th>
                                                                 <th>หมู่เลือด</th>
                                                                 <th>แก้ไข </th>
-                                                                <th>ลบ</th>
                                                             </tr>
                                                         </thead>
 
@@ -111,10 +110,7 @@ if (isset($_GET['logout'])) {
                                                                     echo "<tr>";
                                                                     echo "<td>" . $tid . "</td>";
                                                                     echo "<td>" . $row["wb_bloodtype"] . "</td>";
-
                                                                     echo "<td><a class='btn btn-primary' href='wbblood_edit.php?id=" . $row["wb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
-
-                                                                    echo "<td><a class='btn btn-danger' href='wbblood_delete_db.php?did=" . $row["wb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
                                                                     echo "</tr>";
                                                                     $tid++;
                                                                 }
@@ -158,7 +154,6 @@ if (isset($_GET['logout'])) {
                                                                 <th>ลำดับ</th>
                                                                 <th>หมู่เลือด</th>
                                                                 <th>แก้ไข </th>
-                                                                <th>ลบ</th>
                                                             </tr>
                                                         </thead>
 
@@ -178,10 +173,7 @@ if (isset($_GET['logout'])) {
                                                                     echo "<tr>";
                                                                     echo "<td>" . $tid . "</td>";
                                                                     echo "<td>" . $row["sb_information"] . "</td>";
-
                                                                     echo "<td><a class='btn btn-primary' href='specificblood_edit.php?id=" . $row["sb_id"] . "'><i class='bi bi-pencil-square'></i></a></td>";
-
-                                                                    echo "<td><a class='btn btn-danger' href='specificblood_delete_db.php?did=" . $row["sb_id"] . "' onclick=\"return confirm('ต้องการลบผู้ใช้แน่หรือไม่? ข้อมูลนี้ไม่สามารถกู้คืนได้.');\"><i class='bi bi-trash'></i></a></td>";
                                                                     echo "</tr>";
                                                                     $tid++;
                                                                 }

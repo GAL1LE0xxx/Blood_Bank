@@ -26,12 +26,16 @@ if ($position != '0') {
     <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <title>รายงานการจองคิว</title>
-    <link href="css/app.css" rel="stylesheet">
+    <title>รายงานข้อมูลโลหิตรวม</title>
+    <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 
 
 </head>
@@ -63,7 +67,7 @@ if ($position != '0') {
             <main class="content">
 
                 <div class="container-fluid p-0">
-                    <h1 class="h3 mb-3"><strong>รายงานการจองคิวของหน่วยงานภายนอก</strong></h1>
+                    <h1 class="h3 mb-3"><strong>รายงานข้อมูลโลหิตรวม</strong></h1>
                     <div class="card">
                         <div class="card-body">
                             <form method="GET" action="">
@@ -113,8 +117,6 @@ if ($position != '0') {
                             </form>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="card">
@@ -129,9 +131,9 @@ if ($position != '0') {
                                             $selectedYear = $_GET['year'];
 
                                             // คำสั่ง SQL เริ่มต้น
-                                            $query = "SELECT COUNT(*) as total FROM outsiteservice 
-                      WHERE MONTH(out_start) = $selectedMonth 
-                      AND YEAR(out_start) = $selectedYear";
+                                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 0 
+                      AND MONTH(wd_date) = $selectedMonth 
+                      AND YEAR(wd_date) = $selectedYear";
 
                                             $result = mysqli_query($conn, $query);
 
@@ -140,11 +142,11 @@ if ($position != '0') {
                                             }
 
                                             $row = mysqli_fetch_assoc($result);
-                                            $count = $row['total'];
+                                            $canuse = $row['total'];
                                         } else {
                                             // ถ้าไม่มีการเลือกเดือนหรือปี
                                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
-                                            $query = "SELECT COUNT(*) as total FROM outsiteservice";
+                                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 0";
 
                                             $result = mysqli_query($conn, $query);
 
@@ -153,22 +155,65 @@ if ($position != '0') {
                                             }
 
                                             $row = mysqli_fetch_assoc($result);
-                                            $count = $row['total'];
+                                            $canuse = $row['total'];
                                         }
                                         ?>
-
                                         <div class="col mt-0">
-                                            <h5 class="card-title">จำนวนผู้จองคิวทั้งหมด</h5>
+                                            <h5 class="card-title">สามารถนำไปใช้งานได้</h5>
                                         </div>
 
                                         <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="feather feather-activity"></i>
+                                            <div class="stat text-danger">
+                                                <i class="bi bi-person-fill"></i>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $count ?> คน </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $canuse ?> ยูนิต </h1>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <?php
+                        // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
+                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                            $selectedMonth = $_GET['month'];
+                            $selectedYear = $_GET['year'];
+
+                            // คำสั่ง SQL เริ่มต้น
+                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 1 
+                      AND MONTH(wd_date) = $selectedMonth 
+                      AND YEAR(wd_date) = $selectedYear";
+                        } else {
+                            // ถ้าไม่มีการเลือกเดือนหรือปี
+                            // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
+                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 1";
+                        }
+
+                        $result = mysqli_query($conn, $query);
+
+                        if (!$result) {
+                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                        }
+
+                        $row = mysqli_fetch_array($result);
+                        $unable = $row[0];
+                        ?>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">ไม่สามารถนำไปใช้งานได้</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-danger">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3"><?php echo $unable ?> ยูนิต </h1>
                                 </div>
                             </div>
                         </div>
@@ -179,13 +224,13 @@ if ($position != '0') {
                             $selectedYear = $_GET['year'];
 
                             // คำสั่ง SQL เริ่มต้น
-                            $query = "SELECT COUNT(*) FROM outsiteservice WHERE out_time = 'ช่วงเช้า' 
-              AND MONTH(out_start) = $selectedMonth 
-              AND YEAR(out_start) = $selectedYear";
+                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 2 
+                      AND MONTH(wd_date) = $selectedMonth 
+                      AND YEAR(wd_date) = $selectedYear";
                         } else {
                             // ถ้าไม่มีการเลือกเดือนหรือปี
                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
-                            $query = "SELECT COUNT(*) FROM outsiteservice WHERE out_time = 'ช่วงเช้า'";
+                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 2";
                         }
 
                         $result = mysqli_query($conn, $query);
@@ -195,69 +240,23 @@ if ($position != '0') {
                         }
 
                         $row = mysqli_fetch_array($result);
-                        $morning = $row[0];
+                        $use = $row[0];
                         ?>
-
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">จำนวนผู้จองคิวในช่วงเช้า</h5>
+                                            <h5 class="card-title">ถูกนำไปใช้งานแล้ว</h5>
                                         </div>
 
                                         <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="dollar-sign"></i>
+                                            <div class="stat text-danger">
+                                                <i class="bi bi-person-fill"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $morning ?> คน </h1>
-                                </div>
-                            </div>
-
-                        </div>
-                        <?php
-                        // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
-                        if (isset($_GET['month']) && isset($_GET['year'])) {
-                            $selectedMonth = $_GET['month'];
-                            $selectedYear = $_GET['year'];
-
-                            // คำสั่ง SQL เริ่มต้น
-                            $query = "SELECT COUNT(*) FROM outsiteservice WHERE out_time = 'ช่วงบ่าย' 
-              AND MONTH(out_start) = $selectedMonth 
-              AND YEAR(out_start) = $selectedYear";
-                        } else {
-                            // ถ้าไม่มีการเลือกเดือนหรือปี
-                            // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
-                            $query = "SELECT COUNT(*) FROM outsiteservice WHERE out_time = 'ช่วงบ่าย'";
-                        }
-
-                        $result = mysqli_query($conn, $query);
-
-                        if (!$result) {
-                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
-                        }
-
-                        $row = mysqli_fetch_array($result);
-                        $affternoon = $row[0];
-                        ?>
-
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">จำนวนผู้จองคิวในช่วงบ่าย</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="dollar-sign"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $affternoon ?> คน </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $use ?> ยูนิต </h1>
                                 </div>
                             </div>
 
@@ -265,13 +264,114 @@ if ($position != '0') {
 
                     </div>
 
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h5 class="card-title ">ตารางแสดงข้อมูลสถานะโลหิต
+                                    <?php
+                                    if (isset($_GET['month']) && isset($_GET['year'])) {
+                                        $selectedMonth = $_GET['month'];
+                                        $selectedYear = $_GET['year'];
 
+                                        // แปลงเดือนเป็นเดือนไทย
+                                        $thaiMonths = array(
+                                            '1' => 'มกราคม',
+                                            '2' => 'กุมภาพันธ์',
+                                            '3' => 'มีนาคม',
+                                            '4' => 'เมษายน',
+                                            '5' => 'พฤษภาคม',
+                                            '6' => 'มิถุนายน',
+                                            '7' => 'กรกฎาคม',
+                                            '8' => 'สิงหาคม',
+                                            '9' => 'กันยายน',
+                                            '10' => 'ตุลาคม',
+                                            '11' => 'พฤศจิกายน',
+                                            '12' => 'ธันวาคม'
+                                        );
+                                        $thaiMonth = $thaiMonths[$selectedMonth];
+
+                                        // แปลงปีเป็นปีไทย
+                                        $thaiYear = $selectedYear + 543;
+
+                                        echo " เดือน $thaiMonth ปี $thaiYear";
+                                    }
+                                    ?></h5>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-hover my-0 ">
+                                    <thead>
+                                        <tr>
+                                            <th>ลำดับที่</th>
+                                            <th>ชื่อผู้บริจาค</th>
+                                            <th>หมู่โลหิต</th>
+                                            <th>วันที่บริจาค</th>
+                                            <th>สถานะโลหิต</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php
+                                        // เชื่อมต่อ database
+                                        include('../connect.php');
+
+                                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                                            $selectedMonth = $_GET['month'];
+                                            $selectedYear = $_GET['year'];
+
+                                            // ดึงข้อมูลจาก database
+                                            $sql = "SELECT wd.*, d.dn_name, d.wb_id, wb.wb_bloodtype
+                                            FROM wholedonation AS wd
+                                            JOIN donor AS d ON wd.dn_id = d.dn_id
+                                            JOIN wholeblood AS wb ON d.wb_id = wb.wb_id
+                                            WHERE MONTH(wd.wd_date) = $selectedMonth AND YEAR(wd.wd_date) = $selectedYear
+                                            ORDER BY wd.wd_date DESC
+                                            ";
+                                        } else {
+                                            $sql = "SELECT wd.*, d.dn_name, d.wb_id, wb.wb_bloodtype
+                                        FROM wholedonation AS wd
+                                        JOIN donor AS d ON wd.dn_id = d.dn_id
+                                        JOIN wholeblood AS wb ON d.wb_id = wb.wb_id
+                                        ORDER BY wd.wd_date DESC";
+                                        }
+
+                                        $result = mysqli_query($conn, $sql);
+
+                                        if (mysqli_num_rows($result) > 0) {
+
+                                            $tid = 1; // ตัวแปรนับลำดับที่
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo "<tr>";
+                                                echo "<td>" . $tid . "</td>";
+                                                echo "<td>" . $row["dn_name"] . "</td>"; // เปลี่ยน "ชื่อผู้บริจาค" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
+                                                echo "<td>" . $row["wb_bloodtype"] . "</td>"; // เปลี่ยน "หมู่โลหิต" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
+                                                echo "<td>" . date("d/m/Y", strtotime($row['wd_date'])) . "</td>"; // เปลี่ยน "วันที่บริจาค" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
+                                                if ($row["wd_status"] == "0") {
+                                                    echo "<td><span class=\"badge bg-warning\">สามารถนำไปใช้ได้</span></td>";
+                                                } elseif ($row["wd_status"] == "1") {
+                                                    echo "<td><span class=\"badge bg-success\">ถูกนำไปใช้แล้ว</span></td>";
+                                                } elseif ($row["wd_status"] == "2") {
+                                                    echo "<td><span class=\"badge bg-danger\">ไม่สามารถนำไปใช้ได้</span></td>";
+                                                } // เปลี่ยน "สถานะโลหิต" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
+                                                echo "</tr>";
+                                                $tid++;
+                                            }
+                                        } else {
+                                            echo "0 results";
+                                        }
+
+                                        // ปิดการเชื่อมต่อ database
+                                        mysqli_close($conn);
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-xl-6 col-xxl-12">
                         <div class="card flex-fill w-150">
                             <div class="card-header">
-
-                                <h5 class="card-title mb-0">แผนภูมิแท่งแสดงจำนวนการจองคิวของหน่วยงานภายนอกในแต่ละช่วงเวลา
+                                <h5 class="card-title mb-0">แผนภูมิแท่งแสดงข้อมูลสถานะโลหิต
                                     <?php
                                     if (isset($_GET['month']) && isset($_GET['year'])) {
                                         $selectedMonth = $_GET['month'];
@@ -302,6 +402,7 @@ if ($position != '0') {
                                     ?>
                                 </h5>
                             </div>
+
                             <div class="card-body py-3">
                                 <div class="chart chart-sm">
                                     <canvas id="chartjs-dashboard-bar"></canvas>
@@ -344,11 +445,22 @@ if ($position != '0') {
         </div>
     </div>
     <script src="../js/app.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+
+            });
+        });
+    </script>
+
     <?php
     $data = array(
-        "morning" => $morning,
-        "afternoon" => $affternoon
+        "canuse" => $canuse,
+        "unable" => $unable,
+        "use" => $use
     );
 
     $jsonData = json_encode($data);
@@ -359,26 +471,34 @@ if ($position != '0') {
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var morningData = jsonData.morning;
-            var afternoonData = jsonData.afternoon;
+            var canuse = jsonData.canuse;
+            var unable = jsonData.unable;
+            var use = jsonData.use;
 
             // Bar chart
             new Chart(document.getElementById("chartjs-dashboard-bar"), {
                 type: "bar",
                 data: {
-                    labels: ['จำนวนผู้จองคิวในช่วงเช้าและบ่าย'],
+                    labels: ['ข้อมูลสถานะโลหิต'],
                     datasets: [{
-                            label: 'จำนวนผู้จองคิวในช่วงเช้า',
-                            data: [morningData],
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
+                            label: 'สามารถนำไปใช้ได้',
+                            data: [canuse],
+                            backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                            borderColor: 'rgba(255, 255, 0, 1)',
                             borderWidth: 1
                         },
                         {
-                            label: 'จำนวนผู้จองคิวในช่วงบ่าย',
-                            data: [afternoonData],
+                            label: 'ไม่สามารถนำไปใช้ได้',
+                            data: [unable],
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'นำไปใช้แล้ว',
+                            data: [use],
+                            backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                            borderColor: 'rgba(0, 255, 0, 1))',
                             borderWidth: 1
                         }
                     ]
@@ -408,6 +528,7 @@ if ($position != '0') {
             });
         });
     </script>
+
 </body>
 
 </html>

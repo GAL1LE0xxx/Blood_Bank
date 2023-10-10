@@ -242,6 +242,7 @@ if ($position !== '1') {
             </main>
         </div>
     </div>
+    <script src="../js/app.js"></script>
     <script>
         // Get the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
