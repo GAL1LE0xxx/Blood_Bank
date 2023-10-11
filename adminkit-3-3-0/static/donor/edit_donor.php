@@ -19,12 +19,13 @@ if (isset($_SESSION['id'])) {
     if ($result) {
         // ดึงข้อมูลเรียบร้อย
         $row = mysqli_fetch_assoc($result);
-        $pressure = $row['hr_pressure'];
-        $pulse = $row['hr_pulse'];
-        $hb = $row['hr_hb'];
-        $weight = $row['hr_weight'];
-        $height = $row['hr_height'];
-        $temperature = $row['hr_temperature'];
+$pressure = $row['hr_pressure'];
+$pulse = $row['hr_pulse'];
+$hb = $row['hr_hb'];
+$weight = $row['hr_weight'];
+$height = $row['hr_height'];
+$temperature = $row['hr_temperature'];
+
     } else {
         // ไม่สามารถดึงข้อมูลได้
         echo "เกิดข้อผิดพลาดในการดึงข้อมูล";

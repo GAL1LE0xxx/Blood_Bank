@@ -52,7 +52,7 @@ if ($position != '0') {
                                 <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="../adminprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
+                                <a class="dropdown-item" href="adminprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../logout.php">ออกจากระบบ</a>
                             </div>

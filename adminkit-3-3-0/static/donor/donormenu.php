@@ -92,18 +92,21 @@ $user = $_SESSION['username'];
                                         <span class="mt-3" style="font-size: larger;">บัญชีผู้ใช้</span>
                                     </a>
                                 </div>
+
                                 <div class="col d-flex justify-content-center">
                                     <a href="donor.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-solid fa-pencil square-icon"></i>
                                         <span class="mt-3" style="font-size: larger;">แบบประเมินและแบบคัดกรองเบื้องต้น</span>
                                     </a>
                                 </div>
-                                <div class="col d-flex justify-content-center">
+
+                                <!-- <div class="col d-flex justify-content-center">
                                     <a href="edit_donor.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-solid fa-pencil square-icon"></i>
                                         <span class="mt-3" style="font-size: larger;">แก้ไขแบบประเมินคัดกรองเบื้องต้น</span>
                                     </a>
-                                </div>
+                                </div> -->
+
                                 <div class="col d-flex justify-content-center">
                                     <a href="onsiteservice.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-solid fa-calendar square-icon"></i>
@@ -111,7 +114,7 @@ $user = $_SESSION['username'];
                                     </a>
                                 </div>
 
-                                <div class="col d-flex justify-content-center mt-4">
+                               <div class="col d-flex justify-content-center">
                                     <a href="h_donate.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
                                         <i class="fas fa-history square-icon"></i>
                                         <span class="mt-3" style="font-size: larger;">ประวัติการบริจาค</span>
