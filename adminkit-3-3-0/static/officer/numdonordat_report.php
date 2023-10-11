@@ -224,44 +224,6 @@ if ($position != '1') {
                         </div>
                     </div>
 
-                    <div class="col-xl-6 col-xxl-12">
-                        <div class="card flex-fill w-150">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">แผนภูมิแท่งแสดงข้อมูลสถานะโลหิต
-                                    <?php
-                                    if (isset($_GET['month']) && isset($_GET['year'])) {
-                                        $selectedMonth = $_GET['month'];
-                                        $selectedYear = $_GET['year'];
-
-                                        // แปลงเดือนเป็นเดือนไทย
-                                        $thaiMonths = array(
-                                            '1' => 'มกราคม',
-                                            '2' => 'กุมภาพันธ์',
-                                            '3' => 'มีนาคม',
-                                            '4' => 'เมษายน',
-                                            '5' => 'พฤษภาคม',
-                                            '6' => 'มิถุนายน',
-                                            '7' => 'กรกฎาคม',
-                                            '8' => 'สิงหาคม',
-                                            '9' => 'กันยายน',
-                                            '10' => 'ตุลาคม',
-                                            '11' => 'พฤศจิกายน',
-                                            '12' => 'ธันวาคม'
-                                        );
-                                        $thaiMonth = $thaiMonths[$selectedMonth];
-
-                                        // แปลงปีเป็นปีไทย
-                                        $thaiYear = $selectedYear + 543;
-
-                                        echo " เดือน $thaiMonth ปี $thaiYear";
-                                    }
-                                    ?>
-                                </h5>
-                            </div>
-
-                        </div>
-                    </div>
-
                 </div>
             </main>
 

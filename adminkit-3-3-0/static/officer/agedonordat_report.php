@@ -120,7 +120,6 @@ if ($position != '1') {
 
                                     if ($result) {
                                         if (mysqli_num_rows($result) > 0) {
-                                            echo "<h2>ผู้บริจาคทั้งหมด:</h2>";
                                             echo "<div class='table-responsive'>";
                                             echo "<table id='myTable' class='table table-hover my-0'>";
                                             echo "<thead>";
