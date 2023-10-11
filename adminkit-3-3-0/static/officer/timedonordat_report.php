@@ -183,15 +183,15 @@ if ($position != '1') {
                             // คำสั่ง SQL เริ่มต้น
                             $query = "SELECT COUNT(*) AS total_morning_donors
                             FROM onsiteservice
-                            WHERE on_time = 'ช่วงเช้า';
-                            AND MONTH(wd_date) = $selectedMonth 
-                            AND YEAR(wd_date) = $selectedYear";
+                            WHERE on_time = 'ช่วงเช้า'
+                            AND MONTH(on_date) = $selectedMonth 
+                            AND YEAR(on_date) = $selectedYear";
                         } else {
                             // ถ้าไม่มีการเลือกเดือนหรือปี
                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
                             $query = "SELECT COUNT(*) AS total_morning_donors
-FROM onsiteservice
-WHERE on_time = 'ช่วงเช้า'";
+                            FROM onsiteservice
+                            WHERE on_time = 'ช่วงเช้า'";
 
                         }
 
@@ -236,8 +236,8 @@ WHERE on_time = 'ช่วงเช้า'";
                             $query = "SELECT COUNT(*) AS total_afternoon_donors
                             FROM onsiteservice
                             WHERE on_time = 'ช่วงบ่าย'
-                            AND MONTH(wd_date) = $selectedMonth 
-                            AND YEAR(wd_date) = $selectedYear";
+                            AND MONTH(on_date) = $selectedMonth 
+                            AND YEAR(on_date) = $selectedYear";
                         } else {
                             // ถ้าไม่มีการเลือกเดือนหรือปี
                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข

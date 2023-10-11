@@ -186,8 +186,8 @@ if ($position != '0') {
                             INNER JOIN donor d ON sd.dn_id = d.dn_id
                             INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
                             WHERE sb.sb_id = 1
-                            AND MONTH(wd_date) = $selectedMonth 
-                            AND YEAR(wd_date) = $selectedYear";
+                            AND MONTH(sd_date) = $selectedMonth 
+                            AND YEAR(sd_date) = $selectedYear";
                         } else {
                             // ถ้าไม่มีการเลือกเดือนหรือปี
                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
@@ -295,8 +295,8 @@ if ($position != '0') {
                             INNER JOIN donor d ON sd.dn_id = d.dn_id
                             INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
                             WHERE sb.sb_id = 3
-                            AND MONTH(wd_date) = $selectedMonth 
-                            AND YEAR(wd_date) = $selectedYear";
+                            AND MONTH(sd_date) = $selectedMonth 
+                            AND YEAR(sd_date) = $selectedYear";
                         } else {
                             // ถ้าไม่มีการเลือกเดือนหรือปี
                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
