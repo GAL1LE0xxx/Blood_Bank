@@ -97,7 +97,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="sub_page2.php">
+                                <a class="sidebar-link" href="numdonordat_report.php">
                                     <span class="align-middle">ข้อมูลจํานวนครั้งของการบริจาค</span>
                                 </a>
                             </li>
