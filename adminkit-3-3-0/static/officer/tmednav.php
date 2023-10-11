@@ -80,7 +80,12 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="sub_page2.php">
+                                <a class="sidebar-link" href="gendonordat_report.php">
+                                    <span class="align-middle">ข้อมูลตามเพศ</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="agedonordat_report.php">
                                     <span class="align-middle">ข้อมูลตามช่วงอายุ</span>
                                 </a>
                             </li>
