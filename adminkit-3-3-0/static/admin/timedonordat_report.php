@@ -208,7 +208,7 @@ WHERE on_time = 'ช่วงเช้า'";
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col mt-0"></div>
+                                        <div class="col mt-0">
                                             <h5 class="card-title">จำนวนผู้บริจาคโลหิตในช่วงเช้า</h5>
                                         </div>
 
