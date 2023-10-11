@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2023 at 08:27 PM
+-- Generation Time: Oct 11, 2023 at 09:28 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -50,16 +50,16 @@ CREATE TABLE `donor` (
 
 INSERT INTO `donor` (`dn_id`, `dn_username`, `dn_password`, `dn_name`, `dn_persernalid`, `dn_email`, `dn_gender`, `dn_birthdate`, `dn_address`, `dn_phonenumber`, `dn_status`, `dn_occupation`, `wb_id`, `sb_id`) VALUES
 (1, 'KJ', '81dc9bdb52d04dc20036dbd8313ed055', 'Phutip Kinjib1', '1929900823362', 'phutip.kj@gmail.com', 0, '2001-11-23', '33/1 xxxx xxxx xxxx xxx xxxxx', '0642431470', 1, 0, 2, 0),
-(2, 'gg1', '81dc9bdb52d04dc20036dbd8313ed055', 'gg wp', '1252152315231', 'gg@gmail.com', 0, '2023-06-20', '33 xxx xxxxxx xxxxxxxxx  xxxxxx ', '0623152315', 1, 0, 0, 0),
-(3, 'asdasd', '81dc9bdb52d04dc20036dbd8313ed055', 'eiei', '1231231231321', 'ddd@gmail.com', 1, '2023-05-30', 'xxxxx xxxxxxx xxxxxxxxx', '0213115231', 2, 0, 0, 0),
-(4, 'gg', '81dc9bdb52d04dc20036dbd8313ed055', 'นายทดสอบ รอบที่ล้าน', '1925132546125', 'gg@gmail.com', 0, '2023-06-21', '33 xxxxx xxxxx ', '0624513254', 1, 0, 1, 1),
+(2, 'gg1', '81dc9bdb52d04dc20036dbd8313ed055', 'gg wp', '1252152315231', 'gg@gmail.com', 0, '2023-06-20', '33 xxx xxxxxx xxxxxxxxx  xxxxxx ', '0623152315', 1, 0, 3, 0),
+(3, 'asdasd', '81dc9bdb52d04dc20036dbd8313ed055', 'eiei', '1231231231321', 'ddd@gmail.com', 1, '2023-05-30', 'xxxxx xxxxxxx xxxxxxxxx', '0213115231', 2, 0, 4, 0),
+(4, 'gg', '81dc9bdb52d04dc20036dbd8313ed055', 'นายทดสอบ รอบที่ล้าน', '1925132546125', 'gg@gmail.com', 0, '2023-06-21', '33 xxxxx xxxxx ', '0624513254', 1, 0, 1, 0),
 (5, 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'Pt KJ', '1929900823xxx', 'ff@gmail.com', 0, '2023-06-20', '222222 xxxxxxxxx  xxxxxxxxxx xxxxx', '0642513210', 2, 0, 0, 0),
 (6, 'tw1', '81dc9bdb52d04dc20036dbd8313ed055', 'wetew1', '1233232321233', 'dd@gmail.com', 0, '2023-08-16', 'asdasddd', '2345234523', 0, 0, 0, 0),
-(17, 'xxx', '81dc9bdb52d04dc20036dbd8313ed055', 'xxxx', '192990082xxxx', 'dd@gmail.com', 1, '2023-09-12', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 1, 0, 0, 0),
+(17, 'xxx', '81dc9bdb52d04dc20036dbd8313ed055', 'xxxx', '192990082xxxx', 'dd@gmail.com', 1, '2023-09-12', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 1, 0, 3, 0),
 (102, 'kungfuu2344', '1a64b034ad7238f9773e57894efa346a', 'ภูธิป กินจิบ', '1234567891234', 'phutip.kj@gmail.com', 0, '2001-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 2, 0, 0, 0),
 (103, 'kungfuu222', '39cde55fa7fd15bda3a94087a509cc21', 'บุริศร์ ทองอยุ่คง', '1234567891234', 'phutip.kj@gmail.com', 0, '2000-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 1, 0, 0, 0),
 (104, 'ptkj2544', '1a64b034ad7238f9773e57894efa346a', 'test test', '1929900823362', 'dd@gmail.com', 0, '2008-07-01', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 0, 0, 0, 0),
-(105, 'KJ', '25d55ad283aa400af464c76d713c07ad', 'ภูธิป กินจิบ', '1929900823362', 'fookangkangfoo@gmail.com', 0, '2001-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 0, 0, 2, 0),
+(105, 'KJ1', '25d55ad283aa400af464c76d713c07ad', 'ภูธิป กินจิบ', '1929900823362', 'fookangkangfoo@gmail.com', 0, '2001-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 0, 0, 2, 0),
 (106, 'KJ', '1bbd886460827015e5d605ed44252251', 'fdddd', 'dddddd', 'dddddddddd@g', 0, '2023-10-06', 'dddddddd', 'dddddddddd', 0, 0, 2, 0),
 (107, 'ดดด', '130714308cc6fe6e883615871d96a595', 'ดดดด', 'ๅๅๅ', 'ff@ff', 1, '2023-10-06', 'ๅๅๅ', 'ๅๅๅ', 2, 0, 3, 0),
 (108, 'kj', '771f01104d905386a134a676167edccc', 'kj', 'kj', 'KJ@gmail.com', 0, '2023-10-06', 'kj', 'kj', 2, 0, 4, 0),
@@ -85,7 +85,6 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `start`, `end`, `color`) VALUES
-(4, '2023-08-31', '2023-08-31', ''),
 (6, '2023-08-25', '2023-08-25', ''),
 (7, '2023-08-29', '2023-08-29', ''),
 (8, '2023-09-01', '2023-09-01', ''),
@@ -233,7 +232,7 @@ INSERT INTO `officer` (`oc_id`, `oc_username`, `oc_password`, `oc_firstname`, `o
 CREATE TABLE `onsiteservice` (
   `on_id` int(8) NOT NULL,
   `on_date` date NOT NULL,
-  `on_time` time NOT NULL,
+  `on_time` varchar(30) NOT NULL,
   `on_approval` int(1) NOT NULL,
   `dn_id` int(8) NOT NULL,
   `oc_id` int(8) NOT NULL
@@ -244,14 +243,11 @@ CREATE TABLE `onsiteservice` (
 --
 
 INSERT INTO `onsiteservice` (`on_id`, `on_date`, `on_time`, `on_approval`, `dn_id`, `oc_id`) VALUES
-(2, '2023-10-08', '05:00:00', 0, 1, 0),
-(3, '2023-10-12', '17:31:00', 0, 1, 0),
-(7, '2023-10-08', '21:55:00', 0, 0, 0),
-(11, '2023-10-28', '20:58:00', 0, 0, 0),
-(12, '2023-10-21', '23:58:00', 0, 1, 0),
-(13, '2023-10-07', '21:02:00', 0, 1, 0),
-(15, '2023-10-07', '23:51:00', 0, 1, 0),
-(17, '2024-01-09', '20:32:00', 0, 1, 0);
+(1, '2023-01-08', 'ช่วงเช้า', 0, 1, 0),
+(2, '2023-08-02', 'ช่วงบ่าย', 0, 2, 0),
+(3, '2023-08-03', 'ช่วงเช้า', 0, 3, 0),
+(4, '2023-09-01', 'ช่วงบ่าย', 0, 4, 0),
+(10, '2023-11-23', 'ช่วงเช้า', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -313,13 +309,12 @@ CREATE TABLE `outsiteservice` (
 --
 
 INSERT INTO `outsiteservice` (`out_id`, `out_start`, `out_end`, `out_time`, `out_location`, `out_amount`, `out_approval`, `oa_id`, `oc_id`) VALUES
-(4, '2023-08-31', '2023-08-31', '13.05 - 14.00 น.', 'หอประชุม 2 โรงแรม Green Garden ', 1000, 1, 4, 2),
 (6, '2023-08-25', '2023-08-25', '12.05 - 13.00 น.', 'หอประชุม 5 โรงแรม Green Garden ', 50, 2, 3, 2),
 (7, '2023-08-29', '2023-08-29', '10.05 - 11.00 น.', 'หอประชุม 1 โรงแรม Green Garden ', 100, 1, 4, 2),
-(8, '2023-09-01', '2023-09-01', '09.00 - 10.00 น.', 'กองพัฒ', 10000, 0, 4, 0),
-(10, '2023-10-02', '2023-10-02', 'ช่วงบ่าย', 'หอประชุม 5 โรงแรม Green Garden ', 100, 1, 4, 2),
+(8, '2023-09-01', '2023-09-01', '09.00 - 10.00 น.', 'กองพัฒ', 10000, 0, 3, 0),
+(10, '2023-10-02', '2023-10-02', 'ช่วงบ่าย', 'หอประชุม 5 โรงแรม Green Garden ', 100, 1, 2, 2),
 (11, '2023-10-01', '2023-10-01', 'ช่วงเช้า', 'หอประชุม 1 โรงแรม Green Garden ', 100, 1, 4, 2),
-(12, '2023-10-02', '2023-10-02', 'ช่วงเช้า', 'หอประชุม 3 โรงแรม Green Garden ', 100, 1, 4, 2),
+(12, '2023-10-02', '2023-10-02', 'ช่วงเช้า', 'หอประชุม 3 โรงแรม Green Garden ', 100, 1, 1, 2),
 (13, '2023-11-03', '2023-11-03', 'ช่วงเช้า', 'หอประชุม 5 โรงแรม Green Garden ', 100, 0, 4, 0),
 (14, '2023-11-07', '2023-11-07', 'ช่วงบ่าย', 'หอประชุม 3 โรงแรม Green Garden ', 100, 1, 4, 2),
 (15, '2023-11-07', '2023-11-07', 'ช่วงบ่าย', 'หอประชุม 3 โรงแรม Green Garden ', 100, 2, 4, 2),
@@ -583,6 +578,7 @@ CREATE TABLE `specificdonation` (
   `sd_id` int(8) NOT NULL,
   `sd_date` date NOT NULL,
   `sd_amount` int(3) NOT NULL,
+  `sb_id` int(1) NOT NULL,
   `dn_id` int(8) NOT NULL,
   `sd_status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -591,16 +587,19 @@ CREATE TABLE `specificdonation` (
 -- Dumping data for table `specificdonation`
 --
 
-INSERT INTO `specificdonation` (`sd_id`, `sd_date`, `sd_amount`, `dn_id`, `sd_status`) VALUES
-(1, '2023-08-30', 450, 4, 1),
-(2, '2023-09-01', 450, 4, 2),
-(5, '2023-09-14', 350, 1, 0),
-(6, '2023-10-14', 350, 1, 0),
-(7, '0000-00-00', 450, 0, 0),
-(8, '2023-10-08', 450, 4, 0),
-(9, '2023-11-08', 450, 3, 1),
-(10, '2023-10-10', 350, 4, 0),
-(11, '2023-10-08', 350, 1, 0);
+INSERT INTO `specificdonation` (`sd_id`, `sd_date`, `sd_amount`, `sb_id`, `dn_id`, `sd_status`) VALUES
+(1, '2023-08-30', 450, 2, 4, 1),
+(2, '2023-09-01', 450, 3, 4, 2),
+(5, '2023-09-14', 350, 3, 1, 0),
+(6, '2023-10-14', 350, 1, 1, 0),
+(7, '2023-10-11', 450, 2, 1, 0),
+(8, '2023-10-08', 450, 1, 4, 0),
+(9, '2023-11-08', 450, 2, 3, 1),
+(10, '2023-10-10', 350, 2, 4, 0),
+(11, '2023-10-08', 350, 1, 1, 0),
+(12, '2023-10-11', 450, 1, 4, 0),
+(13, '2023-11-12', 450, 3, 1, 0),
+(14, '2023-11-15', 350, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -642,21 +641,11 @@ CREATE TABLE `wholedonation` (
 --
 
 INSERT INTO `wholedonation` (`wd_id`, `wd_date`, `wd_amount`, `dn_id`, `wd_status`) VALUES
-(4, '2023-08-01', 450, 1, 0),
-(5, '2023-08-04', 350, 4, 2),
-(6, '2023-08-02', 350, 2, 0),
-(7, '2023-08-03', 350, 3, 0),
-(17, '2023-09-01', 350, 1, 0),
-(18, '2023-11-01', 350, 1, 1),
-(19, '2023-10-03', 350, 1, 0),
-(20, '0000-00-00', 0, 1, 0),
-(21, '0000-00-00', 0, 0, 0),
-(22, '0000-00-00', 0, 0, 0),
-(23, '2023-10-08', 350, 4, 0),
-(24, '2023-10-08', 450, 4, 0),
-(25, '2023-10-08', 350, 4, 0),
-(26, '2023-10-11', 350, 2, 0),
-(27, '2023-11-08', 450, 3, 0);
+(1, '2023-01-08', 450, 1, 1),
+(2, '2023-08-02', 350, 2, 1),
+(3, '2023-08-03', 350, 3, 2),
+(4, '2023-09-01', 350, 4, 0),
+(28, '2023-11-23', 350, 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -784,7 +773,7 @@ ALTER TABLE `officer`
 -- AUTO_INCREMENT for table `onsiteservice`
 --
 ALTER TABLE `onsiteservice`
-  MODIFY `on_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `on_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `outsideagency`
@@ -832,19 +821,19 @@ ALTER TABLE `specificblood`
 -- AUTO_INCREMENT for table `specificdonation`
 --
 ALTER TABLE `specificdonation`
-  MODIFY `sd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `sd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `wholeblood`
 --
 ALTER TABLE `wholeblood`
-  MODIFY `wb_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `wb_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `wholedonation`
 --
 ALTER TABLE `wholedonation`
-  MODIFY `wd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `wd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
