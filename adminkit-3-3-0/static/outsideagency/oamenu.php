@@ -105,6 +105,12 @@ $user = $_SESSION['username'];
                                         <span class="mt-3" style="font-size: larger;">ตรวจสอบการจองคิว</span>
                                     </a>
                                 </div>
+                                <div class="col d-flex justify-content-center">
+                                    <a href="oabooking_report.php" class="btn btn-outline-danger btn-lg btn-block square-btn">
+                                        <i class="fas fa-line-chart square-icon"></i>
+                                        <span class="mt-3" style="font-size: larger;">รายงานการจองคิวของหน่วยงานภายนอก</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

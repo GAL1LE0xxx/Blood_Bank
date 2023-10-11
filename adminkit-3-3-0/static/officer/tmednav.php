@@ -59,7 +59,7 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#donor-dropdown">
-                        <i class="align-middle" data-feather="square"></i>
+                        <i class="align-middle" data-feather="bar-chart-2"></i>
                         <span class="align-middle">ข้อมูลและจำนวนผู้บริจาค</span>
                     </a>
                     <div class="collapse" id="donor-dropdown">
@@ -95,7 +95,7 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#book-dropdown">
-                        <i class="align-middle" data-feather="square"></i>
+                        <i class="align-middle" data-feather="bar-chart-2"></i>
                         <span class="align-middle">ข้อมูลการจองคิว</span>
                     </a>
                     <div class="collapse" id="book-dropdown">
@@ -116,7 +116,7 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#am-dropdown">
-                        <i class="align-middle" data-feather="square"></i>
+                        <i class="align-middle" data-feather="bar-chart-2"></i>
                         <span class="align-middle">ข้อมูลปริมาณโลหิต</span>
                     </a>
                     <div class="collapse" id="am-dropdown">
@@ -137,7 +137,7 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link dropdown-toggle" data-toggle="collapse" data-target="#bloodstatus-dropdown">
-                        <i class="align-middle" data-feather="square"></i>
+                        <i class="align-middle" data-feather="bar-chart-2"></i>
                         <span class="align-middle">ข้อมูลสถานะโลหิต</span>
                     </a>
                     <div class="collapse" id="bloodstatus-dropdown">

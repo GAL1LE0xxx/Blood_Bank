@@ -13,12 +13,12 @@ $searchKeyword = isset($_POST['out_start']) ? $_POST['out_start'] : ''; // Defin
 
 if (isset($_POST['out_start'])) {
     $searchKeyword = $_POST['out_start'];
-}   
+}
 
 // สร้างคำสั่ง SQL สำหรับการค้นหาข้อมูลจากทั้ง 2 ตาราง
-    $sql = "SELECT o.*, os.* FROM outsideagency o
+$sql = "SELECT o.*, os.* FROM outsideagency o
             INNER JOIN outsiteservice os ON o.oa_id = os.oa_id
-            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$logged_in_oa_id'";   
+            WHERE os.out_start LIKE '%$searchKeyword%' AND o.oa_id = '$logged_in_oa_id'";
 
 // ประมวลผลคำสั่ง SQL
 $result = $conn->query($sql);

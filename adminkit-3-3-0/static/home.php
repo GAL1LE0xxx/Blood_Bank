@@ -96,6 +96,74 @@ session_destroy();
                     </div>
                     <!-- จบ slide รูป -->
 
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <div class="container">
+                            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">จำนวนผู้บริจาคโลหิตวันนี้</div>
+                            <div class=" d-flex justify-content-center align-items-center">
+                                <div class="container">
+                                    <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body text-center text-danger">
+                                                    <i class="bi bi-person-fill" style="font-size: 110px;"></i>
+                                                    <h5 class="card-title text-center" style="font-size: 20px;">
+                                                        จำนวนผู้เข้าบริจาคโลหิตรวม</h5>
+                                                    <?php
+                                                    include('connect.php');
+                                                    $query = "SELECT COUNT(*) AS total_donors
+                                                    FROM wholedonation
+                                                    WHERE DATE(wd_date) = CURDATE() AND dn_id
+                                                    ";
+                                                    $result = mysqli_query($conn, $query);
+                                                    if ($result === false) {
+                                                        die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                                                    }
+                                                    $total_donors = 0;
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $total_donors += $row['total_donors'];
+                                                    }
+                                                    ?>
+                                                    <div class="col-auto align-middle">
+                                                        <a type="button" class="btn btn-outline-danger btn-lg btn-block square-btn mt-4" style="font-size: 20px; border-radius: 20px;">ทั้งหมด <?php echo $total_donors ?>
+                                                            คน </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body text-center text-danger">
+                                                    <i class="bi bi-person-fill" style="font-size: 110px;"></i>
+                                                    <h5 class="card-title text-center" style="font-size: 20px; ">
+                                                        จำนวนผู้เข้าบริจาคโลหิตเฉพาะส่วน</h5>
+                                                    <?php
+                                                    include('connect.php');
+                                                    $query = "SELECT COUNT(*) AS total_sbdonors
+                                                    FROM specificdonation
+                                                    WHERE DATE(sd_date) = CURDATE() AND dn_id
+                                                    ";
+                                                    $result = mysqli_query($conn, $query);
+                                                    if ($result === false) {
+                                                        die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                                                    }
+                                                    $total_sbdonors = 0;
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $total_sbdonors += $row['total_sbdonors'];
+                                                    }
+                                                    ?>
+                                                    <div class="col-auto align-middle">
+                                                        <a type="button" class="btn btn-outline-danger btn-lg btn-block square-btn mt-4" style="font-size: 20px; border-radius: 20px;">ทั้งหมด <?php echo  $total_sbdonors ?>
+                                                            คน </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- pr-->
                     <div class="mt-4 d-flex justify-content-center align-items-center">
                         <div class="container">
@@ -150,7 +218,7 @@ session_destroy();
                     <!-- ปริมาณเลือด -->
                     <div class="mt-4 d-flex justify-content-center align-items-center">
                         <div class="container">
-                            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 30px; border-radius: 20px;">ปริมาณโลหิตทั้งหมดในคลัง</div>
+                            <div class="d-inline-flex-center p-2 bg-danger text-white text-center" style="font-size: 20px; border-radius: 20px;">ปริมาณโลหิตทั้งหมดในคลัง</div>
                             <div class="row row-cols-1 row-cols-md-4 g-4 mt-3">
                                 <div class="col">
                                     <div class="card h-100">
@@ -328,7 +396,8 @@ session_destroy();
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col mt-0">
-                                                    <h5 class="card-title" style="font-size: 20px;">ปริมาณเม็ดเลือดแดง</h5>
+                                                    <h5 class="card-title" style="font-size: 20px;">ปริมาณเม็ดเลือดแดง
+                                                    </h5>
                                                 </div>
 
                                                 <div class="col-auto">
@@ -344,10 +413,12 @@ session_destroy();
 
                                 <?php
                                 include('connect.php');
+
                                 $query = "SELECT SUM(sd.sd_amount) AS total_sd3_amount
                                     FROM specificdonation sd 
                                     INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
                                     WHERE sb.sb_id = 3";
+
                                 $result = mysqli_query($conn, $query);
                                 if ($result === false) {
                                     die("การสอบถามผิดพลาด: " . mysqli_error($conn));
@@ -362,11 +433,12 @@ session_destroy();
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col mt-0">
-                                                    <h5 class="card-title" style="font-size: 20px;">ปริมาณเกล็ดเลือด</h5>
+                                                    <h5 class="card-title" style="font-size: 20px;">ปริมาณเกล็ดเลือด
+                                                    </h5>
                                                 </div>
 
                                                 <div class="col-auto">
-                                                    <div class="stat text-danger"></div>
+                                                    <div class="stat text-danger">
                                                         <i class="bi bi-droplet-fill"></i>
                                                     </div>
                                                 </div>
@@ -375,19 +447,20 @@ session_destroy();
                                         </div>
                                     </div>
                                 </div>
+
+
+
                             </div>
-
                         </div>
+                        <!-- ปริมาณเลือด -->
+
+
+                        <!-- ปุ่มกลับด้านบน -->
+                        <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-danger">
+                            <i class="bi bi-arrow-up-circle"></i>
+                        </button>
+                        <!-- ปุ่มกลับด้านบน -->
                     </div>
-                    <!-- ปริมาณเลือด -->
-
-
-                    <!-- ปุ่มกลับด้านบน -->
-                    <button onclick="scrollToTop()" id="scrollToTopButton" class="btn btn-danger">
-                        <i class="bi bi-arrow-up-circle"></i>
-                    </button>
-                    <!-- ปุ่มกลับด้านบน -->
-                </div>
             </main>
         </div>
     </div>
