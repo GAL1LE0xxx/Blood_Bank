@@ -72,22 +72,22 @@
                     <div class="collapse" id="donor-dropdown">
                         <ul class="sidebar-sub">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="donordat_report.php">
+                                <a class="sidebar-link" href="wbdonordat_report.php">
                                     <span class="align-middle">ประเภทของโลหิตรวม</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="sub_page2.php">
+                                <a class="sidebar-link" href="sbdonordat_report.php">
                                     <span class="align-middle">ประเภทของโลหิตเฉพาะส่วน</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="sub_page2.php">
+                                <a class="sidebar-link" href="timedonordat_report.php">
                                     <span class="align-middle">ข้อมูลตามช่วงเวลา</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="sub_page2.php">
+                                <a class="sidebar-link" href="gendonordat_report.php">
                                     <span class="align-middle">ข้อมูลตามช่วงอายุ</span>
                                 </a>
                             </li>

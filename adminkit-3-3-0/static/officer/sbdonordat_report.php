@@ -7,8 +7,8 @@ if (!isset($_SESSION['username'])) { // ถ้าไม่ได้เข้า�
 
 $user = $_SESSION['username'];
 $position = $_SESSION['position'];
-if ($position != '0') {
-    echo '<script>alert("สำหรับผู้ดูแลระบบเท่านั้น");window.location="../home.php";</script>';
+if ($position != '1') {
+    echo '<script>alert("สำหรับเจ้าหน้าที่เท่านั้น");window.location="../home.php";</script>';
     exit;
 }
 ?>
@@ -26,7 +26,7 @@ if ($position != '0') {
     <link rel="shortcut icon" href="../img/icons/icon.png" />
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <title>รายงานข้อมูลโลหิตรวม</title>
+    <title>รายงานข้อมูลและจำนวนผู้บริจาคโลหิต</title>
     <link href="../css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css">
@@ -42,7 +42,7 @@ if ($position != '0') {
 
 <body>
     <div class="wrapper">
-        <?php include "adminnav.php"; ?>
+        <?php include "tmednav.php"; ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -67,7 +67,7 @@ if ($position != '0') {
             <main class="content">
 
                 <div class="container-fluid p-0">
-                    <h1 class="h3 mb-3"><strong>รายงานข้อมูลโลหิตรวม</strong></h1>
+                    <h1 class="h3 mb-3"><strong>รายงานข้อมูลและจำนวนผู้บริจาคโลหิต (แยกตามประเภทของโลหิตเฉพาะส่วน)</strong></h1>
                     <div class="card">
                         <div class="card-body">
                             <form method="GET" action="">
@@ -131,9 +131,9 @@ if ($position != '0') {
                                             $selectedYear = $_GET['year'];
 
                                             // คำสั่ง SQL เริ่มต้น
-                                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 0 
-                      AND MONTH(wd_date) = $selectedMonth 
-                      AND YEAR(wd_date) = $selectedYear";
+                                            $query = "SELECT COUNT(*) as total FROM specificdonation 
+                                            WHERE MONTH(sd_date) = $selectedMonth AND YEAR(sd_date) = $selectedYear";
+
 
                                             $result = mysqli_query($conn, $query);
 
@@ -142,11 +142,11 @@ if ($position != '0') {
                                             }
 
                                             $row = mysqli_fetch_assoc($result);
-                                            $canuse = $row['total'];
+                                            $sbdonor = $row['total'];
                                         } else {
                                             // ถ้าไม่มีการเลือกเดือนหรือปี
                                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
-                                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 0";
+                                            $query = "SELECT COUNT(*) as total FROM specificdonation ";
 
                                             $result = mysqli_query($conn, $query);
 
@@ -155,11 +155,11 @@ if ($position != '0') {
                                             }
 
                                             $row = mysqli_fetch_assoc($result);
-                                            $canuse = $row['total'];
+                                            $sbdonor = $row['total'];
                                         }
                                         ?>
                                         <div class="col mt-0">
-                                            <h5 class="card-title">สามารถนำไปใช้งานได้</h5>
+                                            <h5 class="card-title">จำนวนผู้บริจาคทั้งหมด</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -168,12 +168,12 @@ if ($position != '0') {
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $canuse ?> คน </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $sbdonor ?> คน </h1>
                                 </div>
 
                             </div>
                         </div>
-
+                        <!-- A -->
                         <?php
                         // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
                         if (isset($_GET['month']) && isset($_GET['year'])) {
@@ -181,13 +181,21 @@ if ($position != '0') {
                             $selectedYear = $_GET['year'];
 
                             // คำสั่ง SQL เริ่มต้น
-                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 1 
-                      AND MONTH(wd_date) = $selectedMonth 
-                      AND YEAR(wd_date) = $selectedYear";
+                            $query = "SELECT COUNT(*) AS total_donors1
+                            FROM specificdonation sd
+                            INNER JOIN donor d ON sd.dn_id = d.dn_id
+                            INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+                            WHERE sb.sb_id = 1
+                            AND MONTH(wd_date) = $selectedMonth 
+                            AND YEAR(wd_date) = $selectedYear";
                         } else {
                             // ถ้าไม่มีการเลือกเดือนหรือปี
                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
-                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 1";
+                            $query = "SELECT COUNT(*) AS total_donors1
+                            FROM specificdonation sd
+                            INNER JOIN donor d ON sd.dn_id = d.dn_id
+                            INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+                            WHERE sb.sb_id = 1";
                         }
 
                         $result = mysqli_query($conn, $query);
@@ -197,14 +205,14 @@ if ($position != '0') {
                         }
 
                         $row = mysqli_fetch_array($result);
-                        $unable = $row[0];
+                        $total_donors1 = $row[0];
                         ?>
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">ไม่สามารถนำไปใช้งานได้</h5>
+                                            <h5 class="card-title">จำนวนผู้บริจาคพลาสม่า</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -213,10 +221,14 @@ if ($position != '0') {
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $unable ?> ยูนิต </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $total_donors1 ?> คน </h1>
                                 </div>
                             </div>
                         </div>
+                        <!-- A -->
+
+
+                        <!-- B -->
                         <?php
                         // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
                         if (isset($_GET['month']) && isset($_GET['year'])) {
@@ -224,13 +236,21 @@ if ($position != '0') {
                             $selectedYear = $_GET['year'];
 
                             // คำสั่ง SQL เริ่มต้น
-                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 2 
-                      AND MONTH(wd_date) = $selectedMonth 
-                      AND YEAR(wd_date) = $selectedYear";
+                            $query = "SELECT COUNT(*) AS total_donors2
+                            FROM specificdonation sd
+                            INNER JOIN donor d ON sd.dn_id = d.dn_id
+                            INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+                            WHERE sb.sb_id = 2
+                            AND MONTH(sd_date) = $selectedMonth 
+                            AND YEAR(sd_date) = $selectedYear";
                         } else {
                             // ถ้าไม่มีการเลือกเดือนหรือปี
                             // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
-                            $query = "SELECT COUNT(*) as total FROM wholedonation WHERE wd_status = 2";
+                            $query = "SELECT COUNT(*) AS total_donors2
+                            FROM specificdonation sd
+                            INNER JOIN donor d ON sd.dn_id = d.dn_id
+                            INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+                            WHERE sb.sb_id = 2";
                         }
 
                         $result = mysqli_query($conn, $query);
@@ -240,14 +260,14 @@ if ($position != '0') {
                         }
 
                         $row = mysqli_fetch_array($result);
-                        $use = $row[0];
+                        $total_donors2 = $row[0];
                         ?>
                         <div class="col-sm-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">ถูกนำไปใช้งานแล้ว</h5>
+                                            <h5 class="card-title">จำนวนผู้บริจาคเม็ดเลือดแดง</h5>
                                         </div>
 
                                         <div class="col-auto">
@@ -256,18 +276,71 @@ if ($position != '0') {
                                             </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><?php echo $use ?> ยูนิต </h1>
+                                    <h1 class="mt-1 mb-3"><?php echo $total_donors2 ?> คน </h1>
                                 </div>
                             </div>
-
                         </div>
+                        <!-- B -->
 
-                    </div>
+                        <!-- O -->
+                        <?php
+                        // ตรวจสอบว่ามีการเลือกเดือนและปีหรือไม่
+                        if (isset($_GET['month']) && isset($_GET['year'])) {
+                            $selectedMonth = $_GET['month'];
+                            $selectedYear = $_GET['year'];
 
-                    <div class="card">
+                            // คำสั่ง SQL เริ่มต้น
+                            $query = "SELECT COUNT(*) AS total_donors3
+                            FROM specificdonation sd
+                            INNER JOIN donor d ON sd.dn_id = d.dn_id
+                            INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+                            WHERE sb.sb_id = 3
+                            AND MONTH(wd_date) = $selectedMonth 
+                            AND YEAR(wd_date) = $selectedYear";
+                        } else {
+                            // ถ้าไม่มีการเลือกเดือนหรือปี
+                            // ให้ดึงข้อมูลทั้งหมดโดยไม่มีเงื่อนไข
+                            $query = "SELECT COUNT(*) AS total_donors3
+                            FROM specificdonation sd
+                            INNER JOIN donor d ON sd.dn_id = d.dn_id
+                            INNER JOIN specificblood sb ON sd.sb_id = sb.sb_id
+                            WHERE sb.sb_id = 3";
+                        }
+
+                        $result = mysqli_query($conn, $query);
+
+                        if (!$result) {
+                            die("การสอบถามผิดพลาด: " . mysqli_error($conn));
+                        }
+
+                        $row = mysqli_fetch_array($result);
+                        $total_donors3 = $row[0];
+                        ?>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">จำนวนผู้บริจาคเกล็ดเลือด</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-danger">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h1 class="mt-1 mb-3"><?php echo $total_donors3 ?> คน </h1>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- O -->
+
+                        
+                        <div class="card">
                         <div class="card-body">
                             <div class="card-header">
-                                <h5 class="card-title ">ตารางแสดงข้อมูลสถานะโลหิต
+                                <h5 class="card-title ">ตารางแสดงข้อมูลสถานะโลหิตเฉพาะส่วน
                                     <?php
                                     if (isset($_GET['month']) && isset($_GET['year'])) {
                                         $selectedMonth = $_GET['month'];
@@ -319,19 +392,31 @@ if ($position != '0') {
                                             $selectedYear = $_GET['year'];
 
                                             // ดึงข้อมูลจาก database
-                                            $sql = "SELECT wd.*, d.dn_name, d.wb_id, wb.wb_bloodtype
-                                            FROM wholedonation AS wd
-                                            JOIN donor AS d ON wd.dn_id = d.dn_id
-                                            JOIN wholeblood AS wb ON d.wb_id = wb.wb_id
-                                            WHERE MONTH(wd.wd_date) = $selectedMonth AND YEAR(wd.wd_date) = $selectedYear
-                                            ORDER BY wd.wd_date DESC
+                                            $sql = "SELECT sd.sd_date, sd.sb_id, sb.sb_information, sd.sd_status, d.dn_name
+                                            FROM specificdonation AS sd
+                                            JOIN specificblood AS sb ON sd.sb_id = sb.sb_id
+                                            JOIN donor AS d ON sd.dn_id = d.dn_id
+                                            WHERE MONTH(sd.sd_date) = $selectedMonth AND YEAR(sd.sd_date) = $selectedYear
+                                            ORDER BY sd.sd_date DESC
                                             ";
                                         } else {
-                                            $sql = "SELECT wd.*, d.dn_name, d.wb_id, wb.wb_bloodtype
-                                        FROM wholedonation AS wd
-                                        JOIN donor AS d ON wd.dn_id = d.dn_id
-                                        JOIN wholeblood AS wb ON d.wb_id = wb.wb_id
-                                        ORDER BY wd.wd_date DESC";
+                                            $sql = "SELECT sd.sd_date, sd.sb_id, sb.sb_information, sd.sd_status, d.dn_name
+                                                    FROM specificdonation AS sd
+                                                    JOIN specificblood AS sb ON sd.sb_id = sb.sb_id
+                                                    JOIN donor AS d ON sd.dn_id = d.dn_id";
+
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if ($result === false) {
+                                                die("Error: " . mysqli_error($conn));
+                                            }
+
+                                            // ตรวจสอบข้อมูลที่คุณต้องการ
+                                            if (mysqli_num_rows($result) > 0) {
+                                                // ดึงข้อมูลจากผลลัพธ์
+                                            } else {
+                                                // ไม่มีข้อมูลที่ตรงกับเงื่อนไข
+                                            }
                                         }
 
                                         $result = mysqli_query($conn, $sql);
@@ -343,13 +428,13 @@ if ($position != '0') {
                                                 echo "<tr>";
                                                 echo "<td>" . $tid . "</td>";
                                                 echo "<td>" . $row["dn_name"] . "</td>"; // เปลี่ยน "ชื่อผู้บริจาค" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
-                                                echo "<td>" . $row["wb_bloodtype"] . "</td>"; // เปลี่ยน "หมู่โลหิต" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
-                                                echo "<td>" . date("d/m/Y", strtotime($row['wd_date'])) . "</td>"; // เปลี่ยน "วันที่บริจาค" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
-                                                if ($row["wd_status"] == "0") {
+                                                echo "<td>" . $row["sb_information"] . "</td>"; // เปลี่ยน "หมู่โลหิต" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
+                                                echo "<td>" . date("d/m/Y", strtotime($row['sd_date'])) . "</td>"; // เปลี่ยน "วันที่บริจาค" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
+                                                if ($row["sd_status"] == "0") {
                                                     echo "<td><span class=\"badge bg-warning\">สามารถนำไปใช้ได้</span></td>";
-                                                } elseif ($row["wd_status"] == "1") {
+                                                } elseif ($row["sd_status"] == "1") {
                                                     echo "<td><span class=\"badge bg-success\">ถูกนำไปใช้แล้ว</span></td>";
-                                                } elseif ($row["wd_status"] == "2") {
+                                                } elseif ($row["sd_status"] == "2") {
                                                     echo "<td><span class=\"badge bg-danger\">ไม่สามารถนำไปใช้ได้</span></td>";
                                                 } // เปลี่ยน "สถานะโลหิต" เป็นชื่อคอลัมน์ที่คุณต้องการแสดง
                                                 echo "</tr>";
@@ -458,9 +543,9 @@ if ($position != '0') {
 
     <?php
     $data = array(
-        "canuse" => $canuse,
-        "unable" => $unable,
-        "use" => $use
+        "total_donors1" => $total_donors1,
+        "total_donors2" => $total_donors2,
+        "total_donors3" => $total_donors3,
     );
 
     $jsonData = json_encode($data);
@@ -471,36 +556,36 @@ if ($position != '0') {
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var canuse = jsonData.canuse;
-            var unable = jsonData.unable;
-            var use = jsonData.use;
+            var total_donors1 = jsonData.total_donors1;
+            var total_donors2 = jsonData.total_donors2;
+            var total_donors3 = jsonData.total_donors3;
 
             // Bar chart
             new Chart(document.getElementById("chartjs-dashboard-bar"), {
                 type: "bar",
                 data: {
-                    labels: ['ข้อมูลสถานะโลหิต'],
+                    labels: ['จำนวนผู้บริจาค'],
                     datasets: [{
-                            label: 'สามารถนำไปใช้ได้',
-                            data: [canuse],
+                            label: 'จำนวนผู้บริจาคพลาสม่า',
+                            data: [total_donors1],
                             backgroundColor: 'rgba(255, 255, 0, 0.2)',
                             borderColor: 'rgba(255, 255, 0, 1)',
                             borderWidth: 1
                         },
                         {
-                            label: 'ไม่สามารถนำไปใช้ได้',
-                            data: [unable],
+                            label: 'จำนวนผู้บริจาคเม็ดเลือดแดง',
+                            data: [total_donors2],
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             borderColor: 'rgba(255, 99, 132, 1)',
                             borderWidth: 1
                         },
                         {
-                            label: 'นำไปใช้แล้ว',
-                            data: [use],
+                            label: 'จำนวนผู้บริจาคเกล็ดเลือด',
+                            data: [total_donors3],
                             backgroundColor: 'rgba(0, 255, 0, 0.2)',
                             borderColor: 'rgba(0, 255, 0, 1))',
                             borderWidth: 1
-                        }
+                        },
                     ]
                 },
                 options: {
