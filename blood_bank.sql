@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 09:28 PM
+-- Generation Time: Oct 11, 2023 at 10:15 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -49,7 +49,7 @@ CREATE TABLE `donor` (
 --
 
 INSERT INTO `donor` (`dn_id`, `dn_username`, `dn_password`, `dn_name`, `dn_persernalid`, `dn_email`, `dn_gender`, `dn_birthdate`, `dn_address`, `dn_phonenumber`, `dn_status`, `dn_occupation`, `wb_id`, `sb_id`) VALUES
-(1, 'KJ', '81dc9bdb52d04dc20036dbd8313ed055', 'Phutip Kinjib1', '1929900823362', 'phutip.kj@gmail.com', 0, '2001-11-23', '33/1 xxxx xxxx xxxx xxx xxxxx', '0642431470', 1, 0, 2, 0),
+(1, 'KJ', '81dc9bdb52d04dc20036dbd8313ed055', 'Phutip Kinjib', '1929900823362', 'phutip.kj@gmail.com', 0, '2001-11-23', '33/1 xxxx xxxx xxxx xxx xxxxx', '0642431470', 1, 0, 2, 0),
 (2, 'gg1', '81dc9bdb52d04dc20036dbd8313ed055', 'gg wp', '1252152315231', 'gg@gmail.com', 0, '2023-06-20', '33 xxx xxxxxx xxxxxxxxx  xxxxxx ', '0623152315', 1, 0, 3, 0),
 (3, 'asdasd', '81dc9bdb52d04dc20036dbd8313ed055', 'eiei', '1231231231321', 'ddd@gmail.com', 1, '2023-05-30', 'xxxxx xxxxxxx xxxxxxxxx', '0213115231', 2, 0, 4, 0),
 (4, 'gg', '81dc9bdb52d04dc20036dbd8313ed055', 'นายทดสอบ รอบที่ล้าน', '1925132546125', 'gg@gmail.com', 0, '2023-06-21', '33 xxxxx xxxxx ', '0624513254', 1, 0, 1, 0),
@@ -58,8 +58,8 @@ INSERT INTO `donor` (`dn_id`, `dn_username`, `dn_password`, `dn_name`, `dn_perse
 (17, 'xxx', '81dc9bdb52d04dc20036dbd8313ed055', 'xxxx', '192990082xxxx', 'dd@gmail.com', 1, '2023-09-12', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 1, 0, 3, 0),
 (102, 'kungfuu2344', '1a64b034ad7238f9773e57894efa346a', 'ภูธิป กินจิบ', '1234567891234', 'phutip.kj@gmail.com', 0, '2001-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 2, 0, 0, 0),
 (103, 'kungfuu222', '39cde55fa7fd15bda3a94087a509cc21', 'บุริศร์ ทองอยุ่คง', '1234567891234', 'phutip.kj@gmail.com', 0, '2000-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 1, 0, 0, 0),
-(104, 'ptkj2544', '1a64b034ad7238f9773e57894efa346a', 'test test', '1929900823362', 'dd@gmail.com', 0, '2008-07-01', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 0, 0, 0, 0),
-(105, 'KJ1', '25d55ad283aa400af464c76d713c07ad', 'ภูธิป กินจิบ', '1929900823362', 'fookangkangfoo@gmail.com', 0, '2001-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 0, 0, 2, 0),
+(104, 'ptkj2544', '1a64b034ad7238f9773e57894efa346a', 'test test', '1929900823362', 'dd@gmail.com', 0, '2008-07-01', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 1, 0, 0, 0),
+(105, 'KJ1', '25d55ad283aa400af464c76d713c07ad', 'ภูธิป กินจิบ', '1929900823362', 'fookangkangfoo@gmail.com', 0, '2001-11-23', '8/264 หมู่ 5 ถนน สวนตูลทางเข้า กศน ภาคใต้', '0642431470', 2, 0, 2, 0),
 (106, 'KJ', '1bbd886460827015e5d605ed44252251', 'fdddd', 'dddddd', 'dddddddddd@g', 0, '2023-10-06', 'dddddddd', 'dddddddddd', 0, 0, 2, 0),
 (107, 'ดดด', '130714308cc6fe6e883615871d96a595', 'ดดดด', 'ๅๅๅ', 'ff@ff', 1, '2023-10-06', 'ๅๅๅ', 'ๅๅๅ', 2, 0, 3, 0),
 (108, 'kj', '771f01104d905386a134a676167edccc', 'kj', 'kj', 'KJ@gmail.com', 0, '2023-10-06', 'kj', 'kj', 2, 0, 4, 0),
@@ -191,7 +191,9 @@ INSERT INTO `healthresults` (`hr_id`, `hr_date`, `hr_pressure`, `hr_pulse`, `hr_
 (66, '2023-10-08', '150/95', 56, 14, 96, 173, 37, 1, 0),
 (67, '2023-10-08', '120/90', 95, 22, 96, 173, 37, 0, 0),
 (68, '2023-10-08', '120/90', 95, 22, 96, 173, 37, 0, 0),
-(69, '2023-10-08', '120/90', 95, 22, 96, 173, 37, 1, 0);
+(69, '2023-10-08', '120/90', 95, 22, 96, 173, 37, 1, 0),
+(70, '2023-10-11', '120/90', 95, 22, 59, 175, 37, 1, 0),
+(71, '2023-10-11', '120/90', 95, 14, 96, 173, 37, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -221,7 +223,7 @@ INSERT INTO `officer` (`oc_id`, `oc_username`, `oc_password`, `oc_firstname`, `o
 (7, 'dddd', 'd9bd783893da09818a2560e1a0c69f7d', 'sdasdas', 'dasdasd', '0', '1231231232'),
 (8, 'admin3', '81dc9bdb52d04dc20036dbd8313ed055', 'ddddddd', 'dddddddddddd', '0', '5555555555'),
 (9, 'GAL1LE0', '81dc9bdb52d04dc20036dbd8313ed055', 'PP', 'KK', '1', '0642431470'),
-(10, 'ddd', '81dc9bdb52d04dc20036dbd8313ed055', 'ddddd', 'dddddddd', '1', '123123');
+(10, 'asky', '81dc9bdb52d04dc20036dbd8313ed055', 'ddddd', 'dddddddd', '1', '123123');
 
 -- --------------------------------------------------------
 
@@ -247,7 +249,11 @@ INSERT INTO `onsiteservice` (`on_id`, `on_date`, `on_time`, `on_approval`, `dn_i
 (2, '2023-08-02', 'ช่วงบ่าย', 0, 2, 0),
 (3, '2023-08-03', 'ช่วงเช้า', 0, 3, 0),
 (4, '2023-09-01', 'ช่วงบ่าย', 0, 4, 0),
-(10, '2023-11-23', 'ช่วงเช้า', 0, 1, 0);
+(10, '2023-11-23', 'ช่วงเช้า', 0, 1, 0),
+(12, '2024-01-25', 'ช่วงเช้า', 0, 1, 0),
+(13, '2024-01-27', 'ช่วงเช้า', 0, 1, 0),
+(14, '2024-01-23', 'ช่วงบ่าย', 0, 1, 0),
+(15, '2024-01-23', 'ช่วงบ่าย', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -275,7 +281,7 @@ INSERT INTO `outsideagency` (`oa_id`, `oa_username`, `oa_password`, `oa_name`, `
 (1, 'gg', '81dc9bdb52d04dc20036dbd8313ed055', 'gggggggggg', 'gggggggggg', 'ggggggggggg', 'ggggggggg', '2147483647', 2),
 (2, 'arkcorp', '81dc9bdb52d04dc20036dbd8313ed055', 'arkcorp', 'arkcorp', 'arkcorp', 'นายประหยัด', '0998997765', 1),
 (3, 'aa', '81dc9bdb52d04dc20036dbd8313ed055', 'aaa', 'aaaaaaaaaaaaaaaaaa', 'aaaaaaaaaaaaa', 'aaaaaaaaaaa', '34343443', 1),
-(4, 'spd', '81dc9bdb52d04dc20036dbd8313ed055', 'spd no1 ทดสอบ', 'spd no11 ทดสอบ', 'spd1 ถ.ทดสอบ', 'นายทดสอบ', '0956321542', 1),
+(4, 'spd', '81dc9bdb52d04dc20036dbd8313ed055', 'spd no1 ', 'spd no11 ', 'spd1 ถ.ทดสอบ', 'นายทดสอบ', '0956321542', 1),
 (5, 'as', '81dc9bdb52d04dc20036dbd8313ed055', 'as', 'as', 'as', 'as', '0', 2),
 (7, 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'test', 'test', 'test', 'test', '0642431470', 0),
 (8, 'อำนวย', '81dc9bdb52d04dc20036dbd8313ed055', 'อิอิ', 'อิอิอ', 'อิอิ', 'อิอิ', '251321051', 0),
@@ -546,7 +552,9 @@ INSERT INTO `screeningresults` (`sr_id`, `sr_answer_1`, `sr_answer_2`, `sr_answe
 (49, '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2023-10-08', 0, 0, 1),
 (50, '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2023-10-08', 1, 0, 1),
 (51, '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2023-10-08', 1, 0, 1),
-(52, '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2023-10-08', 1, 0, 1);
+(52, '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2023-10-08', 1, 0, 1),
+(53, '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2023-10-11', 1, 0, 1),
+(54, '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '2023-10-11', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -599,7 +607,8 @@ INSERT INTO `specificdonation` (`sd_id`, `sd_date`, `sd_amount`, `sb_id`, `dn_id
 (11, '2023-10-08', 350, 1, 1, 0),
 (12, '2023-10-11', 450, 1, 4, 0),
 (13, '2023-11-12', 450, 3, 1, 0),
-(14, '2023-11-15', 350, 1, 3, 1);
+(14, '2023-11-15', 350, 1, 3, 1),
+(15, '2023-10-12', 350, 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -645,7 +654,8 @@ INSERT INTO `wholedonation` (`wd_id`, `wd_date`, `wd_amount`, `dn_id`, `wd_statu
 (2, '2023-08-02', 350, 2, 1),
 (3, '2023-08-03', 350, 3, 2),
 (4, '2023-09-01', 350, 4, 0),
-(28, '2023-11-23', 350, 1, 0);
+(28, '2023-11-23', 350, 1, 0),
+(29, '2023-10-12', 350, 3, 0);
 
 --
 -- Indexes for dumped tables
@@ -755,25 +765,25 @@ ALTER TABLE `donor`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `healthresults`
 --
 ALTER TABLE `healthresults`
-  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `officer`
 --
 ALTER TABLE `officer`
-  MODIFY `oc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `oc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `onsiteservice`
 --
 ALTER TABLE `onsiteservice`
-  MODIFY `on_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `on_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `outsideagency`
@@ -785,7 +795,7 @@ ALTER TABLE `outsideagency`
 -- AUTO_INCREMENT for table `outsiteservice`
 --
 ALTER TABLE `outsiteservice`
-  MODIFY `out_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `out_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `publicrelations`
@@ -809,7 +819,7 @@ ALTER TABLE `screening`
 -- AUTO_INCREMENT for table `screeningresults`
 --
 ALTER TABLE `screeningresults`
-  MODIFY `sr_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `sr_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `specificblood`
@@ -821,7 +831,7 @@ ALTER TABLE `specificblood`
 -- AUTO_INCREMENT for table `specificdonation`
 --
 ALTER TABLE `specificdonation`
-  MODIFY `sd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `sd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `wholeblood`
@@ -833,7 +843,7 @@ ALTER TABLE `wholeblood`
 -- AUTO_INCREMENT for table `wholedonation`
 --
 ALTER TABLE `wholedonation`
-  MODIFY `wd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `wd_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
