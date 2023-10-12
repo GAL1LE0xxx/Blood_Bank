@@ -43,7 +43,7 @@ if (isset($_POST['singupuser'])) {
 		$encryptpassword = md5($password);
 		$sql = "INSERT INTO donor (dn_username,dn_password,dn_name,dn_persernalid,dn_gender,wb_id,dn_email,dn_address,dn_phonenumber,dn_birthdate) VALUES ('$username','$encryptpassword','$name','$persernalid','$gender','$bloodtype','$email','$address','$phonenumber','$birthdate')";
 		if (mysqli_query($conn, $sql)) {
-			$successMessage = "ลงทะเบียนสำเร็จ";
+			$successMessage = "กรุณารอเจ้าหน้าที่อนุมัติข้อมูลของท่านภายใน 24 ชั่วโมง";
 			header("Location: donorsign-up.php?status=success&msg=" . urlencode($successMessage));
 			exit();
 		} else {

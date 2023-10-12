@@ -31,7 +31,7 @@ if (isset($_POST['singupoutside'])) {
 		$encryptpassword = md5($password);
 		$sql = "INSERT INTO outsideagency (oa_username,oa_password,oa_name,oa_details,oa_address,oa_coname,oa_cophone) VALUES ('$username','$encryptpassword','$outsidename','$outsidedetails','$outsideaddress','$coname','$cophone')";
 		if (mysqli_query($conn, $sql)) {
-			$successMessage = "ลงทะเบียนสำเร็จ";
+			$successMessage = "กรุณารอเจ้าหน้าที่อนุมัติข้อมูลของท่านภายใน 24 ชั่วโมง";
 			header("Location: outside_sign-up.php?status=success&msg=" . urlencode($successMessage));
 			exit();
 		} else {
