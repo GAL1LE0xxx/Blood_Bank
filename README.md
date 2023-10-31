@@ -1,19 +1,11 @@
 # Project_BloodBank
+Project for my bachelor's degree exam.
 โปรเจ็คจบปี 4 
 
-
 ผู้ดูแลระบบ
-admin
-1234
 
 นักเทคนิคการแพทย์
-officer
-1234
 
 หน่วยงานภายนอก
-spd
-1234
 
 ผู้บริจาค 
-KJ
-1234
