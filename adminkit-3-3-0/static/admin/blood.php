@@ -78,11 +78,11 @@ if (isset($_GET['logout'])) {
                             <div class="container-fluid p-0 mt-3">
                                 <div class="container-fluid p-0">
                                     <div class="row">
-                                        <div class="col-12 col-lg-100 col-xxl- d-flex">
+                                        <div class="col-12 col-lg-100 col-xxl- d-flex text-center">
                                             <div class="card flex-fill">
-                                                <div class="card-header">
+                                                <!-- <div class="card-header">
                                                     <a href="wbblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
-                                                </div>
+                                                </div> -->
                                                 <div class="table-responsive table-striped">
                                                     <table id="myTable" class="table table-hover my-0 ">
 
@@ -142,11 +142,11 @@ if (isset($_GET['logout'])) {
                             <div class="container-fluid p-0">
                                 <div class="container-fluid p-0">
                                     <div class="row">
-                                        <div class="col-12 col-lg-100 col-xxl- d-flex">
+                                        <div class="col-12 col-lg-100 col-xxl- d-flex text-center">
                                             <div class="card flex-fill">
-                                                <div class="card-header">
+                                                <!-- <div class="card-header">
                                                     <a href="specificblood_add.php" class='btn btn-primary'><i class="bi bi-person-plus"></i> เพิ่มข้อมูล</a>
-                                                </div>
+                                                </div> -->
                                                 <div class="table-responsive">
                                                     <table id="myTable2" class="table table-hover my-0 ">
                                                         <thead>

@@ -75,7 +75,7 @@ if ($position != '0') {
                                 <div class="table-responsive">
                                     <tbody>
                                         <div class="contentdata">
-                                            <h1 class="h3 mb-1 text mt-3 "><strong>เพิ่มข้อมูลประชาสัมพันธ์</strong></h1>
+                                            <h1 class="h3 mb-1 text mt-3 mx-3 "><strong>เพิ่มข้อมูลประชาสัมพันธ์</strong></h1>
                                             <form action="pr_add_db.php" method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                     <div class="mb-3">
@@ -86,16 +86,16 @@ if ($position != '0') {
                                                         <label for="exampleFormControlTextarea1" class="card-title mb-3">รายละเอียด</label>
                                                         <textarea class="form-control" id="exampleFormControlTextarea1" name="details" rows="5"></textarea>
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <span class="text-danger">* รูปภาพที่อัพโหลดต้องเป็นไฟล์ .jpg .jpeg หรือ .png เท่านั้น</span>  
+                                                    <div class="mt-3 mb-3"> 
                                                         <label>
-                                                            <input type="radio" name="upload_option" value="yes" /> ต้องการอัพโหลดไฟล์
+                                                            <input type="radio" name="upload_option" value="yes" /> ต้องการอัพโหลดรูปภาพ
                                                         </label>
                                                         <label>
-                                                            <input type="radio" name="upload_option" value="no" checked /> ไม่ต้องการอัพโหลดไฟล์
+                                                            <input type="radio" name="upload_option" value="no" checked /> ไม่ต้องการอัพโหลดรูปภาพ
                                                         </label>
                                                         <br>
                                                         <input class="form-control mt-3" type="file" id="formFile" name="picture" onchange="previewImage(this)">
-
                                                     </div>
                                                     <button type="submit" class="btn btn-success" name="add_news">ยืนยัน</button>
                                                     <a class="btn btn-danger" href="pr_manage.php">ย้อนกลับ</a>

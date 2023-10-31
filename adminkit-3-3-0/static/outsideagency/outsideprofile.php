@@ -46,7 +46,7 @@ $result = mysqli_query($conn, $sql);
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <span class="text-dark"><?php echo $_SESSION['username']; ?></span>
+                            <span class="text-dark"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="outsideprofile.php"><i class="align-middle me-1" data-feather="user"></i>บัญชีผู้ใช้</a>
